@@ -1,0 +1,565 @@
+<%-include("../user-layouts/header")%>
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="assets/imgs/theme/favicon.svg">
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="assets/css/main.css">
+   
+</head>
+
+<body>
+    <header class="header-area header-style-5" style="box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;">
+        <div class="header-bottom sticky-bar sticky-white-bg">
+            <div class="container">
+                <div class="header-wrap header-space-between position-relative">
+                    <div class="logo logo-width-1">
+                        <a href="/home"><img src="assets/imgs/theme/elegance.svg" alt="logo" height="50"></a>
+                    </div>
+                    <div class="main-menu main-menu-grow main-menu-padding-1 main-menu-lh-1 main-menu-mrg-1 hm3-menu-padding d-none d-lg-block hover-boder">
+                        <nav>
+                            <ul>
+                                <li><a href="/home">Home</a>
+                                    
+                                </li>
+                                <li><a href="/allproducts">All</a>
+                                    
+                                </li>
+                                <li class="position-static"><a href="/men">Men</a>
+                                    
+                                </li>
+                                <li class="position-static"><a href="/women">Women</a>
+                                   
+                                </li>
+                                
+                                <li><a href="#">Pages <i class="fi-rs-angle-down"></i></a>
+                                    <ul class="sub-menu">
+                                        <li><a href="page-about.html">About Us</a></li>
+                                        <li><a href="page-contact.html">Contact</a></li>
+                                        <li><a href="/profile">My Account</a></li>
+                                        
+                                        
+                                    </ul>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="header-action-right">
+                        <div class="search-style-1">
+                            <form action="/search" method="post">
+                                <input type="text" placeholder="Search for items…" name="searchCriteria">
+                                <button type="submit" style="font-size: medium;">Search</button>
+                            </form>
+                        </div>
+                        <div class="header-action-2">
+                            <div class="header-action-icon-2">
+                                <a href="/wishlist">
+                                    <img class="svgInject" alt="Evara" src="assets/imgs/theme/icons/icon-heart.svg">
+                                    <%if(userData.wishlist.length>0){%>
+                                        <span class="pro-count blue"><%=userData.wishlist.length%></span>
+                                    <%}%>
+                                </a>
+                            </div>
+    <div class="header-action-icon-2">
+        <a class="mini-cart-icon" href="/cart">
+            <img alt="Evara" src="assets/imgs/theme/icons/icon-cart.svg">
+            <%if(quantity>0){%>
+                <span class="pro-count blue"><%=quantity%></span>
+            <%}%>
+        </a>
+    </div>
+    <div class="header-action-icon-2">
+        <ul>
+        <li class="dropdown nav-item">
+            <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount" aria-expanded="false"> <img alt="Evara" src="assets/imgs/theme/icons/user.png" width="25" height="25"></a>
+            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
+                <a class="dropdown-item" href="/profile"><i class="material-icons md-perm_identity"></i>My Account</a>
+                <div class="dropdown-divider"></div>
+               
+                <!-- <form method="post" id="logoutForm" action="/logout" style="display: inline;">
+                   <a class="dropdown-item text-danger" href=""><i class="material-icons md-exit_to_app" onclick="event.preventDefault(); document.getElementById('logoutForm').submit();"></i>Logout</a>
+                </form> -->
+                <form id="logoutForm" method="post" action="/logout" style="display: inline;">
+                    <button type="submit" class="dropdown-item text-light btn btn-light" onclick="event.preventDefault(); document.getElementById('logoutForm').submit();">
+                        <i class="material-icons md-exit_to_app"></i> Logout
+                    </button>
+                </form>
+            </div>
+        </li>
+    </ul>
+    </div>
+    <div class="header-action-icon d-block d-lg-none">
+        <div class="burger-icon">
+            <span class="burger-icon-top"></span>
+            <span class="burger-icon-mid"></span>
+            <span class="burger-icon-bottom"></span>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</header>
+
+    <div class="mobile-header-active mobile-header-wrapper-style">
+        <div class="mobile-header-wrapper-inner">
+            <div class="mobile-header-top">
+                <div class="mobile-header-logo">
+                    <a href="index.html"><img src="assets/imgs/theme/logo.svg" alt="logo"></a>
+                </div>
+                <div class="mobile-menu-close close-style-wrap close-style-position-inherit">
+                    <button class="close-style search-close">
+                        <i class="icon-top"></i>
+                        <i class="icon-bottom"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="mobile-header-content-area">
+                <div class="mobile-search search-style-3 mobile-header-border">
+                    <form action="#">
+                        <input type="text" placeholder="Search for items…">
+                        <button type="submit"><i class="fi-rs-search"></i></button>
+                    </form>
+                </div>
+                <div class="mobile-menu-wrap mobile-header-border">
+                    <div class="main-categori-wrap mobile-header-border">
+                        <a class="categori-button-active-2" href="#">
+                            <span class="fi-rs-apps"></span> Browse Categories
+                        </a>
+                        <div class="categori-dropdown-wrap categori-dropdown-active-small">
+                            <ul>
+                                <li><a href="shop-grid-right.html"><i class="evara-font-dress"></i>Women's Clothing</a></li>
+                                <li><a href="shop-grid-right.html"><i class="evara-font-tshirt"></i>Men's Clothing</a></li>
+                                <li> <a href="shop-grid-right.html"><i class="evara-font-smartphone"></i> Cellphones</a></li>
+                                <li><a href="shop-grid-right.html"><i class="evara-font-desktop"></i>Computer & Office</a></li>
+                                <li><a href="shop-grid-right.html"><i class="evara-font-cpu"></i>Consumer Electronics</a></li>
+                                <li><a href="shop-grid-right.html"><i class="evara-font-home"></i>Home & Garden</a></li>
+                                <li><a href="shop-grid-right.html"><i class="evara-font-high-heels"></i>Shoes</a></li>
+                                <li><a href="shop-grid-right.html"><i class="evara-font-teddy-bear"></i>Mother & Kids</a></li>
+                                <li><a href="shop-grid-right.html"><i class="evara-font-kite"></i>Outdoor fun</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- mobile menu start -->
+                    <nav>
+                        <ul class="mobile-menu">
+                            <li class="menu-item-has-children"><span class="menu-expand"></span><a href="index.html">Home</a>
+                                <ul class="dropdown">
+                                    <li><a href="index.html">Home 1</a></li>
+                                    <li><a href="index-2.html">Home 2</a></li>
+                                    <li><a href="index-3.html">Home 3</a></li>
+                                    <li><a href="index-4.html">Home 4</a></li>
+                                </ul>
+                            </li>
+                            <li class="menu-item-has-children"><span class="menu-expand"></span><a href="shop-grid-right.html">shop</a>
+                                <ul class="dropdown">
+                                    <li><a href="shop-grid-right.html">Shop Grid – Right Sidebar</a></li>
+                                    <li><a href="shop-grid-left.html">Shop Grid – Left Sidebar</a></li>
+                                    <li><a href="shop-list-right.html">Shop List – Right Sidebar</a></li>
+                                    <li><a href="shop-list-left.html">Shop List – Left Sidebar</a></li>
+                                    <li><a href="shop-fullwidth.html">Shop - Wide</a></li>
+                                    <li class="menu-item-has-children"><span class="menu-expand"></span><a href="#">Single Product</a>
+                                        <ul class="dropdown">
+                                            <li><a href="shop-product-right.html">Product – Right Sidebar</a></li>
+                                            <li><a href="shop-product-left.html">Product – Left Sidebar</a></li>
+                                            <li><a href="shop-product-full.html">Product – No sidebar</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="shop-filter.html">Shop – Filter</a></li>
+                                    <li><a href="shop-wishlist.html">Shop – Wishlist</a></li>
+                                    <li><a href="shop-cart.html">Shop – Cart</a></li>
+                                    <li><a href="shop-checkout.html">Shop – Checkout</a></li>
+                                    <li><a href="shop-compare.html">Shop – Compare</a></li>
+                                </ul>
+                            </li>
+                            <li class="menu-item-has-children"><span class="menu-expand"></span><a href="#">Mega menu</a>
+                                <ul class="dropdown">
+                                    <li class="menu-item-has-children"><span class="menu-expand"></span><a href="#">Women's Fashion</a>
+                                        <ul class="dropdown">
+                                            <li><a href="shop-product-right.html">Dresses</a></li>
+                                            <li><a href="shop-product-right.html">Blouses & Shirts</a></li>
+                                            <li><a href="shop-product-right.html">Hoodies & Sweatshirts</a></li>
+                                            <li><a href="shop-product-right.html">Women's Sets</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="menu-item-has-children"><span class="menu-expand"></span><a href="#">Men's Fashion</a>
+                                        <ul class="dropdown">
+                                            <li><a href="shop-product-right.html">Jackets</a></li>
+                                            <li><a href="shop-product-right.html">Casual Faux Leather</a></li>
+                                            <li><a href="shop-product-right.html">Genuine Leather</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="menu-item-has-children"><span class="menu-expand"></span><a href="#">Technology</a>
+                                        <ul class="dropdown">
+                                            <li><a href="shop-product-right.html">Gaming Laptops</a></li>
+                                            <li><a href="shop-product-right.html">Ultraslim Laptops</a></li>
+                                            <li><a href="shop-product-right.html">Tablets</a></li>
+                                            <li><a href="shop-product-right.html">Laptop Accessories</a></li>
+                                            <li><a href="shop-product-right.html">Tablet Accessories</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="menu-item-has-children"><span class="menu-expand"></span><a href="blog-category-fullwidth.html">Blog</a>
+                                <ul class="dropdown">
+                                    <li><a href="blog-category-grid.html">Blog Category Grid</a></li>
+                                    <li><a href="blog-category-list.html">Blog Category List</a></li>
+                                    <li><a href="blog-category-big.html">Blog Category Big</a></li>
+                                    <li><a href="blog-category-fullwidth.html">Blog Category Wide</a></li>
+                                    <li class="menu-item-has-children"><span class="menu-expand"></span><a href="#">Single Product Layout</a>
+                                        <ul class="dropdown">
+                                            <li><a href="blog-post-left.html">Left Sidebar</a></li>
+                                            <li><a href="blog-post-right.html">Right Sidebar</a></li>
+                                            <li><a href="blog-post-fullwidth.html">No Sidebar</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="menu-item-has-children"><span class="menu-expand"></span><a href="#">Pages</a>
+                                <ul class="dropdown">
+                                    <li><a href="page-about.html">About Us</a></li>
+                                    <li><a href="page-contact.html">Contact</a></li>
+                                    <li><a href="page-account.html">My Account</a></li>
+                                    <li><a href="page-login-register.html">login/register</a></li>
+                                    <li><a href="page-purchase-guide.html">Purchase Guide</a></li>
+                                    <li><a href="page-privacy-policy.html">Privacy Policy</a></li>
+                                    <li><a href="page-terms.html">Terms of Service</a></li>
+                                    <li><a href="page-404.html">404 Page</a></li>
+                                </ul>
+                            </li>
+                            <li class="menu-item-has-children"><span class="menu-expand"></span><a href="#">Language</a>
+                                <ul class="dropdown">
+                                    <li><a href="#">English</a></li>
+                                    <li><a href="#">French</a></li>
+                                    <li><a href="#">German</a></li>
+                                    <li><a href="#">Spanish</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+                    <!-- mobile menu end -->
+                </div>
+                <div class="mobile-header-info-wrap mobile-header-border">
+                    <div class="single-mobile-header-info mt-30">
+                        <a  href="page-contact.html"> Our location </a>
+                    </div>
+                    <div class="single-mobile-header-info">
+                        <a href="page-login-register.html">Log In / Sign Up </a>
+                    </div>
+                    <div class="single-mobile-header-info">
+                        <a href="#">(+01) - 2345 - 6789 </a>
+                    </div>
+                </div>
+                <div class="mobile-social-icon">
+                    <h5 class="mb-15 text-grey-4">Follow Us</h5>
+                    <a href="#"><img src="assets/imgs/theme/icons/icon-facebook.svg" alt=""></a>
+                    <a href="#"><img src="assets/imgs/theme/icons/icon-twitter.svg" alt=""></a>
+                    <a href="#"><img src="assets/imgs/theme/icons/icon-instagram.svg" alt=""></a>
+                    <a href="#"><img src="assets/imgs/theme/icons/icon-pinterest.svg" alt=""></a>
+                    <a href="#"><img src="assets/imgs/theme/icons/icon-youtube.svg" alt=""></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <main class="main">
+        <div class="page-header breadcrumb-wrap">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="/home" rel="nofollow">Home</a>
+                    <span></span> Pages
+                    <span></span> Account
+                </div>
+            </div>
+        </div>
+    <main class="main">
+        <!-- <div class="header-top header-top-ptb-1 d-none d-lg-block">
+        </div> -->
+        <section class="pt-100 pb-150">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-10 m-auto">
+                        <div class="row d-flex align-items-center justify-content-center">
+                            <div class="col-lg-6">
+                                <div class="login_wrap widget-taber-content p-30 background-white border-radius-5">
+                                    <div class="padding_eight_all bg-white">
+                                        <div class="heading_s1">
+                                            <h3 class="mb-30 text-center">Change Email</h3>
+                                        </div>
+                                        <form action="/change-email" method="post" id="registerform" >
+                            
+
+                                            <div class="form-group position-relative">
+                                                    <input type="text" name="editemail" placeholder="Email" id="editemail">
+                                                    <button type="button" class="btn btn-outline" name="sendotp" id="sendotp" style="position: absolute;right: 0;top: 0;color: black;border: none;" >Send OTP</button>
+                                                    <span id="timer"></span>
+                                                    <p class="error pt-1"></p>
+                                               
+                                            </div>
+                                            <div id="message"></div>
+                                            <div class="form-group d-flex row">
+                                                <div class="col-lg-8">
+                                                    <input type="text" name="otp" placeholder="Enter OTP" id="otp">
+                                                    <p class="error pt-1"></p>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <button type="button" class="btn" id="verifyotp">verify</button>
+                                                    <p></p>
+                                                </div>
+                                                
+                                            </div>
+                                            <p id="validmsg" class="font-sm"></p>
+                                            <div class="form-group text-center">
+                                                <button type="submit" class="btn btn-fill-out btn-block hover-up" name="register" onclick="return checkChangeFormValidity()">Update</button>
+                                            </div>
+                                            <%if(typeof message !== 'undefined'){%>
+                                                <p style="color: red;"><%= message %></p>
+                                            <%}%>
+                                        </form>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <%-include("../user-layouts/footer.ejs")%>
+    <!-- Preloader Start -->
+    <div id="preloader-active">
+        <div class="preloader d-flex align-items-center justify-content-center">
+            <div class="preloader-inner position-relative">
+                <div class="text-center">
+                    <h5 class="mb-5">Now Loading</h5>
+                    <div class="loader">
+                        <div class="bar bar1"></div>
+                        <div class="bar bar2"></div>
+                        <div class="bar bar3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Vendor JS-->
+    <script>
+        
+        const emailInput = document.getElementById('editemail');
+        const otpInput = document.getElementById('otp');
+        const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+        const otpRegex=/^\d{4}$/
+
+        const setError = (element, message) => {
+        const inputControl = element.parentElement;
+        const errorDisplay = inputControl.querySelector('.error');
+
+        errorDisplay.innerText = message;
+        inputControl.classList.add('error');
+        inputControl.classList.remove('success')
+        }
+
+        const setSuccess = element => {
+        const inputControl = element.parentElement;
+        const errorDisplay = inputControl.querySelector('.error');
+
+        errorDisplay.innerText = '';
+        inputControl.classList.add('success');
+        inputControl.classList.remove('error');
+        
+        };
+
+        
+        
+        emailInput.addEventListener('input', () => {
+            const email = emailInput.value;
+            validateEmail(email);
+            
+        });
+        otpInput.addEventListener('input', () => {
+            const otp = otpInput.value;
+            validateOtp(otp);
+            
+        });
+
+        function validateEmail(email) {
+            if(email.trim().length < 1){
+                const message="Email cannot be empty"
+                setError(emailInput,message)
+                return false
+            }
+            if(!emailRegex.test(email.trim())){
+                const message="Enter a valid email Id"
+                setError(emailInput,message)
+                return false
+            }
+            const message=""
+            setSuccess(emailInput,message)
+            return true
+        }
+
+        function validateOtp(otp) {
+            if(otp.trim().length < 1){
+                const message="otp cannot be empty"
+                setError(otpInput,message)
+                return false
+            }
+            if(!otpRegex.test(otp.trim())){
+                const message="Enter a valid otp"
+                setError(otpInput,message)
+                return false
+            }
+            const message=""
+            setSuccess(otpInput,message)
+            return true
+        }
+
+        function checkChangeFormValidity() {
+            let emailValid = validateEmail(emailInput.value);
+            let otpValid = validateOtp(otpInput.value);
+            clearInterval(timer);
+    // Reset the timer started flag
+    timerStarted = false;
+    // Reset the timer count and button text
+    timerCount = 30;
+    document.getElementById('timer').textContent = '';
+    // document.getElementById('sendotp').textContent = 'Resend OTP';
+        
+            if (emailValid && otpValid) {
+                return true
+            } else {
+                return false
+            }
+        }
+
+        function checkEmail(){
+            let emailValid = validateEmail(emailInput.value);
+            if(emailValid){
+                return true
+            }else{
+                return false
+            }
+        }
+        
+        
+
+var timer;
+var timerCount = 30; // Timer set to 30 seconds
+var timerStarted = false; // Flag to track whether the timer has started or not
+
+function startTimer() {
+    timer = setInterval(function() {
+        document.getElementById('timer').textContent = 'Resend OTP in ' + timerCount + 's';
+        timerCount--;
+        if (timerCount < 0) {
+            clearInterval(timer);
+            document.getElementById('timer').textContent = '';
+            document.getElementById('sendotp').textContent = 'Resend OTP';
+            timerCount = 30; // Reset the timer count
+            timerStarted = false; // Reset the timer started flag
+        }
+    }, 1000);
+}
+
+document.getElementById('sendotp').addEventListener('click', function() {
+    // If the timer has not started, start it
+    let emailIsValid = validateEmail(emailInput.value);
+            if(emailIsValid){
+                if (!timerStarted) {
+        // Perform your OTP sending logic here
+        
+        // Start the timer
+                startTimer();
+                timerStarted = true; // Set the timer started flag to true
+            }else{
+                timerStarted = false;
+            }
+    // ... your existing code for sending OTP ...
+}});
+
+// Function to check form validity when submitting
+
+document.getElementById('otp').addEventListener('input', function() {
+    // If the user starts typing OTP, clear the timer
+    clearInterval(timer);
+    document.getElementById('timer').textContent = '';
+    document.getElementById('sendotp').textContent = 'Resend OTP';
+    timerCount = 30; // Reset the timer count
+    timerStarted = false; // Reset the timer started flag
+});
+
+const sendBtn = document.getElementById("sendotp");
+const verifyBtn = document.getElementById("verifyotp");
+const messageDiv = document.getElementById("message");
+const validDiv=document.getElementById("validmsg");
+
+sendBtn.addEventListener("click", function () {
+  const email = document.getElementById("editemail").value;
+  fetch("/send-otp", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ email: email}),
+  })
+    // .then((response) => response.json())
+    .then((data) => {
+      messageDiv.textContent = "Success";
+      // You can handle the response here, e.g., show a success message or redirect the user.
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+      messageDiv.textContent = "Error sending OTP. Please try again.";
+    });
+});
+
+
+verifyBtn.addEventListener("click", function () {
+    const otp = document.getElementById("otp").value;
+    // const otp = document.getElementById('otp').value;
+    // Send OTP verification request to the server using Ajax
+    fetch("/verify-otp", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ otp: otp}),
+    })
+    //   .then((response) => response.json())
+      .then((data) => {
+        validDiv.textContent="Verified"
+        // validDiv.textContent = "Success"+data;
+        // You can handle the response here, e.g., show a success message or redirect the user.
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        validDiv.textContent = "Error verifying OTP. Please try again.";
+      });
+  });
+
+    </script>
+    <script src="assets/js/vendor/modernizr-3.6.0.min.js"></script>
+    <script src="assets/js/vendor/jquery-3.6.0.min.js"></script>
+    <script src="assets/js/vendor/jquery-migrate-3.3.0.min.js"></script>
+    <script src="assets/js/vendor/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/plugins/slick.js"></script>
+    <script src="assets/js/plugins/jquery.syotimer.min.js"></script>
+    <script src="assets/js/plugins/wow.js"></script>
+    <script src="assets/js/plugins/jquery-ui.js"></script>
+    <script src="assets/js/plugins/perfect-scrollbar.js"></script>
+    <script src="assets/js/plugins/magnific-popup.js"></script>
+    <script src="assets/js/plugins/select2.min.js"></script>
+    <script src="assets/js/plugins/waypoints.js"></script>
+    <script src="assets/js/plugins/counterup.js"></script>
+    <script src="assets/js/plugins/jquery.countdown.min.js"></script>
+    <script src="assets/js/plugins/images-loaded.js"></script>
+    <script src="assets/js/plugins/isotope.js"></script>
+    <script src="assets/js/plugins/scrollup.js"></script>
+    <script src="assets/js/plugins/jquery.vticker-min.js"></script>
+    <script src="assets/js/plugins/jquery.theia.sticky.js"></script>
+    <!-- Template  JS -->
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/otpverification.js"></script>
+</body>
+
+
+<!-- Mirrored from wp.alithemes.com/html/evara/evara-frontend/page-login-register.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 01 Aug 2021 15:26:06 GMT -->
+</html>

@@ -1,0 +1,383 @@
+<%-include("../admin-layouts/header.ejs")%>
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="assets/imgs/theme/favicon.svg">
+    <!-- Template CSS -->
+    <link rel="stylesheet" type="text/css" href="assets/css/main.css">
+</head>
+
+<body>
+    <div class="screen-overlay"></div>
+    <aside class="navbar-aside" id="offcanvas_aside">
+        <div class="aside-top">
+            <a href="index.html" class="brand-wrap">
+                <img src="assets/imgs/theme/elegance.svg" class="logo" alt="Evara Dashboard">
+            </a>
+            <div>
+                <button class="btn btn-icon btn-aside-minimize"> <i class="text-muted material-icons md-menu_open"></i> </button>
+            </div>
+        </div>
+        <nav>
+            <ul class="menu-aside">
+                <li class="menu-item ">
+                    <a class="menu-link" href="/admin/dashboard"> <i class="icon material-icons md-home"></i>
+                        <span class="text">Dashboard</span>
+                    </a>
+                </li> 
+                <li class="menu-item active">
+                    <a class="menu-link" href="/admin/sales-report"> <i class="icon material-icons md-pie_chart"></i>
+                        <span class="text">Sales Report</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/products"> <i class="icon material-icons md-shopping_bag"></i>
+                        <span class="text">Products</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/orders"> <i class="icon material-icons md-shopping_cart"></i>
+                        <span class="text">Orders</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/user_management"><i class="icon material-icons md-person"></i>
+                        <span class="text">Users</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/addproduct"> <i class="icon material-icons md-add_box"></i>
+                        <span class="text">Add product</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/brands"> <i class="icon material-icons md-stars"></i>
+                        <span class="text">Brands</span> </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/categories"> <i class="icon material-icons md-stars"></i>
+                        <span class="text">Category</span> </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/coupons"> <i class="icon material-icons md-monetization_on"></i>
+                        <span class="text">Coupons</span>
+                    </a>
+                </li>
+            </ul>
+            <hr>
+            <br>
+            <br>
+        </nav>
+    </aside>
+    <main class="main-wrap">
+        <%-include("../admin-layouts/navbar.ejs")%>
+        <section class="content-main">
+            <div class="content-header">
+                <div>
+                    <h2 class="content-title card-title">Sales Report</h2>
+                </div>
+                
+                <div>
+                
+                       
+                        <a href="#" class="btn btn-xs" id="weeklyButton">Weekly</a>
+                        <a href="#" class="btn btn-xs" id="monthlyButton">Monthly</a>
+                        <a href="#" class="btn btn-xs" id="yearlyButton">Yearly</a>
+   
+                </div>
+            </div>
+            <div class="card mb-4">
+                <header class="card-header">
+                    <div class="row gx-3">
+                        <div class="col-lg-4 col-md-6 me-auto">
+                            <input type="text" placeholder="Search..." class="form-control">
+                        </div>
+                        <div class="col-lg-3 col-6 col-md-3">
+                            
+                            <input placeholder="Type here" class="form-control" type="date" name="salesdate" id="salesdate">
+                      
+                            <p class="error pb-1 font-xs text-danger"></p>
+                      
+                        </div> 
+                        <div class="col-lg-3 col-6 col-md-3">
+                            
+                            <button id="downloadButton" class="btn btn-sm btn-success">Download Report (PDF)</button>     
+                      
+                        </div>   
+                             
+                    </div>
+                </header> <!-- card-header end// -->
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>OrderId</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Order Status</th>
+                                    <th scope="col">Amount</th>
+                                    <th scope="col" class="text-end">Payment Type</th>
+                                </tr>
+                            </thead>
+                            <tbody id="orderTableBody">
+                                  <%for(let i=0;i<sales.length;i++){%>
+                                    <tr>
+                                        <td><%=sales[i].orderId%></td>
+                                        <td><b><%=sales[i].userName%></b></td>
+                                        <td><%=sales[i].userEmail%></td>
+                                        <td>
+                                            <%if(sales[i].status=="Delivered"){%>
+                                                <%var date=sales[i].deliveredOn%>
+                                                <%var formattedDate = new Date(date).toLocaleDateString('en-GB');%>
+                                                <%=formattedDate%>
+                                            <%}else{%>
+                                                <%var date=sales[i].orderDate%>
+                                                <%var formattedDate = new Date(date).toLocaleDateString('en-GB');%>
+                                                <%=formattedDate%>
+                                            <%}%>
+                                        </td>
+                                        <td>
+                                            <%if(sales[i].status=="Delivered"){%>
+                                                <span class="badge rounded-pill alert-success"><%=sales[i].status%></span>
+                                                
+                                            <%}else{%>
+                                                <span class="badge rounded-pill alert-warning"> <%=sales[i].status%></span>
+                                        
+                                            <%}%>
+                                            
+                                        </td>
+                                        <td>₹<%=sales[i].totalAmount%></td>
+                                        <td class="text-end"><%=sales[i].paymentMethod%></td>
+                                    </tr>
+                                <%}%>
+                              
+                            </tbody>
+                        </table>
+                    </div> <!-- table-responsive //end -->
+                </div> <!-- card-body end// -->
+            </div> <!-- card end// -->
+            <div class="pagination-area mt-30 mb-50">
+                <nav aria-label="Page navigation example">
+                   
+                </nav>
+            </div>
+        </section>
+        <footer class="main-footer font-xs">
+            <div class="row pb-30 pt-15">
+                <div class="col-sm-6">
+                    <script>
+                    document.write(new Date().getFullYear())
+                    </script> ©, Elegance
+                </div>
+                <div class="col-sm-6">
+                    <div class="text-sm-end">
+                        All rights reserved
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </main>
+    <script src="assets/js/vendors/jquery-3.6.0.min.js"></script>
+    <script src="assets/js/vendors/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/vendors/select2.min.js"></script>
+    <script src="assets/js/vendors/perfect-scrollbar.js"></script>
+    <script src="assets/js/vendors/jquery.fullscreen.min.js"></script>
+    <script src="assets/js/vendors/chart.js"></script>
+    <!-- Main Script -->
+    <script src="assets/js/main.js" type="text/javascript"></script>
+    <script src="assets/js/custom-chart.js" type="text/javascript"></script>
+    <script>
+        const saleDateInput = document.getElementById("salesdate");
+const orderTableBody = document.getElementById("orderTableBody");
+
+saleDateInput.addEventListener('change', (event) => {
+    const selectedDate = event.target.value;
+
+    // Make a POST request to the server with the selected date
+    fetch(`/admin/sales-report`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ selectedDate: selectedDate })
+    })
+    .then(response => response.json())
+    .then(data => {
+        
+        orderTableBody.innerHTML = ''; // Clear existing table rows
+
+        // Append new rows to the table body
+        data.forEach(sales => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${sales.orderId}</td>
+                <td><b>${sales.userName}</b></td>
+                <td>${sales.userEmail}</td>
+                <td>${sales.orderDate}</td>
+                <td>
+                    <span class="badge rounded-pill alert-warning">${sales.status}</span>
+                </td>
+                <td>₹${sales.totalAmount}</td>
+                <td class="text-end">${sales.paymentMethod}</td>
+            `;
+
+            // Append the new row to the table body
+            orderTableBody.appendChild(row);
+        });
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+});
+
+// Add this script to your HTML file or include it in your frontend JavaScript bundle
+const downloadButton = document.getElementById('downloadButton');
+downloadButton.addEventListener('click', async () => {
+    try {
+        const date=saleDateInput.value
+        const response = await fetch(`/admin/download-pdf?date=${date}`);
+        const blob = await response.blob();
+        
+        const url = window.URL.createObjectURL(new Blob([blob]));
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'sales-report.pdf';
+        document.body.appendChild(a);
+        a.click();
+
+        // Clean up
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+    } catch (error) {
+        console.error(error);
+        alert('Failed to download the PDF');
+    }
+});
+
+
+const weeklyButton=document.getElementById("weeklyButton")
+weeklyButton.addEventListener("click",()=>{
+    fetch(`/admin/sales-report/week`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({})
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+        const salesReport = data.salesReport || [];
+        orderTableBody.innerHTML = ''; // Clear existing table rows
+
+        // Append new rows to the table body
+        salesReport.forEach(sales => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${sales.orderId}</td>
+                <td><b>${sales.userName}</b></td>
+                <td>${sales.userEmail}</td>
+                <td>${sales.orderDate}</td>
+                <td>
+                    <span class="badge rounded-pill alert-warning">${sales.status}</span>
+                </td>
+                <td>₹${sales.totalAmount}</td>
+                <td class="text-end">${sales.paymentMethod}</td>
+            `;
+
+            // Append the new row to the table body
+            orderTableBody.appendChild(row);
+        });
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+})
+
+
+const monthlyButton=document.getElementById("monthlyButton")
+monthlyButton.addEventListener("click",()=>{
+    fetch(`/admin/sales-report/month`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({})
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+        const salesReport = data.salesReport || [];
+        orderTableBody.innerHTML = ''; // Clear existing table rows
+
+        // Append new rows to the table body
+        salesReport.forEach(sales => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${sales.orderId}</td>
+                <td><b>${sales.userName}</b></td>
+                <td>${sales.userEmail}</td>
+                <td>${sales.orderDate}</td>
+                <td>
+                    <span class="badge rounded-pill alert-warning">${sales.status}</span>
+                </td>
+                <td>₹${sales.totalAmount}</td>
+                <td class="text-end">${sales.paymentMethod}</td>
+            `;
+
+            // Append the new row to the table body
+            orderTableBody.appendChild(row);
+        });
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+})
+
+
+const yearlyButton=document.getElementById("yearlyButton")
+yearlyButton.addEventListener("click",()=>{
+    fetch(`/admin/sales-report/year`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({})
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+        const salesReport = data.salesReport || [];
+        orderTableBody.innerHTML = ''; // Clear existing table rows
+
+        // Append new rows to the table body
+        salesReport.forEach(sales => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${sales.orderId}</td>
+                <td><b>${sales.userName}</b></td>
+                <td>${sales.userEmail}</td>
+                <td>${sales.orderDate}</td>
+                <td>
+                    <span class="badge rounded-pill alert-warning">${sales.status}</span>
+                </td>
+                <td>₹${sales.totalAmount}</td>
+                <td class="text-end">${sales.paymentMethod}</td>
+            `;
+
+            // Append the new row to the table body
+            orderTableBody.appendChild(row);
+        });
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+})
+
+
+    </script>
+</body>
+
+
+<!-- Mirrored from wp.alithemes.com/html/evara/evara-backend/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 01 Aug 2021 15:32:57 GMT -->
+</html>

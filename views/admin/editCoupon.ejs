@@ -1,0 +1,359 @@
+<%-include("../admin-layouts/header.ejs")%>
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="/admin/assets/imgs/theme/favicon.svg">
+    <!-- Template CSS -->
+    <link href="/admin/assets/css/main.css" rel="stylesheet" type="text/css"/>
+</head>
+
+<body>
+    <div class="screen-overlay"></div>
+    <aside class="navbar-aside" id="offcanvas_aside">
+        <div class="aside-top">
+            <a href="index.html" class="brand-wrap">
+                <img src="/admin/assets/imgs/theme/elegance.svg" class="logo" alt="Evara Dashboard">
+            </a>
+            <div>
+                <button class="btn btn-icon btn-aside-minimize"> <i class="text-muted material-icons md-menu_open"></i> </button>
+            </div>
+        </div>
+        <nav>
+            <ul class="menu-aside">
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/dashboard"> <i class="icon material-icons md-home"></i>
+                        <span class="text">Dashboard</span>
+                    </a>
+                </li> 
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/sales-report"> <i class="icon material-icons md-pie_chart"></i>
+                        <span class="text">Sales Report</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/products"> <i class="icon material-icons md-shopping_bag"></i>
+                        <span class="text">Products</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/orders"> <i class="icon material-icons md-shopping_cart"></i>
+                        <span class="text">Orders</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/user_management"><i class="icon material-icons md-person"></i>
+                        <span class="text">Users</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/addproduct"> <i class="icon material-icons md-add_box"></i>
+                        <span class="text">Add product</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/brands"> <i class="icon material-icons md-stars"></i>
+                        <span class="text">Brands</span> </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/categories"> <i class="icon material-icons md-stars"></i>
+                        <span class="text">Category</span> </a>
+                </li>
+                <li class="menu-item active">
+                    <a class="menu-link" href="/admin/coupons"> <i class="icon material-icons md-monetization_on"></i>
+                        <span class="text">Coupons</span>
+                    </a>
+                </li>
+            </ul>
+            <hr>
+            <br>
+            <br>
+        </nav>
+    </aside>
+    <main class="main-wrap">
+        <%-include("../admin-layouts/navbar.ejs")%>
+
+        <section class="content-main">
+            <div class="row">
+                <div class="col-9">
+                    <div class="content-header">
+                        <h2 class="content-title">Edit Coupon</h2>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="card mb-4">
+                       
+                        <div class="card-body">
+                            
+                            <form id="couponForm">
+                                <div class="mb-4">
+                                    <div class="row">
+                                    <div class="col-lg-4">
+                                    <label for="couponcode" class="form-label" style="color: #495057;font-weight: bold;">Coupon code:</label>
+                                    <input type="text" placeholder="Type here" class="form-control" name="couponcode" id="couponcode" value="<%=coupon.Code%>">
+                                    <p class="error pb-1 font-xs text-danger"></p>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <label for="coupondiscription" class="form-label" style="color: #495057;font-weight: bold;">Coupon Discription:</label>
+                                        <input type="text" placeholder="Type here" class="form-control" name="coupondescription" id="coupondescription" value="<%=coupon.Description%>">
+                                        <p class="error pb-1 font-xs text-danger"></p>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <label for="Discount" style="color: #495057;font-weight: bold;" class="form-label">Discount:</label>
+                                        <input placeholder="Type here" class="form-control" type="number" name="discount" id="discount" value="<%=coupon.Discount%>">
+                                        <p class="error pb-1 font-xs text-danger"></p>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <label for="MaximumAmount" style="color: #495057;font-weight: bold;" class="form-label">Maximum Amount:</label>
+                                        <input placeholder="Type here" class="form-control" type="number" name="maximumAmount" id="maximumAmount" value="<%=coupon.MaximumAmount%>">
+                                        <p class="error pb-1 font-xs text-danger"></p>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <label for="MinimumAmount" style="color: #495057;font-weight: bold;" class="form-label">Minimum Amount:</label>
+                                        <input placeholder="Type here" class="form-control" type="number" name="minimumAmount" id="minimumAmount" value="<%=coupon.MinimumAmount%>">
+                                        <p class="error pb-1 font-xs text-danger"></p>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <%var expiryDate =new Date(coupon.Expiry);%>
+                                        <%var formattedDate = expiryDate.toISOString().split('T')[0];%>
+                                        <label for="couponexpiry" style="color: #495057;font-weight: bold;" class="form-label">Coupon expiry:</label>
+                                        <input placeholder="Type here" class="form-control" type="date" name="couponexpiry" id="couponexpiry" value="<%=formattedDate%>">
+                                        <p class="error pb-1 font-xs text-danger"></p>
+                                    </div>
+                                    <div class="text-center mt-20">
+                                        <input type="text" name="couponId" value="<%=coupon._id%>"  hidden>
+                                        <button type="button" class="btn btn-primary" onclick="return updateCoupon(`<%=coupon._id%>`)">Update Coupon</button>
+                                    </div>
+                                </div>
+                                
+                            </div> 
+                                   
+                            </form>
+                        </div>
+                    </div> <!-- card end// -->
+                </div>
+            </div>
+    
+
+            
+           
+           
+        </section> <!-- content-main end// -->
+        <footer class="main-footer font-xs">
+            <div class="row pb-30 pt-15">
+                <div class="col-sm-6">
+                    <script>
+                    document.write(new Date().getFullYear())
+                    </script> ©, Elegance
+                </div>
+                <div class="col-sm-6">
+                    <div class="text-sm-end">
+                        All rights reserved
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </main>
+    <script src="admin-assets/js/vendors/jquery-3.6.0.min.js"></script>
+    <script src="admin-assets/js/vendors/bootstrap.bundle.min.js"></script>
+    <script src="admin-assets/js/vendors/select2.min.js"></script>
+    <script src="admin-assets/js/vendors/perfect-scrollbar.js"></script>
+    <script src="admin-assets/js/vendors/jquery.fullscreen.min.js"></script>
+    <script src="admin-assets/js/vendors/chart.js"></script>
+    <!-- Main Script -->
+    <script src="admin-assets/js/main.js" type="text/javascript"></script>
+    <script src="admin-assets/js/custom-chart.js" type="text/javascript"></script>
+    <script>
+       const codeInput=document.getElementById("couponcode")
+const descInput=document.getElementById("coupondescription")
+const discountInput=document.getElementById("discount")
+const maxInput=document.getElementById("maximumAmount")
+const minInput=document.getElementById("minimumAmount")
+const dateInput=document.getElementById("couponexpiry")
+
+const setError = (element, message) => {
+    const inputControl = element.parentElement;
+    const errorDisplay = inputControl.querySelector('.error');
+    errorDisplay.innerText = message;
+    }
+
+    const setSuccess = element => {
+    const inputControl = element.parentElement;
+    const errorDisplay = inputControl.querySelector('.error');
+    errorDisplay.innerText = '';
+    };
+
+
+    codeInput.addEventListener('input', () => {
+        const code = codeInput.value;
+        validateCode(code,codeInput);
+    });
+    
+    descInput.addEventListener('input', () => {
+        const desc = descInput.value;
+        validateDesc(desc,descInput);
+    });
+
+    discountInput.addEventListener('input', () => {
+        const discount = discountInput.value;
+        validateDiscount(discount,discountInput);
+    });
+
+    maxInput.addEventListener('input', () => {
+        const max = maxInput.value;
+        validateMax(max,maxInput);
+    });
+    
+    minInput.addEventListener('input', () => {
+        const min = minInput.value;
+        validateMin(min,minInput);
+    });
+
+    dateInput.addEventListener('input', () => {
+    const date = dateInput.value;
+    validateDate(date, dateInput);
+});
+
+    function validateCode(code,inputField) {
+        if(code.trim().length < 1){
+            const message="Code cannot be empty"
+            setError(inputField,message)
+            return false
+        }
+        const message=""
+        setSuccess(inputField,message)
+        return true
+    }
+    
+    function validateDesc(desc, inputField) {
+    if (desc.trim().length < 1) {
+        const message = "Description cannot be empty";
+        setError(inputField, message);
+        return false;
+    }
+    const message = "";
+    setSuccess(inputField, message);
+    return true;
+}
+
+    function validateDiscount(discount, inputField) {
+    if (discount.trim().length < 1) {
+        const message = "Discount cannot be empty";
+        setError(inputField, message);
+        return false;
+    }
+    if (discount < 1 || discount>99) {
+        const message = "Discount should be in-between 1 and 99";
+        setError(inputField, message);
+        return false;
+    }
+
+    const message = "";
+    setSuccess(inputField, message);
+    return true;
+}
+
+function validateMax(max,inputField) {
+        if(max.trim().length < 1){
+            const message="Max cannot be empty"
+            setError(inputField,message)
+            return false
+        }
+        const message=""
+        setSuccess(inputField,message)
+        return true
+    }
+
+    function validateMin(min,inputField) {
+        if(min.trim().length < 1){
+            const message="Min cannot be empty"
+            setError(inputField,message)
+            return false
+        }
+        // if(max > 1500){
+        //     const message="Max should be less than 1500"
+        //     setError(inputField,message)
+        //     return false
+        // }
+        const message=""
+        setSuccess(inputField,message)
+        return true
+    }
+
+    function validateDate(inputDate, inputField) {
+    if (inputDate.trim().length < 1) {
+        const message = "Date cannot be empty";
+        setError(inputField, message);
+        return false;
+    }
+
+    const inputDateObject = new Date(inputDate);
+    // Set the time part of inputDateObject to midnight
+    inputDateObject.setHours(0, 0, 0, 0);
+    
+    const currentDate = new Date();
+    // Set the time part of currentDate to midnight
+    currentDate.setHours(0, 0, 0, 0);
+
+    if (inputDateObject < currentDate) {
+        const message = "Date must be greater than or equal to the current date";
+        setError(inputField, message);
+        return false;
+    }
+
+    const message = "";
+    setSuccess(inputField, message);
+    return true;
+}
+
+
+
+    function checkCoupon(){
+        let code = validateCode(codeInput.value,codeInput);
+        let desc = validateDesc(descInput.value,descInput);
+        let discount = validateDiscount(discountInput.value,discountInput);
+        let max = validateMax(maxInput.value,maxInput);
+        let min = validateMin(minInput.value,minInput);
+        let date = validateDate(dateInput.value,dateInput);
+        if(code && desc && discount && max && min && date){
+            if (max<min) {
+                setError(maxInput, "Max must be greater than min");
+            }else{
+                return true
+        }
+    }else{
+            return false
+        }
+}
+
+    function updateCoupon(couponId) {
+    if (checkCoupon()) {
+        var formData = new FormData(document.getElementById("couponForm"));
+        var formObject = {};
+        formData.forEach((value, key) => {
+            formObject[key] = value;
+        });
+
+        fetch(`/admin/coupons/edit`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formObject),
+        })
+            .then(response => response.json())
+            .then(data => {
+                window.location.href = '/admin/coupons';
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                window.location.href = `/admin/coupons/edit?couponId=${couponId}`;
+                
+            });
+    } else {
+        return false;
+    }
+}
+    </script>
+</body>
+
+
+<!-- Mirrored from wp.alithemes.com/html/evara/evara-backend/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 01 Aug 2021 15:32:57 GMT -->
+</html>

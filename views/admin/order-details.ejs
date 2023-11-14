@@ -1,0 +1,268 @@
+<%-include("../admin-layouts/header.ejs")%>
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="assets/imgs/theme/favicon.svg">
+    <!-- Template CSS -->
+    <link rel="stylesheet" type="text/css" href="assets/css/main.css">
+</head>
+
+<body>
+    <div class="screen-overlay"></div>
+    <aside class="navbar-aside" id="offcanvas_aside">
+        <div class="aside-top">
+            <a href="index.html" class="brand-wrap">
+                <img src="assets/imgs/theme/elegance.svg" class="logo" alt="Evara Dashboard">
+            </a>
+            <div>
+                <button class="btn btn-icon btn-aside-minimize"> <i class="text-muted material-icons md-menu_open"></i> </button>
+            </div>
+        </div>
+        <nav>
+            <ul class="menu-aside">
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/dashboard"> <i class="icon material-icons md-home"></i>
+                        <span class="text">Dashboard</span>
+                    </a>
+                </li> 
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/sales-report"> <i class="icon material-icons md-pie_chart"></i>
+                        <span class="text">Sales Report</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/products"> <i class="icon material-icons md-shopping_bag"></i>
+                        <span class="text">Products</span>
+                    </a>
+                </li>
+                <li class="menu-item active">
+                    <a class="menu-link" href="/admin/orders"> <i class="icon material-icons md-shopping_cart"></i>
+                        <span class="text">Orders</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/user_management"><i class="icon material-icons md-person"></i>
+                        <span class="text">Users</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/addproduct"> <i class="icon material-icons md-add_box"></i>
+                        <span class="text">Add product</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/brands"> <i class="icon material-icons md-stars"></i>
+                        <span class="text">Brands</span> </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/categories"> <i class="icon material-icons md-stars"></i>
+                        <span class="text">Category</span> </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/coupons"> <i class="icon material-icons md-monetization_on"></i>
+                        <span class="text">Coupons</span>
+                    </a>
+                </li>
+            </ul>
+            <hr>
+            <br>
+            <br>
+        </nav>
+    </aside>
+    <main class="main-wrap">
+        <%-include("../admin-layouts/navbar.ejs")%>
+        <section class="content-main">
+            <div class="content-header">
+                <div>
+                    <h2 class="content-title card-title">Order detail</h2>
+                    <p>Details for Order ID: <%=order.orderId%></p>
+                </div>
+            </div>
+            <div class="card">
+                
+                <div class="card-body">
+                    <div class="row mb-50 mt-20 order-info-wrap ">
+                        <div class="col-md-4">
+                            <article class="icontext align-items-start ">
+                                <span class="icon icon-sm rounded-circle bg-primary-light">
+                                    <i class="text-primary material-icons md-person"></i>
+                                </span>
+                                <div class="text">
+                                    <h6 class="mb-1">Customer</h6>
+                                    <p class="mb-1">
+                                        <%=customer.customerId.Name%> <br><%=customer.customerId.email%> <br> <%=customer.customerId.phone%>
+                                    </p>
+                                    
+                                </div>
+                            </article>
+                        </div> <!-- col// -->
+                        <div class="col-md-4 ">
+                            <article class="icontext align-items-start">
+                                <span class="icon icon-sm rounded-circle bg-primary-light">
+                                    <i class="text-primary material-icons md-local_shipping"></i>
+                                </span>
+                                <div class="text">
+                                    <h6 class="mb-1">Order Info</h6>
+                                    <p class="mb-1">
+                                        Status:<%=order.status%>
+                                    </p>
+                                   
+                                </div>
+                            </article>
+                        </div> <!-- col// -->
+                        <div class="col-md-4">
+                            <article class="icontext align-items-start">
+                                <span class="icon icon-sm rounded-circle bg-primary-light">
+                                    <i class="text-primary material-icons md-place"></i>
+                                </span>
+                                <div class="text">
+                                    <h6 class="mb-1">Deliver to</h6>
+                                    <p class="mb-1">
+                                        <%=address.housename%> House,<br><%=address.area%>,<%=address.city%>,<br> <%=address.state%>,<%=address.pincode%>
+                                    </p>
+                                  
+                                </div>
+                            </article>
+                        </div> <!-- col// -->
+                    </div> <!-- row // -->
+                   
+                </div> <!-- card-body end// -->
+            </div>
+             <!-- card end// -->
+             <div class="card">
+                <header class="card-header">
+                   
+                    <h4 class="content-title card-title">Payment Info</h4>
+                </header> <!-- card-header end// -->
+                <div class="card-body">
+                    <div class="row mb-50 mt-20">
+                        <div class="col-lg-1 col-md-2"></div>
+                        <div class="col-lg-4 col-md-4">
+                            <article class="icontext">
+                                <div class="text" >
+                                    <h6 class="mb-1">Amount</h6>
+                                    <p class="mb-1">
+                                        Subtotal: ₹<%=order.totalAmount%>
+                                    </p>
+                                    <p class="mb-1">
+                                        Shipping: ₹<%=order.shippingcharge%>
+                                    </p>
+                                    <p class="mb-1">
+                                        Shipping: ₹<%=order.discount%>
+                                    </p>
+                                    <h6 class="mb-1">
+                                        Total: ₹<%=order.totalAmount%>
+                                    </h6>
+                                </div>
+                            </article>
+                        </div>
+                        <div class="col-lg-4 col-md-4">
+                            <article class="icontext">
+                                <div class="text">
+                                    <h6 class="mb-1">Payment Method</h6>
+                                    <p class="mb-1">
+                                        <%=order.paymentMethod%>
+                                    </p>
+                                   
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                </div> <!-- card-body end// -->
+                </div>
+             <div class="card">
+                <header class="card-header">
+                    <div class="row align-items-center">
+                        <h4 class="content-title card-title">Product Details</h4>
+                    </div>
+                </header> <!-- card-header end// -->
+                <div class="card-body">
+                   
+                    <div class="row">
+                        <div class="col-lg-12 box shadow-sm bg-light">
+                            
+                            <%for(let i=0;i<products.Items.length;i++){%>
+                                <div class="row mb-50 mt-20 order-info-wrap">
+                                    <div class="col-md-3">
+                                        <article class="icontext align-items-start">
+                                            <div >
+                                                <img src="assets/imgs/products/<%=products.Items[i].productId.images[0].url%>" width="100" height="120"  alt="Item">
+                                            </div>
+                                        </article>
+                                    </div> <!-- col// -->
+                                    <div class="col-md-3">
+                                        <article class="icontext align-items-start">
+                                           
+                                            <div class="text">
+                                                <h6 class="mb-1"><%=products.Items[i].productId.productName%></h6>
+                                                <!-- <p class="mb-1">
+                                                    Shipping: Fargo express <br> Pay method: card <br> Status: new
+                                                </p> -->
+                                              
+                                            </div>
+                                        </article>
+                                    </div> <!-- col// -->
+                                    <div class="col-md-3">
+                                        <article class="icontext align-items-start">
+                                            
+                                            <div class="text">
+                                                <h6 class="mb-1">Quantity</h6>
+                                                <p class="mb-1">
+                                                    x <%=products.Items[i].quantity%>
+                                                </p>
+                                               
+                                            </div>
+                                        </article>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <article class="icontext align-items-start">
+                                            
+                                            <div class="text">
+                                                <h6 class="mb-1">Subtotal</h6>
+                                                <p class="mb-1">
+                                                    ₹ <%=products.Items[i].subtotal%>
+                                                </p>
+                                               
+                                            </div>
+                                        </article>
+                                    </div>
+                                </div>
+                            <%}%>
+                            
+
+                        </div> <!-- col// -->
+                        <!-- <div class="col-lg-1"></div> -->
+                       
+                    </div>
+                </div> <!-- card-body end// -->
+            </div> 
+
+           
+        </section> <!-- content-main end// -->
+        <footer class="main-footer font-xs">
+            <div class="row pb-30 pt-15">
+                <div class="col-sm-6">
+                    <script>
+                    document.write(new Date().getFullYear())
+                    </script> ©, Elegance
+                </div>
+                <div class="col-sm-6">
+                    <div class="text-sm-end">
+                        All rights reserved
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </main>
+    <script src="assets/js/vendors/jquery-3.6.0.min.js"></script>
+    <script src="assets/js/vendors/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/vendors/select2.min.js"></script>
+    <script src="assets/js/vendors/perfect-scrollbar.js"></script>
+    <script src="assets/js/vendors/jquery.fullscreen.min.js"></script>
+    <script src="assets/js/vendors/chart.js"></script>
+    <!-- Main Script -->
+    <script src="assets/js/main.js" type="text/javascript"></script>
+    <script src="assets/js/custom-chart.js" type="text/javascript"></script>
+</body>
+
+
+<!-- Mirrored from wp.alithemes.com/html/evara/evara-backend/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 01 Aug 2021 15:32:57 GMT -->
+</html>

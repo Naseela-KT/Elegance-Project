@@ -1,0 +1,287 @@
+<%-include("../admin-layouts/header.ejs")%>
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="assets/imgs/theme/favicon.svg">
+    <!-- Template CSS -->
+    <link rel="stylesheet" type="text/css" href="assets/css/main.css">
+</head>
+
+<body>
+    <div class="screen-overlay"></div>
+    <aside class="navbar-aside" id="offcanvas_aside">
+        <div class="aside-top">
+            <a href="index.html" class="brand-wrap">
+                <img src="assets/imgs/theme/elegance.svg" class="logo" alt="Evara Dashboard">
+            </a>
+            <div>
+                <button class="btn btn-icon btn-aside-minimize"> <i class="text-muted material-icons md-menu_open"></i> </button>
+            </div>
+        </div>
+        <nav>
+            <ul class="menu-aside">
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/dashboard"> <i class="icon material-icons md-home"></i>
+                        <span class="text">Dashboard</span>
+                    </a>
+                </li> 
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/sales-report"> <i class="icon material-icons md-pie_chart"></i>
+                        <span class="text">Sales Report</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/products"> <i class="icon material-icons md-shopping_bag"></i>
+                        <span class="text">Products</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/orders"> <i class="icon material-icons md-shopping_cart"></i>
+                        <span class="text">Orders</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/user_management"> <i class="icon material-icons md-person"></i>
+                        <span class="text">Users</span>
+                    </a>
+                </li>
+                <li class="menu-item active">
+                    <a class="menu-link" href="/admin/addproduct"> <i class="icon material-icons md-add_box"></i>
+                        <span class="text">Add product</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/brands"> <i class="icon material-icons md-stars"></i>
+                        <span class="text">Brands</span> </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/categories"> <i class="icon material-icons md-stars"></i>
+                        <span class="text">Category</span> </a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="/admin/coupons"> <i class="icon material-icons md-monetization_on"></i>
+                        <span class="text">Coupons</span>
+                    </a>
+                </li>
+            </ul>
+            <hr>
+            <br>
+            <br>
+        </nav>
+    </aside>
+    <main class="main-wrap">
+        <%-include("../admin-layouts/navbar.ejs")%>
+        <section class="content-main">
+            <div class="row">
+                <div class="col-10">
+                    <div class="content-header">
+                        <h2 class="content-title text-center">Add New Product</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-10">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <form action="/admin/addproduct" method="post" enctype="multipart/form-data" id="addProductForm" onsubmit="return validateInputs()">
+                                <%if(typeof message !=="undefined"){%>
+                                    <div class="alert alert-danger" role="alert">
+                                        <%=message%>
+                                    </div>
+                                <%}%>
+                                <%if(typeof success !=="undefined"){%>
+                                    <div class="alert alert-success w-50 text-center ml-150" role="alert" >
+                                        <%=success%>
+                                    </div>
+                                <%}%>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <h6>1. General info</h6>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="form-group mb-4 ">
+                                        <label class="form-label">Product Name</label>
+                                        <input type="text" placeholder="Type here" class="form-control" name="prodname" id="prodname">
+                                        <p class="error pt-1"></p>
+                                    </div>
+                                    <div class="form-group mb-4">
+                                        <label class="form-label">Description</label>
+                                        <textarea placeholder="Type here" class="form-control" rows="4" name="proddesc" id="proddesc" required></textarea>
+                                        <p class="error pt-1"></p>
+                                    </div>
+                                    <div class="form-group mb-4">
+                                        <label class="form-label">Color</label>
+                                        <input type="text" placeholder="Type here" class="form-control" name="prodcolor" id="prodcolor"  required>
+                                        <p class="error pt-1"></p>
+                                    </div>
+                                    
+                                    <div class="mb-4">
+                                        <label class="form-label">Gender</label>
+                                        <div class="form-group d-flex">
+                                            <label class="mb-2 form-check form-check-inline" style="width: 45%;">
+                                                <input class="form-check-input" type="radio" name="gender" value="Male">
+                                                <span class="form-check-label">Male</span>
+                                            </label>
+                                            <label class="mb-2 form-check form-check-inline" style="width: 45%;">
+                                                <input class="form-check-input" type="radio" name="gender" value="Female">
+                                                <span class="form-check-label">Female</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    
+                                        
+                                    </div>
+                                </div> <!-- col.// -->
+                           
+                            <hr class="mb-4 mt-0">
+                            <div class="row mb-20">
+                                <div class="col-md-3">
+                                    <h6>2. Size and Stock</h6>
+                                </div>
+                                <div class="col-md-9">
+                                    <div id="sizeStockContainer" class="d-flex flex-wrap">
+                                        
+                                            <div class="mb-4 ml-3 d-flex">
+                                                <div class="form-group me-3">
+                                                    <label class="form-label">Size</label>
+                                                    <input type="text" placeholder="Type here" class="form-control" name="sizes[]"  required>
+                                                    <p class="error pt-1"></p>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="form-label">Stock</label>
+                                                    <input type="number" placeholder="Type here" class="form-control" name="stocks[]" required>
+                                                    <p class="error pt-1"></p>
+                                                </div>
+                                            </div>
+                                       
+                                    </div>
+                                    <button type="button" class="btn btn-sm font-sm btn-light rounded" onclick="addSizeStockField()">Add More</button>
+                                </div>
+                            </div>
+                            <hr class="mb-4 mt-0">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <h6>3. Brand</h6>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="form-group mb-4">
+                                        <label class="form-label">Brand name</label>
+                                        <select class="form-select" name="prodbrand" id="prodbrand">
+                                            <%for(let i=0;i<brand.length;i++){%>
+                                                <option><%=brand[i].brandName%></option>
+                                            <%}%>
+                                            
+                                        </select>
+                                    </div>
+                                    <p class="error pt-1"></p>
+                                </div> <!-- col.// -->
+                            </div> 
+                            <hr class="mb-4 mt-0">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <h6>4. Category</h6>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="form-group mb-4">
+                                       
+                                        <label class="form-label">Category name</label>
+                                        <select class="form-select" name="prodcategory" id="prodcategory">
+                                            <%for(let i=0;i<category.length;i++){%>
+                                                <option><%=category[i].categoryName%></option>
+                                            <%}%>
+                                            
+                                        </select>
+                                    </div>
+                                    <p class="error pt-1"></p>
+                                </div> <!-- col.// -->
+                            </div> 
+                            <hr class="mb-4 mt-0">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <h6>5. Pricing</h6>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="form-group mb-4">
+                                        <label class="form-label">Regular Price</label>
+                                        <input type="number" placeholder="" class="form-control" name="prodregprice" id="sprice">
+                                        <p class="error pt-1"></p>
+                                    </div>
+                                    <div class="form-group mb-4">
+                                        <label class="form-label">Sale Price</label>
+                                        <input type="number" placeholder="" class="form-control" name="prodsprice" id="rprice">
+                                        <p class="error pt-1"></p>
+                                    </div>
+                                </div> <!-- col.// -->
+                            </div> <!-- row.// -->
+                            <!-- row.// -->
+                            <hr class="mb-4 mt-0">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <h6>5. Media</h6>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="form-group mb-4">
+                                        <label class="form-label">Images</label>
+                                        <input class="form-control" type="file" multiple name="images" id="images">
+                                        <p class="error pt-1"></p>
+                                    </div>
+
+                                </div> <!-- col.// -->
+                                
+                            </div>
+                            <hr class="mb-4 mt-0">
+                           
+                            
+                            <br>
+                            <div class="text-center">
+                                
+                                <button type="submit" class="btn btn-md rounded font-sm hover-up w-30" onclick="return validateInputs()">Add Product</button>
+                            </div>
+                            <br>
+                        </form> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </section> <!-- content-main end// -->
+        <footer class="main-footer font-xs">
+            <div class="row pb-30 pt-15">
+                <div class="col-sm-6">
+                    <script>
+                    document.write(new Date().getFullYear())
+                    </script> ©, Elegance
+                </div>
+                <div class="col-sm-6">
+                    <div class="text-sm-end">
+                        All rights reserved
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </main>
+    <script>
+        function addSizeStockField() {
+          
+            var container = document.getElementById("sizeStockContainer");
+            var clonedFields = container.lastElementChild.cloneNode(true);
+            clonedFields.querySelectorAll('input').forEach(function(input) {
+            input.value = '';
+    });
+
+    container.appendChild(clonedFields);
+        }
+        </script>
+
+
+
+    <script src="assets/js/vendors/jquery-3.6.0.min.js"></script>
+    <script src="assets/js/vendors/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/vendors/select2.min.js"></script>
+    <script src="assets/js/vendors/perfect-scrollbar.js"></script>
+    <script src="assets/js/vendors/jquery.fullscreen.min.js"></script>
+    <!-- Main Script -->
+    <script src="assets/js/main.js" type="text/javascript"></script>
+    <script src="assets/js/addValidation.js"></script>
+</body>
+
+<!-- Mirrored from wp.alithemes.com/html/evara/evara-backend/page-form-product-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 01 Aug 2021 15:33:32 GMT -->
+</html>

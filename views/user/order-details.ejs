@@ -1,0 +1,590 @@
+<%-include("../user-layouts/header")%>
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="assets/imgs/theme/favicon.svg">
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="assets/css/main.css">
+</head>
+
+<body>
+    <header class="header-area header-style-5" style="box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;">
+        <div class="header-bottom sticky-bar sticky-white-bg">
+            <div class="container">
+                <div class="header-wrap header-space-between position-relative">
+                    <div class="logo logo-width-1">
+                        <a href="/home"><img src="assets/imgs/theme/elegance.svg" alt="logo" height="50"></a>
+                    </div>
+                    <div class="main-menu main-menu-grow main-menu-padding-1 main-menu-lh-1 main-menu-mrg-1 hm3-menu-padding d-none d-lg-block hover-boder">
+                        <nav>
+                            <ul>
+                                <li><a href="/home">Home</a>
+                                    
+                                </li>
+                                <li><a href="/allproducts">All</a>
+                                    
+                                </li>
+                                <li class="position-static"><a href="/men">Men</a>
+                                    
+                                </li>
+                                <li class="position-static"><a href="/women">Women</a>
+                                   
+                                </li>
+                                
+                                <li><a href="#">Pages <i class="fi-rs-angle-down"></i></a>
+                                    <ul class="sub-menu">
+                                        <li><a href="page-about.html">About Us</a></li>
+                                        <li><a href="page-contact.html">Contact</a></li>
+                                        <li><a href="/profile">My Account</a></li>
+                                        
+                                        
+                                    </ul>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="header-action-right">
+                        <div class="search-style-1">
+                            <form action="/search" method="post">
+                                <input type="text" placeholder="Search for items…" name="searchCriteria">
+                                <button type="submit" style="font-size: medium;">Search</button>
+                            </form>
+                        </div>
+                        <div class="header-action-2">
+                            <div class="header-action-icon-2">
+                                <a href="/wishlist">
+                                    <img class="svgInject" alt="Evara" src="assets/imgs/theme/icons/icon-heart.svg">
+                                    <%if(userData.wishlist.length>0){%>
+                                        <span class="pro-count blue"><%=userData.wishlist.length%></span>
+                                    <%}%>
+                                </a>
+                            </div>
+    <div class="header-action-icon-2">
+        <a class="mini-cart-icon" href="/cart">
+            <img alt="Evara" src="assets/imgs/theme/icons/icon-cart.svg">
+            <%if(quantity>0){%>
+                <span class="pro-count blue"><%=quantity%></span>
+            <%}%>
+        </a>
+    </div>
+    <div class="header-action-icon-2">
+        <ul>
+        <li class="dropdown nav-item">
+            <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount" aria-expanded="false"> <img alt="Evara" src="assets/imgs/theme/icons/user.png" width="25" height="25"></a>
+            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
+                <a class="dropdown-item" href="/profile"><i class="material-icons md-perm_identity"></i>My Account</a>
+                <div class="dropdown-divider"></div>
+               
+                <!-- <form method="post" id="logoutForm" action="/logout" style="display: inline;">
+                   <a class="dropdown-item text-danger" href=""><i class="material-icons md-exit_to_app" onclick="event.preventDefault(); document.getElementById('logoutForm').submit();"></i>Logout</a>
+                </form> -->
+                <form id="logoutForm" method="post" action="/logout" style="display: inline;">
+                    <button type="submit" class="dropdown-item text-light btn btn-light" onclick="event.preventDefault(); document.getElementById('logoutForm').submit();">
+                        <i class="material-icons md-exit_to_app"></i> Logout
+                    </button>
+                </form>
+            </div>
+        </li>
+    </ul>
+    </div>
+    <div class="header-action-icon d-block d-lg-none">
+        <div class="burger-icon">
+            <span class="burger-icon-top"></span>
+            <span class="burger-icon-mid"></span>
+            <span class="burger-icon-bottom"></span>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</header>
+
+    <div class="mobile-header-active mobile-header-wrapper-style">
+        <div class="mobile-header-wrapper-inner">
+            <div class="mobile-header-top">
+                <div class="mobile-header-logo">
+                    <a href="index.html"><img src="assets/imgs/theme/logo.svg" alt="logo"></a>
+                </div>
+                <div class="mobile-menu-close close-style-wrap close-style-position-inherit">
+                    <button class="close-style search-close">
+                        <i class="icon-top"></i>
+                        <i class="icon-bottom"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="mobile-header-content-area">
+                <div class="mobile-search search-style-3 mobile-header-border">
+                    <form action="#">
+                        <input type="text" placeholder="Search for items…">
+                        <button type="submit"><i class="fi-rs-search"></i></button>
+                    </form>
+                </div>
+                <div class="mobile-menu-wrap mobile-header-border">
+                    <div class="main-categori-wrap mobile-header-border">
+                        <a class="categori-button-active-2" href="#">
+                            <span class="fi-rs-apps"></span> Browse Categories
+                        </a>
+                        <div class="categori-dropdown-wrap categori-dropdown-active-small">
+                            <ul>
+                                <li><a href="shop-grid-right.html"><i class="evara-font-dress"></i>Women's Clothing</a></li>
+                                <li><a href="shop-grid-right.html"><i class="evara-font-tshirt"></i>Men's Clothing</a></li>
+                                <li> <a href="shop-grid-right.html"><i class="evara-font-smartphone"></i> Cellphones</a></li>
+                                <li><a href="shop-grid-right.html"><i class="evara-font-desktop"></i>Computer & Office</a></li>
+                                <li><a href="shop-grid-right.html"><i class="evara-font-cpu"></i>Consumer Electronics</a></li>
+                                <li><a href="shop-grid-right.html"><i class="evara-font-home"></i>Home & Garden</a></li>
+                                <li><a href="shop-grid-right.html"><i class="evara-font-high-heels"></i>Shoes</a></li>
+                                <li><a href="shop-grid-right.html"><i class="evara-font-teddy-bear"></i>Mother & Kids</a></li>
+                                <li><a href="shop-grid-right.html"><i class="evara-font-kite"></i>Outdoor fun</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- mobile menu start -->
+                    <nav>
+                        <ul class="mobile-menu">
+                            <li class="menu-item-has-children"><span class="menu-expand"></span><a href="index.html">Home</a>
+                                <ul class="dropdown">
+                                    <li><a href="index.html">Home 1</a></li>
+                                    <li><a href="index-2.html">Home 2</a></li>
+                                    <li><a href="index-3.html">Home 3</a></li>
+                                    <li><a href="index-4.html">Home 4</a></li>
+                                </ul>
+                            </li>
+                            <li class="menu-item-has-children"><span class="menu-expand"></span><a href="shop-grid-right.html">shop</a>
+                                <ul class="dropdown">
+                                    <li><a href="shop-grid-right.html">Shop Grid – Right Sidebar</a></li>
+                                    <li><a href="shop-grid-left.html">Shop Grid – Left Sidebar</a></li>
+                                    <li><a href="shop-list-right.html">Shop List – Right Sidebar</a></li>
+                                    <li><a href="shop-list-left.html">Shop List – Left Sidebar</a></li>
+                                    <li><a href="shop-fullwidth.html">Shop - Wide</a></li>
+                                    <li class="menu-item-has-children"><span class="menu-expand"></span><a href="#">Single Product</a>
+                                        <ul class="dropdown">
+                                            <li><a href="shop-product-right.html">Product – Right Sidebar</a></li>
+                                            <li><a href="shop-product-left.html">Product – Left Sidebar</a></li>
+                                            <li><a href="shop-product-full.html">Product – No sidebar</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="shop-filter.html">Shop – Filter</a></li>
+                                    <li><a href="shop-wishlist.html">Shop – Wishlist</a></li>
+                                    <li><a href="shop-cart.html">Shop – Cart</a></li>
+                                    <li><a href="shop-checkout.html">Shop – Checkout</a></li>
+                                    <li><a href="shop-compare.html">Shop – Compare</a></li>
+                                </ul>
+                            </li>
+                            <li class="menu-item-has-children"><span class="menu-expand"></span><a href="#">Mega menu</a>
+                                <ul class="dropdown">
+                                    <li class="menu-item-has-children"><span class="menu-expand"></span><a href="#">Women's Fashion</a>
+                                        <ul class="dropdown">
+                                            <li><a href="shop-product-right.html">Dresses</a></li>
+                                            <li><a href="shop-product-right.html">Blouses & Shirts</a></li>
+                                            <li><a href="shop-product-right.html">Hoodies & Sweatshirts</a></li>
+                                            <li><a href="shop-product-right.html">Women's Sets</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="menu-item-has-children"><span class="menu-expand"></span><a href="#">Men's Fashion</a>
+                                        <ul class="dropdown">
+                                            <li><a href="shop-product-right.html">Jackets</a></li>
+                                            <li><a href="shop-product-right.html">Casual Faux Leather</a></li>
+                                            <li><a href="shop-product-right.html">Genuine Leather</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="menu-item-has-children"><span class="menu-expand"></span><a href="#">Technology</a>
+                                        <ul class="dropdown">
+                                            <li><a href="shop-product-right.html">Gaming Laptops</a></li>
+                                            <li><a href="shop-product-right.html">Ultraslim Laptops</a></li>
+                                            <li><a href="shop-product-right.html">Tablets</a></li>
+                                            <li><a href="shop-product-right.html">Laptop Accessories</a></li>
+                                            <li><a href="shop-product-right.html">Tablet Accessories</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="menu-item-has-children"><span class="menu-expand"></span><a href="blog-category-fullwidth.html">Blog</a>
+                                <ul class="dropdown">
+                                    <li><a href="blog-category-grid.html">Blog Category Grid</a></li>
+                                    <li><a href="blog-category-list.html">Blog Category List</a></li>
+                                    <li><a href="blog-category-big.html">Blog Category Big</a></li>
+                                    <li><a href="blog-category-fullwidth.html">Blog Category Wide</a></li>
+                                    <li class="menu-item-has-children"><span class="menu-expand"></span><a href="#">Single Product Layout</a>
+                                        <ul class="dropdown">
+                                            <li><a href="blog-post-left.html">Left Sidebar</a></li>
+                                            <li><a href="blog-post-right.html">Right Sidebar</a></li>
+                                            <li><a href="blog-post-fullwidth.html">No Sidebar</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="menu-item-has-children"><span class="menu-expand"></span><a href="#">Pages</a>
+                                <ul class="dropdown">
+                                    <li><a href="page-about.html">About Us</a></li>
+                                    <li><a href="page-contact.html">Contact</a></li>
+                                    <li><a href="page-account.html">My Account</a></li>
+                                    <li><a href="page-login-register.html">login/register</a></li>
+                                    <li><a href="page-purchase-guide.html">Purchase Guide</a></li>
+                                    <li><a href="page-privacy-policy.html">Privacy Policy</a></li>
+                                    <li><a href="page-terms.html">Terms of Service</a></li>
+                                    <li><a href="page-404.html">404 Page</a></li>
+                                </ul>
+                            </li>
+                            <li class="menu-item-has-children"><span class="menu-expand"></span><a href="#">Language</a>
+                                <ul class="dropdown">
+                                    <li><a href="#">English</a></li>
+                                    <li><a href="#">French</a></li>
+                                    <li><a href="#">German</a></li>
+                                    <li><a href="#">Spanish</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+                    <!-- mobile menu end -->
+                </div>
+                <div class="mobile-header-info-wrap mobile-header-border">
+                    <div class="single-mobile-header-info mt-30">
+                        <a  href="page-contact.html"> Our location </a>
+                    </div>
+                    <div class="single-mobile-header-info">
+                        <a href="page-login-register.html">Log In / Sign Up </a>
+                    </div>
+                    <div class="single-mobile-header-info">
+                        <a href="#">(+01) - 2345 - 6789 </a>
+                    </div>
+                </div>
+                <div class="mobile-social-icon">
+                    <h5 class="mb-15 text-grey-4">Follow Us</h5>
+                    <a href="#"><img src="assets/imgs/theme/icons/icon-facebook.svg" alt=""></a>
+                    <a href="#"><img src="assets/imgs/theme/icons/icon-twitter.svg" alt=""></a>
+                    <a href="#"><img src="assets/imgs/theme/icons/icon-instagram.svg" alt=""></a>
+                    <a href="#"><img src="assets/imgs/theme/icons/icon-pinterest.svg" alt=""></a>
+                    <a href="#"><img src="assets/imgs/theme/icons/icon-youtube.svg" alt=""></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <main class="main">
+        <div class="page-header breadcrumb-wrap">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="/home" rel="nofollow">Home</a>
+                    <span></span> Pages
+                    <span></span> Account
+                </div>
+            </div>
+        </div>
+        <section class="pt-70 pb-90 ml-80 mr-80">
+            <div class="content-header">
+                <div>
+                    <h2 class="content-title card-title">Order details</h2>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h6 class="font-sm">Details for Order ID:#<%=order.orderId%></h6>
+                        </div>
+                        <div class="col-md-3">
+                            <%const originalDate = new Date(`${order.createdOn}`);%>
+                            <%const formattedDate = originalDate.toLocaleDateString('en-IN');%>
+                            <h6 class="font-sm">Ordered Date: <%=formattedDate%></h6>
+                        </div>
+                        <%if(order.status=="Delivered"){%>
+                            <div class="col-md-3">
+                                <%const originalDate = new Date(`${order.deliveredOn}`);%>
+                                <%const formattedDate = originalDate.toLocaleDateString('en-IN');%>
+                                <h6 class="font-sm">Delivered: <%=formattedDate%></h6>
+                            </div> 
+                        <%}%>
+                        <div class="col-md-1">
+                            
+                        </div>
+                        <div class="col-md-2">
+                            <%if(!(order.status=="Cancelled") && !(order.status=="Delivered")){%>  
+                                <button type="submit" class="btn btn-sm font-sm rounded" onclick="confirmDelete('<%=order._id%>')">Cancel</button>
+                            <%}%>
+                            <%if(order.status=="Delivered" && !(order.return)){%>
+                                <button type="button" class="btn-sm btn-danger rounded" onclick="requestReturn('<%=order._id%>')">Return</button>
+                       
+                            <%}%>
+                            <%if(order.return){%>
+                                <button type="button" class="btn-sm btn-grey rounded" style="pointer-events: none;">Return</button>
+                            <%}%>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            <br>
+            <div class="card">
+                
+                <div class="card-body">
+                    <div class="row mb-50 mt-20 order-info-wrap ">
+                      
+                        <div class="col-md-3">
+                            <article class="icontext align-items-start">
+                                <span class="icon icon-sm rounded-circle bg-primary-light">
+                                    <i class="text-primary material-icons md-place"></i>
+                                </span>
+                                <div class="text">
+                                    <h4 class="mb-2">Delivery Address:</h4>
+                                    <p class="mb-1 font-sm">
+                                        <%=address.name%>,<br><%=address.housename%> House,<br><%=address.area%>,<%=address.city%>,<br> <%=address.state%>,<br><%=address.pincode%>
+                                    </p>
+                                  
+                                </div>
+                            </article>
+                        </div>
+                        <div class="col-md-3">
+                            <article class="icontext align-items-start">
+                                <span class="icon icon-sm rounded-circle bg-primary-light">
+                                    <i class="text-primary material-icons md-local_shipping"></i>
+                                </span>
+                                <div class="text">
+                                    <h4 class="mb-2">Payment Method:</h4>
+                                    <p class="mb-1 font-sm">
+                                        <%=order.paymentMethod%>
+                                    </p>
+                                   
+                                </div>
+                            </article>
+                        </div> <!-- col// -->
+                        <div class="col-md-3">
+                            <article class="icontext align-items-start ">
+                                <span class="icon icon-sm rounded-circle bg-primary-light">
+                                    <i class="text-primary material-icons md-person"></i>
+                                </span>
+                                <div class="text">
+                                    <h4 class="mb-2">Status:</h4>
+                                    <%if(order.status=="Delivered"){%>
+                                        <p class="mb-1 font-sm text-success">
+                                            <%=order.status%>
+                                        </p>
+                                    <%}else{%>
+                                    <p class="mb-1 font-sm text-danger">
+                                            <%=order.status%>
+                                        </p>
+                                    <%}%>
+                                   
+                                </div>
+                            </article>
+                        </div> 
+                        <div class="col-md-3">
+                            <article class="icontext align-items-start">
+                                <span class="icon icon-sm rounded-circle bg-primary-light">
+                                    <i class="text-primary material-icons md-place"></i>
+                                </span>
+                                <div class="text">
+                                    <h4 class="mb-2">Order Summary:</h4>
+                                    <p class="mb-1 font-sm">
+                                        Subtotal   :₹<%=order.totalAmount+order.coupondiscount%>
+                                    </p>
+                                    <p class="mb-2 font-sm">
+                                        Shipping   : ₹<%=order.shippingcharge%>
+                                    </p>
+                                    <p class="mb-2 font-sm">
+                                        Discount   : ₹<%=order.coupondiscount+order.categorydiscount%>
+                                    </p>
+                                    <h6 class="mb-1 font-sm">
+                                        Total      : ₹<%=order.totalAmount%>
+                                    </h6>
+                                  
+                                </div>
+                            </article>
+                        </div>
+                    </div> <!-- row // -->
+                   
+                </div> <!-- card-body end// -->
+            </div>
+            <br>
+             <div class="card">
+                <header class="card-header">
+                    <div class="row align-items-center">
+                        <h4 class="content-title card-title">Product Details</h4>
+                    </div>
+                </header> <!-- card-header end// -->
+                <div class="card-body">
+                   
+                    <div class="row">
+                        
+                        <div class="col-lg-12 box shadow-sm bg-light">
+                            
+                            <%for(let i=0;i<products.Items.length;i++){%>
+                                <div class="row mb-50 mt-20 order-info-wrap">
+                                    <div class="col-md-3">
+                                        <article class="icontext align-items-start">
+                                            <div >
+                                                <img src="admin/assets/imgs/products/<%=products.Items[i].productId.images[0].url%>" width="100" height="120"  alt="Item">
+                                            </div>
+                                        </article>
+                                    </div> <!-- col// -->
+                                    <div class="col-md-3">
+                                        <article class="icontext align-items-start">
+                                           
+                                            <div class="text">
+                                                <h6 class="mb-1"><%=products.Items[i].productId.productName%></h6>
+                                               
+                                              
+                                            </div>
+                                        </article>
+                                    </div> <!-- col// -->
+                                    <div class="col-md-3">
+                                        <article class="icontext align-items-start">
+                                            
+                                            <div class="text">
+                                                <h6 class="mb-1">Quantity</h6>
+                                                <p class="mb-1">
+                                                    x <%=products.Items[i].quantity%>
+                                                </p>
+                                               
+                                            </div>
+                                        </article>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <article class="icontext align-items-start">
+                                            
+                                            <div class="text">
+                                                <h6 class="mb-1">Subtotal</h6>
+                                                <p class="mb-1">
+                                                    ₹ <%=products.Items[i].subtotal%>
+                                                </p>
+                                               
+                                            </div>
+                                        </article>
+                                    </div>
+                                </div>
+                            <%}%>
+                            
+
+                        </div> <!-- col// -->
+                        <!-- <div class="col-lg-1"></div> -->
+                       
+                    </div>
+                </div> <!-- card-body end// -->
+            </div> 
+
+           
+        </section> 
+    </main>
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Confirm Cancellation</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="cancelModal()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to cancel this order?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="cancelModal()">Cancel</button>
+                    <button type="button" class="btn btn-danger" onclick="cancelOrders()">Continue</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="returnModal" tabindex="-1" role="dialog" aria-labelledby="returnModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="returnModalLabel">Select Return Reason</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="cancelReturnModal()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Create a form to select a reason for return -->
+                    <form id="returnReasonForm" method="post" action="/requestReturn">
+                        <div class="form-group">
+                            <label for="returnReason">Select a reason for return:</label>
+                            <select class="form-control" id="returnReason" name="returnReason">
+                                <option value="Wrong Item Delivered">Wrong Item Delivered</option>
+                                <option value="Damaged or Defective Product">Damaged or Defective Product</option>
+                                <option value="Size or Fit Issue">Size or Fit Issue</option>
+                                <option value="Changed My Mind">Changed My Mind</option>
+                                <option value="Late Delivery">Late Delivery</option>
+                                <!-- Add more reasons here as additional <option> elements -->
+                            </select>
+                        </div>
+                    
+                </div>
+                <div class="modal-footer">
+                    <input type="" name="orderId" value="<%=order._id%>" hidden>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="cancelReturnModal()">Close</button>
+                    <button type="submit" class="btn btn-primary" id="confirmReturn">Confirm Return</button>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+    
+   
+    <%-include("../user-layouts/footer.ejs")%>
+    <!-- Preloader Start -->
+    <div id="preloader-active">
+        <div class="preloader d-flex align-items-center justify-content-center">
+            <div class="preloader-inner position-relative">
+                <div class="text-center">
+                    <h5 class="mb-5">Now Loading</h5>
+                    <div class="loader">
+                        <div class="bar bar1"></div>
+                        <div class="bar bar2"></div>
+                        <div class="bar bar3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+
+        // Cancel order
+
+        let cancelorderId;
+    
+        function cancelModal(){
+            $('#deleteModal').modal('hide');
+        }
+    
+        function confirmDelete(orderId) {
+            cancelorderId = orderId;
+            $('#deleteModal').modal('show'); 
+        }
+    
+        function cancelOrders() {
+            window.location.href = `/cancel-order?orderId=${cancelorderId}`;
+        }
+
+        // Return order
+        function requestReturn(orderId){
+            $('#returnModal').modal('show');
+        }
+
+        function cancelReturnModal(){
+            $('#returnModal').modal('hide');
+        }
+    </script>
+   
+    <script src="assets/js/vendor/modernizr-3.6.0.min.js"></script>
+    <script src="assets/js/vendor/jquery-3.6.0.min.js"></script>
+    <script src="assets/js/vendor/jquery-migrate-3.3.0.min.js"></script>
+    <script src="assets/js/vendor/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/plugins/slick.js"></script>
+    <script src="assets/js/plugins/jquery.syotimer.min.js"></script>
+    <script src="assets/js/plugins/wow.js"></script>
+    <script src="assets/js/plugins/jquery-ui.js"></script>
+    <script src="assets/js/plugins/perfect-scrollbar.js"></script>
+    <script src="assets/js/plugins/magnific-popup.js"></script>
+    <script src="assets/js/plugins/select2.min.js"></script>
+    <script src="assets/js/plugins/waypoints.js"></script>
+    <script src="assets/js/plugins/counterup.js"></script>
+    <script src="assets/js/plugins/jquery.countdown.min.js"></script>
+    <script src="assets/js/plugins/images-loaded.js"></script>
+    <script src="assets/js/plugins/isotope.js"></script>
+    <script src="assets/js/plugins/scrollup.js"></script>
+    <script src="assets/js/plugins/jquery.vticker-min.js"></script>
+    <script src="assets/js/plugins/jquery.theia.sticky.js"></script>
+    <!-- Template  JS -->
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/profileValidation.js"></script>
+</body>
+
+
+<!-- Mirrored from wp.alithemes.com/html/evara/evara-frontend/page-account.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 01 Aug 2021 15:27:15 GMT -->
+</html>
