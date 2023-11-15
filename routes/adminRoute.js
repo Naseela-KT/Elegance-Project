@@ -130,4 +130,7 @@ admin_route.post("/sales-report/:time",validate.requireAuth,adminController.sale
 admin_route.post("/fetchData/:time",validate.requireAuth,adminController.fetchGraphData)
 
 
+
+
+
 module.exports=admin_route

@@ -520,6 +520,8 @@ const updateOrderStatus = async (req, res) => {
         const orderId = req.body.id;
         const statusValue = req.body.status;
         const date = new Date();
+        const order=await Order.findOne({_id:orderId});
+        const customer=await User.findOne({_id:order.customerId});
         const products = await Order.findOne({ _id: orderId }, { Items: 1 }).populate({
             path: 'Items.productId',
             model: 'product'
@@ -535,6 +537,19 @@ const updateOrderStatus = async (req, res) => {
         }
 
         if (statusValue === "Delivered") {
+            if(!customer.referralPurchase){
+                customer.referralPurchase=true
+        
+                const userRef=await User.findOne({referral_code:customer.usedReferral})
+                if(userRef){
+                    userRef.wallet=parseInt(userRef.wallet+300)
+                    userRef.transactionDetails.push({transactionType:"Referral",transactionAmount:300,transactionDate:new Date()})
+                    await userRef.save()
+                    customer.wallet=200
+                    customer.transactionDetails.push({transactionType:"Referral",transactionAmount:200,transactionDate:new Date()})
+                    await customer.save()
+                }
+            }
             await Order.updateOne({ _id: orderId }, {
                 $set: {
                     status: statusValue,

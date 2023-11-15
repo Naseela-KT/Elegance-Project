@@ -30,6 +30,13 @@ const userSchema=mongoose.Schema({
     referral_code:{
         type:Number,
     },
+    usedReferral:{
+        type:Number,
+    },
+    referralPurchase:{
+        type:Boolean,
+        default:false
+    },
     createdOn:{
         type:String
     },
@@ -45,6 +52,7 @@ const userSchema=mongoose.Schema({
             }
         }
     ],
+   
     cart:[
         {
             productId:{

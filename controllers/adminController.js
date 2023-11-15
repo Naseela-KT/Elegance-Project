@@ -435,29 +435,33 @@ const fetchGraphData= async (req, res) => {
                 {
                     $group: {
                         _id: { $month: '$createdOn' }, 
-                        ordersCount: { $sum: 1 } 
+                        ordersCount: { $sum: 1 },
+                        revenue: { $sum: '$totalAmount' } 
                     }
                 }
             ]);
             // console.log("data"+data);
 
-            const allMonths = {
-                'January': 0,
-                'February': 0,
-                'March': 0,
-                'April': 0,
-                'May': 0,
-                'June': 0,
-                'July': 0,
-                'August': 0,
-                'September': 0,
-                'October': 0,
-                'November': 0,
-                'December': 0
+            const allMonths =  {
+                'January': { ordersCount: 0, revenue: 0 },
+                'February': { ordersCount: 0, revenue: 0 },
+                'March': { ordersCount: 0, revenue: 0 },
+                'April': { ordersCount: 0, revenue: 0 },
+                'May': { ordersCount: 0, revenue: 0 },
+                'June': { ordersCount: 0, revenue: 0 },
+                'July': { ordersCount: 0, revenue: 0 },
+                'August': { ordersCount: 0, revenue: 0 },
+                'September': { ordersCount: 0, revenue: 0 },
+                'October': { ordersCount: 0, revenue: 0 },
+                'November': { ordersCount: 0, revenue: 0 },
+                'December': { ordersCount: 0, revenue: 0 }
             };
             data.forEach(item => {
                 const month = new Date(`2023-${item._id}-01`).toLocaleString('default', { month: 'long' });
-                allMonths[month] = item.ordersCount;
+                allMonths[month] = {
+                    ordersCount: item.ordersCount,
+                    revenue: item.revenue
+                };
             });
             // console.log(allMonths);
 
@@ -486,15 +490,18 @@ const fetchGraphData= async (req, res) => {
                     {
                         $group: {
                             _id: null,
-                            ordersCount: { $sum: 1 }
+                            ordersCount: { $sum: 1 },
+                            revenue: { $sum: '$totalAmount' } 
                         }
                     }
                 ]);
         
                 
                 const orderCount = data.length > 0 ? data[0].ordersCount : 0;
-        
-                ordersByYear[year] = orderCount;
+                const revenue = data.length > 0 ? data[0].revenue : 0;
+
+                ordersByYear[year] = { ordersCount: orderCount, revenue: revenue };
+                // ordersByYear[year] = orderCount;
             }
             // console.log(ordersByYear);
         
@@ -539,14 +546,17 @@ const fetchGraphData= async (req, res) => {
                     {
                         $group: {
                             _id: null,
-                            ordersCount: { $sum: 1 }
+                            ordersCount: { $sum: 1 },
+                            revenue: { $sum: '$totalAmount' } 
                         }
                     }
                 ]);
                 
                 const orderCount = data.length > 0 ? data[0].ordersCount : 0;
 
-                ordersByDayOfWeek[dayNames[day]] = orderCount;
+                const revenue = data.length > 0 ? data[0].revenue : 0;
+
+                ordersByDayOfWeek[dayNames[day]] = { ordersCount: orderCount, revenue: revenue };
             }
             
             // console.log(ordersByDayOfWeek);

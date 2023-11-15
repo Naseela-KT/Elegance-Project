@@ -7,6 +7,7 @@ const Brand=require("../models/brands")
 const Order=require("../models/order")
 const Coupon=require("../models/coupon")
 const jwt = require('jsonwebtoken');
+const { updateOrderStatus } = require("./orderController")
 require('dotenv').config();
 
 
@@ -208,7 +209,6 @@ const insertUser=async(req,res)=>{
             if(verified){
             const checkUser=await User.findOne({referral_code:referral});
             if(checkUser){
-                checkUser.wallet=checkUser.wallet+500;
                 await checkUser.save();
                 const user=new User({
                     Name:req.body.name,
@@ -219,7 +219,7 @@ const insertUser=async(req,res)=>{
                     createdOn:userDate,
                     is_verified:true,
                     referral_code:code,
-                    wallet:200
+                    usedReferral:referral
                 })
                 const userData=await user.save();
                 if(userData){
@@ -581,7 +581,7 @@ const loadProfile=async(req,res)=>{
         const coupons=await Coupon.find({})
         const transactionDetails=user[0].transactionDetails
         if(user){
-            res.render("profile",{userData:user,orders:orders,quantity:quantity,coupons:coupons,transaction:transactionDetails})
+            res.render("profile",{userData:user,quantity:quantity,orders:orders,coupons:coupons,transaction:transactionDetails})
         }
         
     }catch(error){
@@ -994,6 +994,120 @@ const moveToWishlist=async(req,res)=>{
 }
 
 
+const loadAccount=async(req,res)=>{
+    try{
+        
+        const user_id = res.locals.user._id;
+        const quantity=await totalQuantity(req,res)
+        const user=await User.find({_id:user_id})
+        res.render("profile-details",{userData:user,quantity:quantity})
+    }catch(error){
+        console.log(error.message);
+    }
+}
+
+
+const loadEditProfile=async(req,res)=>{
+    try{
+        const user_id = res.locals.user._id;
+        const quantity=await totalQuantity(req,res)
+        const user=await User.find({_id:user_id})
+        res.render("profile-edit",{userData:user,quantity:quantity})
+    }catch(error){
+        console.log(error.message);
+    }
+}
+
+const loadOrders=async(req,res)=>{
+    const page = parseInt(req.query.page) || 1;
+    try{
+        const user_id = res.locals.user._id;
+        const quantity=await totalQuantity(req,res)
+        const user=await User.find({_id:user_id})
+        const orders=await Order.find({customerId:user_id}).skip((page - 1) * 10).limit(10);
+        const totalPages = Math.ceil(orders.length/ 10);
+        res.render("profile-orders",{
+            userData:user,
+            quantity:quantity,
+            orders:orders,
+            currentPage: page,
+            totalPages: totalPages})
+    }catch(error){
+        console.log(error.message);
+    }
+}
+
+const loadAddress=async(req,res)=>{
+    try{
+        const user_id = res.locals.user._id;
+        const quantity=await totalQuantity(req,res)
+        const user=await User.find({_id:user_id})
+        res.render("profile-address",{userData:user,quantity:quantity})
+    }catch(error){
+        console.log(error.message);
+    }
+}
+
+const loadAddAddress=async(req,res)=>{
+    try{
+        const user_id = res.locals.user._id;
+        const quantity=await totalQuantity(req,res)
+        const user=await User.find({_id:user_id})
+        res.render("profile-addAddress",{userData:user,quantity:quantity})
+    }catch(error){
+        console.log(error.message);
+    }
+}
+
+const loadChangePwd=async(req,res)=>{
+    try{
+        const user_id = res.locals.user._id;
+        const quantity=await totalQuantity(req,res)
+        const user=await User.find({_id:user_id})
+        res.render("profile-changePwd",{userData:user,quantity:quantity})
+    }catch(error){
+        console.log(error.message);
+    }
+}
+
+
+const loadWallet=async(req,res)=>{
+    try{
+        const user_id = res.locals.user._id;
+        const quantity=await totalQuantity(req,res)
+        const user=await User.find({_id:user_id})
+        const transactionDetails=user[0].transactionDetails
+        res.render("profile-wallet",{userData:user,quantity:quantity,transaction:transactionDetails})
+    }catch(error){
+        console.log(error.message);
+    }
+}
+
+const loadCoupons=async(req,res)=>{
+    try{
+        const user_id = res.locals.user._id;
+        const quantity=await totalQuantity(req,res)
+        const user=await User.find({_id:user_id})
+        const coupons=await Coupon.find({})
+        res.render("profile-coupons",{userData:user,quantity:quantity,coupons:coupons})
+    }catch(error){
+        console.log(error.message);
+    }
+}
+
+const loadReferrals=async(req,res)=>{
+    try{
+        const user_id = res.locals.user._id;
+        const quantity=await totalQuantity(req,res)
+        const user=await User.findOne({_id:user_id})
+        const code=user.referral_code
+        const referrals=await User.find({usedReferral:code})
+        res.render("profile-referrals",{userData:user,quantity:quantity,referrals:referrals})
+    }catch(error){
+        console.log(error.message);
+    }
+}
+
 
 module.exports={
     loadLogin,
@@ -1029,5 +1143,16 @@ module.exports={
     loadCart,
     updateQuantity,
     moveToWishlist,
-    deleteCartItem
+    deleteCartItem,
+
+    //
+    loadAccount,
+    loadEditProfile,
+    loadOrders,
+    loadAddress,
+    loadAddAddress,
+    loadChangePwd,
+    loadWallet,
+    loadCoupons,
+    loadReferrals
 }

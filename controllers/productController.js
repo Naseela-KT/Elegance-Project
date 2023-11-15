@@ -269,37 +269,110 @@ const totalQuantity=async(req,res)=>{
     }
 }
 
-const loadAllProducts=async(req,res)=>{
-    const page = parseInt(req.query.page) || 1;
-    try{
-        const user_id = res.locals.user._id;
-        const user=await User.findOne({_id:user_id})
-        const quantity=await totalQuantity(req,res)
-        const brand=await Brand.find({})
-        const category=await Category.find({})
-        const color=await colors();
-        const uniqueSizes = await sizes();
-        const totalProducts = await Products.find({}).countDocuments();
-        const totalPages = Math.ceil(totalProducts / ITEMS_PER_PAGE);
-        const products=await Products.find({}).skip((page - 1) * ITEMS_PER_PAGE).limit(ITEMS_PER_PAGE);
+// const loadAllProducts=async(req,res)=>{
+//     const page = parseInt(req.query.page) || 1;
+//     try{
+//         const user_id = res.locals.user._id;
+//         const user=await User.findOne({_id:user_id})
+//         const quantity=await totalQuantity(req,res)
+//         const brand=await Brand.find({})
+//         const category=await Category.find({})
+//         const color=await colors();
+//         const uniqueSizes = await sizes();
+//         const totalProducts = await Products.find({}).countDocuments();
+//         const totalPages = Math.ceil(totalProducts / ITEMS_PER_PAGE);
+//         const products=await Products.find({}).skip((page - 1) * ITEMS_PER_PAGE).limit(ITEMS_PER_PAGE);
         
-        res.render("allProducts",{
-            products:products,
-            category:category,
-            brand:brand,
-            color:color,
-            size:uniqueSizes,
-            quantity:quantity,
+//         res.render("allProducts",{
+//             products:products,
+//             category:category,
+//             brand:brand,
+//             color:color,
+//             size:uniqueSizes,
+//             quantity:quantity,
+//             currentPage: page,
+//             totalPages: totalPages,
+//             count:totalProducts,
+//             userData:user
+//         })
+//     }catch(error){
+//         console.log(error.message);
+//         res.status(500).render('error', { message: 'Internal Server Error' });
+//     }
+// }
+const loadAllProducts = async (req, res) => {
+    const page = parseInt(req.query.page) || 1;
+    const searchQuery = req.query.search || '';
+    const sortOption = req.query.sort || 'default'; // Set a default sorting option
+    const filterBrands = req.query.brands || [];
+    const filterCategories = req.query.categories || [];
+    const filterColors = req.query.colors || [];
+    const filterSizes = req.query.sizes || [];
+
+    try {
+        const user_id = res.locals.user._id;
+        const user = await User.findOne({ _id: user_id });
+        const quantity = await totalQuantity(req, res);
+        const brand = await Brand.find({});
+        const category = await Category.find({});
+        const color = await colors();
+        const uniqueSizes = await sizes();
+
+        let query = {};
+
+        // Apply filters
+        if (filterBrands.length > 0) query.brand = { $in: filterBrands };
+        if (filterCategories.length > 0) query.category = { $in: filterCategories };
+        if (filterColors.length > 0) query.color = { $in: filterColors };
+        if (filterSizes.length > 0) query.size = { $in: filterSizes };
+
+        if (searchQuery !== '') {
+            query.productName = { $regex: new RegExp(`^${searchQuery}`, 'i') };
+        }
+
+        const totalProducts = await Products.find(query).countDocuments();
+        const totalPages = Math.ceil(totalProducts / ITEMS_PER_PAGE);
+
+        // Apply sorting
+        let sortQuery = {};
+        if (sortOption === 'priceLowToHigh') {
+            sortQuery = { salePrice: 1 };
+        } else if (sortOption === 'priceHighToLow') {
+            sortQuery = { salePrice: -1 };
+        } else {
+            // Add more cases based on your sorting options
+            // 'default' can be a case where you don't apply any specific sorting
+        }
+
+        const products = await Products.find(query)
+            .sort(sortQuery)
+            .skip((page - 1) * ITEMS_PER_PAGE)
+            .limit(ITEMS_PER_PAGE);
+
+        res.render('allProducts', {
+            products: products,
+            category: category,
+            brand: brand,
+            color: color,
+            size: uniqueSizes,
+            quantity: quantity,
             currentPage: page,
             totalPages: totalPages,
-            count:totalProducts,
-            userData:user
-        })
-    }catch(error){
+            count: totalProducts,
+            userData: user,
+            searchQuery: searchQuery,
+            sortOption: sortOption,
+            filterBrands: filterBrands,
+            filterCategories: filterCategories,
+            filterColors: filterColors,
+            filterSizes: filterSizes,
+        });
+    } catch (error) {
         console.log(error.message);
         res.status(500).render('error', { message: 'Internal Server Error' });
     }
-}
+};
+
 
 const loadMenProducts=async(req,res)=>{
     const page = parseInt(req.query.page) || 1;

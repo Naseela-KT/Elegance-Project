@@ -1,8 +1,8 @@
-﻿<%-include("../user-layouts/header")%>
+<%-include("../user-layouts/header")%>
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="assets/imgs/theme/favicon.svg">
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/imgs/theme/favicon.svg">
     <!-- Template CSS -->
-    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/main.css">
    
 </head>
 
@@ -12,7 +12,7 @@
             <div class="container">
                 <div class="header-wrap header-space-between position-relative">
                     <div class="logo logo-width-1">
-                        <a href="/home"><img src="assets/imgs/theme/elegance.svg" alt="logo" height="50"></a>
+                        <a href="/home"><img src="/assets/imgs/theme/elegance.svg" alt="logo" height="50"></a>
                     </div>
                     <div class="main-menu main-menu-grow main-menu-padding-1 main-menu-lh-1 main-menu-mrg-1 hm3-menu-padding d-none d-lg-block hover-boder">
                         <nav>
@@ -52,7 +52,7 @@
                         <div class="header-action-2">
                             <div class="header-action-icon-2">
                                 <a href="/wishlist">
-                                    <img class="svgInject" alt="Evara" src="assets/imgs/theme/icons/icon-heart.svg">
+                                    <img class="svgInject" alt="Evara" src="/assets/imgs/theme/icons/icon-heart.svg">
                                     <%if(userData[0].wishlist.length>0){%>
                                         <span class="pro-count blue"><%=userData[0].wishlist.length%></span>
                                     <%}%>
@@ -60,7 +60,7 @@
                             </div>
     <div class="header-action-icon-2">
         <a class="mini-cart-icon" href="/cart">
-            <img alt="Evara" src="assets/imgs/theme/icons/icon-cart.svg">
+            <img alt="Evara" src="/assets/imgs/theme/icons/icon-cart.svg">
             <%if(quantity>0){%>
                 <span class="pro-count blue"><%=quantity%></span>
             <%}%>
@@ -69,7 +69,7 @@
     <div class="header-action-icon-2">
         <ul>
         <li class="dropdown nav-item">
-            <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount" aria-expanded="false"> <img alt="Evara" src="assets/imgs/theme/icons/user.png" width="25" height="25"></a>
+            <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount" aria-expanded="false"> <img alt="Evara" src="/assets/imgs/theme/icons/user.png" width="25" height="25"></a>
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
                 <a class="dropdown-item" href="/profile"><i class="material-icons md-perm_identity"></i>My Account</a>
                 <div class="dropdown-divider"></div>
@@ -280,28 +280,31 @@
                                     <ul class="nav flex-column" role="tablist">
                                         
                                         <li class="nav-item">
-                                            <a class="nav-link"   href="/my/profile" ><i class="fi-rs-user mr-10"></i>Account Details</a>
+                                            <a class="nav-link active" href="/my/profile"><i class="fi-rs-user mr-10"></i>Account Details</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" id="edit-tab" data-bs-toggle="tab" href="#edit-profile" role="tab" aria-controls="edit-profile" aria-selected="false"><i class="fi-rs-edit mr-10"></i>Edit Profile</a>
+                                            <a class="nav-link" href="/my/edit-profile"><i class="fi-rs-edit mr-10"></i>Edit Profile</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" id="orders-tab" data-bs-toggle="tab" href="#orders" role="tab" aria-controls="orders" aria-selected="false"><i class="fi-rs-shopping-bag mr-10"></i>Orders</a>
+                                            <a class="nav-link"  href="/my/orders" ><i class="fi-rs-shopping-bag mr-10"></i>Orders</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" id="address-tab" data-bs-toggle="tab" href="#address" role="tab" aria-controls="address" aria-selected="true"><i class="fi-rs-marker mr-10"></i>My Address</a>
+                                            <a class="nav-link"  href="/my/address" role="tab" ><i class="fi-rs-marker mr-10"></i>My Address</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" id="address-add-tab" data-bs-toggle="tab" href="#address-add" role="tab" aria-controls="address-add" aria-selected="true"><i class="fi-rs-plus mr-10"></i>Add new Address</a>
+                                            <a class="nav-link" href="/my/add-address" role="tab"><i class="fi-rs-plus mr-10"></i>Add new Address</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" id="change-pwd-tab" data-bs-toggle="tab" href="#change-pwd" role="tab" aria-controls="change-pwd" aria-selected="true"><i class="fi-rs-edit mr-10"></i>Change Password</a>
+                                            <a class="nav-link" href="/my/change-pwd"><i class="fi-rs-edit mr-10"></i>Change Password</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" id="wallet-tab" data-bs-toggle="tab" href="#wallet" role="tab" aria-controls="change-pwd" aria-selected="true"><i class="fas fa-money-bill-wave mr-10"></i>My Wallet</a>
+                                            <a class="nav-link" href="/my/wallet"><i class="fas fa-money-bill-wave mr-10"></i>My Wallet</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" id="coupons-tab" data-bs-toggle="tab" href="#coupons" role="tab" aria-controls="change-pwd" aria-selected="true"><i class="fas fa-money-bill-wave mr-10"></i>Coupons</a>
+                                            <a class="nav-link" href="/my/coupons"><i class="fas fa-money-bill-wave mr-10"></i>Coupons</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/my/referrals"><i class="fas fa-money-bill-wave mr-10"></i>Referrals</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" href="/logout" type="submit"><i class="fi-rs-sign-out mr-10"></i>Logout</a>
@@ -313,214 +316,13 @@
                             <div class="col-md-7">
                                 <div class="tab-content dashboard-content">
                                     
-                                    <div class="tab-pane fade" id="orders" role="tabpanel" aria-labelledby="orders-tab">
-                                        <div class="card">
-                                            <div class="card-header">
-                                                <h5 class="mb-0">Your Orders</h5>
-                                            </div>
-                                            <div class="card-body">
-                                                <div class="table-responsive">
-                                                    <table class="table">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Order</th>
-                                                                <th>Date</th>
-                                                                <th>Status</th>
-                                                                <th>Total</th>
-                                                                <th>Actions</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <% for(let i = 0; i < orders.length; i++) { %>
-        
-                                                                <% let sum=0;%>
-                                                                <%for(let j=0;j<orders[i].Items.length;j++){%>
-                                                                    <%sum+=orders[i].Items[j].quantity%>
-                                                                <%}%>
-                                                                <tr>
-                                                                    <td>#<%= orders[i].orderId %></td>
-                                                                    <td><%= orders[i].createdOn %></td>
-                                                                    <td><%= orders[i].status %></td>
-                                                                    <td>₹<%= orders[i].totalAmount %> for <%= sum %> items</td>
-                                                                    <td><a href="/order-details?orderId=<%= orders[i]._id %>" class="btn-small d-block">View</a></td>
-                                                                </tr>
-                                                            <% } %>
-                                                            
-                                                          
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    
 
-                                    <div class="tab-pane fade" id="wallet" role="tabpanel" aria-labelledby="wallet-tab">
-                                        <div class="card">
-                                            <div class="card-header">
-                                                <h4 class="mb-0 text-center">My Wallet</h4>
-                                                <p class="text-center">Balance:₹<%=userData[0].wallet%></p>
-                                                
-                                            </div>
-                                            <div class="card-body">
-                                                <div class="table-responsive">
-                                                    <table class="table">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>TransactionId</th>
-                                                                <th>Type</th>
-                                                                <th>Amount</th>
-                                                                <th>OrderId</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <% for(let i = 0; i < transaction.length; i++) { %>
-        
-                                    
-                                                                <tr>
-                                                                    <td>#<%= transaction[i]._id %></td>
-                                                                    <td><%= transaction[i].transactionType %></td>
-                                                                    <td>₹<%= transaction[i].transactionAmount %></td>
-                                                                    <td><%= transaction[i].orderId %></td>
-                    
-                                                                </tr>
-                                                            <% } %>
-                                                            
-                                                          
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="tab-pane fade" id="address" role="tabpanel" aria-labelledby="address-tab">
-                                        <div class="row">
-                                            <%if(userData[0].address.length==0){%>
-                                                <p style="color: red;">No address added!</p>
-                                            <%}else{%>
-                                                <%for(let i=0;i<userData[0].address.length;i++){%>
-                                                    <div class="col-lg-6 mb-20">
-                                                        <div class="card mb-3 mb-lg-0">
-                                                            <div class="card-header">
-                                                                <h5 class="mb-0">Address <%=i+1%></h5>
-                                                            </div>
-                                                            <div class="card-body">
-                                                                <address><%=userData[0].address[i].name%>,<br><%=userData[0].address[i].housename%>, <%=userData[0].address[i].area%>,<br><%=userData[0].address[i].city%> <br><%=userData[0].address[i].state%>, <%=userData[0].address[i].pincode%></address>
-                                                                <p class="font-sm">Phone:<%=userData[0].address[i].mobile%></p>
-                                                                <div class="d-flex">
-                                                                    <a href="/editAddress?addressid=<%=userData[0].address[i]._id%>" type="button" class="btn-small btn mr-20">Edit</a>
-                                                                    <button href="" type="submit" class="btn-small btn" onclick="confirmDelete('<%=userData[0].address[i]._id%>')">Delete</button>
-                                                                </div>
-                                                                
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                <%}%>
-                                            <%}%>
-                                            
-                                            
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane fade" id="coupons" role="tabpanel" aria-labelledby="coupons-tab">
-                                        <%if(coupons.length==0){%>
-                                            <p class="font-sm text-danger">Sorry, You don't have any coupons!</p>
-                                        <%}else{%>
-                                            <div class="row" >
-                                                <%for(let i=0;i<coupons.length;i++){%>
-                                                    <%var coupondate=new Date()%>
-                                                    <%if(coupons[i].Expiry>coupondate){%>
-                                                    <%var formattedDate = new Date(coupons[i].Expiry).toLocaleDateString('en-GB');%>
-                                                    <div class="col-lg-6 mb-20">
-                                                        <div class="card mb-3 mb-lg-0">
-                                                            <div class="card-header">
-                                                                <h5 class="mb-0"><%=coupons[i].Code%></h5>
-                                                            </div>
-                                                            <div class="card-body">
-                                                                <address><%=coupons[i].Description%></address>
-                                                                <p class="font-sm">Min:₹<%=coupons[i].MinimumAmount%><br>Max:₹<%=coupons[i].MaximumAmount%></p>
-                        
-                                                                <p>Expiry: <%=formattedDate%></p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <%}%>
-                                                <%}%>
-                                            
-                                            
-                                            
-                                        </div>
-                                        <%}%>
-                                       
-                                    </div>
-                                    <!-- <div class="tab-pane fade" id="wallet" role="tabpanel" aria-labelledby="wallet-tab">
-                                        <div class="card">
-                                            <div class="wallet">
-                                             <h2>My Wallet</h2>
-                                                <div class="balance">
-                                                 <p>Current Balance :</p>
-                                            <h3>₹<%=userData[0].wallet%></h3>
-                                        </div>
-                                      </div>
-                                    </div>
-                                </div> -->
-                                    <div class="tab-pane fade" id="address-add" role="tabpanel" aria-labelledby="account-add-tab">
-                                        <div class="card">
-                                            <div class="card-header">
-                                                <h5>Add new Address</h5>
-                                            </div>
-                                            <div class="card-body">
-                                                <form method="post" action="/profile/add-address">
-                                                    <div class="row">
-                                                        <div class="form-group col-md-12">
-                                                            <label>Name <span class="required">*</span></label>
-                                                            <input required="" class="form-control square" name="adname" id="adname" type="text">
-                                                            <p class="error pt-1"></p>
-                                                        </div>
-                                                        <div class="form-group col-md-12">
-                                                            <label>Mobile<span class="required">*</span></label>
-                                                            <input required="" class="form-control square" name="admobile" id="admobile" type="text">
-                                                            <p class="error pt-1"></p>
-                                                        </div>
-                                                        <div class="form-group col-md-12">
-                                                            <label>House Name<span class="required">*</span></label>
-                                                            <input required="" class="form-control square" name="adhname" id="adhname" type="text">
-                                                            <p class="error pt-1"></p>
-                                                        </div>
-                                                        <div class="form-group col-md-12">
-                                                            <label>Area/Streat<span class="required">*</span></label>
-                                                            <input required="" class="form-control square" name="adarea" id="adarea" type="text">
-                                                            <p class="error pt-1"></p>
-                                                        </div>
-                                                        <div class="form-group col-md-12">
-                                                            <label>Town/City<span class="required">*</span></label>
-                                                            <input required="" class="form-control square" name="adcity" id="adcity" type="text">
-                                                            <p class="error pt-1"></p>
-                                                        </div>
-                                                        <div class="form-group col-md-12">
-                                                            <label>State<span class="required">*</span></label>
-                                                            <input required="" class="form-control square" name="adstate" id="adstate" type="text">
-                                                            <p class="error pt-1"></p>
-                                                        </div>
-                                                        <div class="form-group col-md-12">
-                                                            <label>Pincode <span class="required">*</span></label>
-                                                            <input required="" class="form-control square" name="adpin" id="adpin" type="text">
-                                                            <p class="error pt-1"></p>
-                                                        </div>
-                                                        
-                                                     <input type="text"  name="addressId" hidden>
-                                                        <div class="col-md-12 text-center">
-                                                            <button type="submit" class="btn btn-fill-out submit" name="submit" value="Submit" onclick="return checkEditAddressValidity()">Update</button>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
+                                   
                                     <div class="tab-pane fade active show" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                                         <div class="card">
                                             <div class="card-header d-flex">
                                                 <h5 class="mr-80">Account Details</h5>
-                                                <p class="font-sm ml-100">Referral Code :<span style="color:red"><%=userData[0].referral_code%></span></p>
                                             </div>
                                             <div class="card-body">
                                                 <form name="enq">
@@ -544,72 +346,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="tab-pane fade" id="edit-profile" role="tabpanel" aria-labelledby="edit-profile-tab">
-                                        <div class="card">
-                                            <div class="card-header text-center">
-                                                <h5>Edit Profile</h5>
-                                            </div>
-                                            <div class="card-body ml-50">
-                                                <form action="/profile/updateData" method="post" id="edit-form">
-                                                    <div class="row">
-                                                       
-                                                        <div class="form-group col-md-11">
-                                                            <label>Name <span class="required">*</span></label>
-                                                            <input class="form-control square" name="profilename" id="profilename" value="<%=userData[0].Name%>">
-                                                            <p class="error pt-1"></p>
-                                                        </div>
-                                                       
-                                                        <div class="form-group col-md-11 position-relative">
-                                                            <label>Email <span class="required">*</span></label>
-                                                            <input type="text" class="text-grey-4" name="profileemail" placeholder="Email" id="profileemail" value="<%=userData[0].email%>" disabled>
-                                                            <a href="/change-email" type="button" class="btn btn-outline text-danger" style="position: absolute;right: 0;top: 10;color: black;border: none;" >Change</a>
-                                                            
-                                                            
-                                                       
-                                                    </div>
-                                                        
-                                                        <div class="form-group col-md-11">
-                                                            <label>Mobile <span class="required">*</span></label>
-                                                            <input required="" class="form-control square" name="profilemobile" id="profilemobile" type="text" value="<%=userData[0].phone%>">
-                                                            <p class="error pt-1"></p>
-                                                        </div>
-                
-                                                        <div class="col-md-12 text-center">
-                                                            <button type="submit" class="btn btn-fill-out submit" name="submit" value="Submit" onclick="return checkEditProfileValidity()">Update</button>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane fade" id="change-pwd" role="tabpanel" aria-labelledby="change-pwd-tab">
-                                        <div class="card">
-                                            <div class="card-header text-center">
-                                                <h5>Change Password</h5>
-                                            </div>
-                                            <div class="card-body">
-                                                <form method="post" action="/profile/change-pwd">
-                                                    <div class="row">
-                                                        <div class="form-group col-md-12">
-                                                            <label>New Password</label>
-                                                            <input class="form-control square" name="upassword" type="password" id="upassword">
-                                                            <p class="error pt-1"></p>
-                                                        </div>
-                                                        <div class="form-group col-md-12">
-                                                            <label>Confirm Password</label>
-                                                            <input class="form-control square" name="ucpassword" type="password" id="ucpassword">
-                                                            <p class="error pt-1"></p>
-                                                        </div>
-    
-                                        
-                                                        <div class="col-md-12">
-                                                            <button type="submit" class="btn btn-fill-out submit" id="updatepwd" onclick="return checkPwdValidity()">Update</button>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -638,7 +375,7 @@
      
     <%-include("../user-layouts/footer.ejs")%>
     <!-- Preloader Start -->
-    <div id="preloader-active">
+    <!-- <div id="preloader-active">
         <div class="preloader d-flex align-items-center justify-content-center">
             <div class="preloader-inner position-relative">
                 <div class="text-center">
@@ -651,7 +388,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <script>
         let deleteAddressId;
     
