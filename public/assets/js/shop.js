@@ -100,32 +100,7 @@
 
 
 
-
-    // var wishlistBtn = document.getElementById('wishlist-btn');
-    // var isClicked = false; // Flag variable to keep track of the click state
-
-    // wishlistBtn.addEventListener('click', function(event) {
-    //     event.preventDefault();
-
-    //     if (!isClicked) {
-    //         // Change color on the first click
-    //         wishlistBtn.style.backgroundColor = '#088178';
-    //         wishlistBtn.classList.add("clicked")
-    //     } else {
-    //         // Revert to the original color on subsequent clicks
-    //         wishlistBtn.style.backgroundColor = ''; 
-    //         wishlistBtn.classList.remove("clicked")// Empty string means revert to the default color
-    //     }
-
-    //     // Toggle the click state
-    //     isClicked = !isClicked;
-    // });
-
-
-
-
-
-  
+    
 
 
 

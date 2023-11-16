@@ -48,11 +48,12 @@
                         </div>
                         <div class="header-action-right">
                             <div class="search-style-1">
-                                <form action="/search" method="post">
-                                    <input type="text" placeholder="Search for items…" name="searchCriteria">
+                                <form action="/allProducts" method="get">
+                                    <input type="text" placeholder="Search for items…" name="search">
                                     <button type="submit" style="font-size: medium;">Search</button>
                                 </form>
                             </div>
+                                                      
                             <div class="header-action-2">
                                 <div class="header-action-icon-2">
                                     <a href="/wishlist">
@@ -76,7 +77,7 @@
             <li class="dropdown nav-item">
                 <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount" aria-expanded="false"> <img alt="Evara" src="assets/imgs/theme/icons/user.png" width="25" height="25"></a>
                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
-                    <a class="dropdown-item" href="/profile"><i class="material-icons md-perm_identity"></i>My Account</a>
+                    <a class="dropdown-item" href="my/profile"><i class="material-icons md-perm_identity"></i>My Account</a>
                     <div class="dropdown-divider"></div>
                    
                     <!-- <form method="post" id="logoutForm" action="/logout" style="display: inline;">
@@ -271,28 +272,36 @@
         <section class="home-slider position-relative mb-30">
             <div class="container">
                 <div class="home-slide-cover bg-grey-10 mt-30">
+                    
                     <div class="hero-slider-1 style-4 dot-style-1 dot-style-1-position-1">
+                        <%for(let i=0;i<banner.length;i++){%>
                         <div class="single-hero-slider single-animation-wrap">
+                            
                             <div class="container">
-                                <div class="row align-items-center slider-animated-1">
-                                    <div class="col-lg-5 col-md-6">
-                                        <div class="hero-slider-content-2">
-                                            <h4 class="animated">Trade-In Offer</h4>
-                                            <h3 class="animated fw-900">Supper Value Deals</h3>
-                                            <h2 class="animated fw-900 text-brand">On All Products</h2>
-                                            <p class="animated">Save more with coupons & up to 70% off</p>
-                                            <a class="animated btn btn-brush btn-brush-3" href="shop-product-right.html" tabindex="0"> Shop Now </a>
+                                
+                                    <div class="row align-items-center slider-animated-1">
+                                        <div class="col-lg-5 col-md-6">
+                                            <div class="hero-slider-content-2">
+                                                <h4 class="animated"><%=banner[i].h1%></h4>
+                                                <h3 class="animated fw-900"><%=banner[i].h2%></h3>
+                                                <h2 class="animated fw-900 text-brand"><%=banner[i].h3%></h2>
+                                                <p class="animated"><%=banner[i].p1%></p>
+                                                <a class="animated btn btn-brush btn-brush-3" href="/allProducts" tabindex="0"> Shop Now </a>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-7 col-md-6">
+                                            <div class="single-slider-img single-slider-img-1">
+                                                <img class="animated" src="admin/assets/imgs/banner/<%=banner[i].Image%>" alt="">
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-7 col-md-6">
-                                        <div class="single-slider-img single-slider-img-1">
-                                            <img class="animated" src="assets/imgs/slider/slider-6.png" alt="">
-                                        </div>
-                                    </div>
-                                </div>
+                                   
+                               
                             </div>
+                            
                         </div>
-                        <div class="single-hero-slider single-animation-wrap">
+                        <%}%>
+                        <!-- <div class="single-hero-slider single-animation-wrap">
                             <div class="container">
                                 <div class="row align-items-center slider-animated-1">
                                     <div class="col-lg-5 col-md-6">
@@ -311,8 +320,9 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
+                    
                     <div class="slider-arrow hero-slider-1-arrow"></div>
                 </div>
             </div>

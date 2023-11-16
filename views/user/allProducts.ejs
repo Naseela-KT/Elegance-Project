@@ -60,8 +60,8 @@
                     </div>
                     <div class="header-action-right">
                         <div class="search-style-1">
-                            <form id="searchForm">
-                                <input type="text" name="search" placeholder="Search" value="<%= searchQuery %>">
+                            <form action="/allProducts" method="get">
+                                <input type="text" placeholder="Search for items…" name="search">
                                 <button type="submit" style="font-size: medium;">Search</button>
                             </form>
                         </div>
@@ -84,7 +84,7 @@
         <li class="dropdown nav-item">
             <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount" aria-expanded="false"> <img alt="Evara" src="assets/imgs/theme/icons/user.png" width="25" height="25"></a>
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
-                <a class="dropdown-item" href="/profile"><i class="material-icons md-perm_identity"></i>My Account</a>
+                <a class="dropdown-item" href="my/profile"><i class="material-icons md-perm_identity"></i>My Account</a>
                 <div class="dropdown-divider"></div>
                
                 <form id="logoutForm" method="post" action="/logout" style="display: inline;">
@@ -129,16 +129,28 @@
                                 <p> We found <strong class="text-brand" id="product-count"><%=count%></strong> items for you!</p>
                             </div>
                             <div class="sort-by-product-area">
-                                
+                                <div class="search-style-4 mr-10" style="border-radius: 30;">
+                                    <form id="searchForm">
+                                        <input type="text" name="search" placeholder="Search" value="<%= searchQuery %>">
+                                        
+                                    </form>
+                                </div>
                                 <div class="sort-by-cover">
+                                
                                     <div class="sort-by-product-wrap">
                                        
                                         <i class="fi-rs-apps-sort"></i>
-                                        <select name="sort" id="sortSelect"> 
+                                        <!-- <select name="sort" id="sortSelect"> 
                                             <option value="default" <% if(sortOption==='default'){ %>selected<% } %>>Default</option>
                                             <option value="priceLowToHigh" <% if(sortOption==='priceLowToHigh'){ %>selected<% } %>>Price Low to High</option>
                                             <option value="priceHighToLow" <% if(sortOption==='priceHighToLow'){ %>selected<% } %>>Price High to Low</option>
+                                        </select> -->
+                                        <select name="sort" id="sortSelect"> 
+                                            <option value="default" <%= sortOption === 'default' ? 'selected' : '' %>>Default</option>
+                                            <option value="priceLowToHigh" <%= sortOption === 'priceLowToHigh' ? 'selected' : '' %>>Price Low to High</option>
+                                            <option value="priceHighToLow" <%= sortOption === 'priceHighToLow' ? 'selected' : '' %>>Price High to Low</option>
                                         </select>
+                                        
                                       
                                     </div>
                                    
@@ -215,6 +227,7 @@
                 
                     <div class="col-lg-3 primary-sidebar sticky-sidebar">
                         <!-- Add this HTML in your EJS template -->
+                        <a>Clear filters</a>
 <form id="filterForm" method="get">
    
     <div class="widget-category mb-30">
@@ -229,13 +242,32 @@
         </label>
     </li>
     <% } %>
-    <!-- Repeat for other filters -->
+ 
 
                                 
                                
                                
 </ul>
 </div>
+<!-- <div class="widget-category mb-30">
+    <div >
+        <span> <h5 class="section-title style-1 mb-30 wow fadeIn animated">Brand <a href="#coupon" data-bs-toggle="collapse" class="collapsed" aria-expanded="false">Click</a></h5></span>
+    </div>
+    <div class="panel-collapse collapse coupon_form " id="coupon">
+        <ul class="categories">
+            
+            <% for(let i=0; i < brand.length; i++) { %>
+                <li>
+                <label>
+                    <input type="checkbox" class="form-check-input" name="brands" value="<%= brand[i].brandName %>" <% if(filterBrands.includes(brand[i].brandName)){ %>checked<% } %>>
+                    <%= brand[i].brandName %>
+                </label>
+            </li>
+            <% } %>                        
+                                       
+        </ul>
+    </div>
+</div> -->
 <div class="widget-category mb-30">
     <h5 class="section-title style-1 mb-30 wow fadeIn animated">Category</h5>
     <ul class="categories">
@@ -370,20 +402,58 @@
         });
 
 
-     
-        const filterForm = document.getElementById('filterForm');
-
-filterForm.addEventListener('submit', function (event) {
+        filterForm.addEventListener('submit', function (event) {
     event.preventDefault();
     
     const formData = new FormData(filterForm);
     const params = new URLSearchParams(formData);
 
     const currentUrl = new URL(window.location.href);
+
+    // Remove existing filter parameters
+    currentUrl.searchParams.forEach((value, key) => {
+        currentUrl.searchParams.delete(key);
+    });
+
+    // Append the new filter parameters
     currentUrl.search = `${currentUrl.search ? currentUrl.search + '&' : ''}${params.toString()}`;
 
     window.location.href = currentUrl.toString();
 });
+
+//     const filterForm = document.getElementById('filterForm');
+
+// filterForm.addEventListener('submit', function (event) {
+//     event.preventDefault();
+    
+//     const formData = new FormData(filterForm);
+//     const params = new URLSearchParams(formData);
+
+//     const currentUrl = new URL(window.location.href);
+//     currentUrl.search = `${currentUrl.search ? currentUrl.search + '&' : ''}${params.toString()}`;
+
+//     window.location.href = currentUrl.toString();
+// });
+
+// const filterForm = document.getElementById('filterForm');
+
+// filterForm.addEventListener('submit', function (event) {
+//     event.preventDefault();
+
+//     const formData = new FormData(filterForm);
+//     const params = new URLSearchParams(formData);
+
+//     const currentUrl = new URL(window.location.href);
+
+//     // Remove existing parameters
+//     currentUrl.search = '';
+
+//     // Add new parameters
+//     currentUrl.search = params.toString();
+
+//     window.location.href = currentUrl.toString();
+// });
+
 
 
    

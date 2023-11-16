@@ -6,6 +6,7 @@ const Products=require("../models/product")
 const Brand=require("../models/brands")
 const Order=require("../models/order")
 const Coupon=require("../models/coupon")
+const Banner=require("../models/banner")
 const jwt = require('jsonwebtoken');
 const { updateOrderStatus } = require("./orderController")
 require('dotenv').config();
@@ -330,8 +331,9 @@ const loadHome=async(req,res)=>{
         const quantity=await totalQuantity(req,res)
         const brands=await Brand.find({})
         const products=await Products.find({})
+        const banner=await Banner.find({})
         if(products){
-            res.render("index",{products:products,brands:brands,quantity:quantity,men:menProducts,women:womenProducts,userData:user})
+            res.render("index",{products:products,brands:brands,quantity:quantity,men:menProducts,women:womenProducts,userData:user,banner:banner})
         }
     }catch(error){
         console.log(error.message)

@@ -17,6 +17,8 @@ const categoryController=require("../controllers/categoryController")
 const couponController=require("../controllers/couponController")
 const orderController=require("../controllers/orderController")
 const productController=require("../controllers/productController")
+const bannerController=require("../controllers/bannerController")
+
 
 admin_route.set("view engine","ejs");
 admin_route.set("views","./views/admin")
@@ -52,7 +54,18 @@ const prodstorage = multer.diskStorage({
   }
 });
 
+
+const bannerstorage=multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, path.join(__dirname,"../public/admin/assets/imgs/banner"));
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + '-' + file.originalname);
+  }
+});
+
 const produpload = multer({ storage: prodstorage });
+const bannerupload=multer({ storage: bannerstorage });
 admin_route.use(cookieparser())
 const nocache = require('nocache')
 admin_route.use(nocache())
@@ -130,7 +143,11 @@ admin_route.post("/sales-report/:time",validate.requireAuth,adminController.sale
 admin_route.post("/fetchData/:time",validate.requireAuth,adminController.fetchGraphData)
 
 
-
-
+//banner
+admin_route.get("/banner",validate.requireAuth,bannerController.loadBanner)
+admin_route.post("/banner",upload.single('image'),validate.requireAuth,bannerController.addBanner)
+admin_route.get("/editBanner",validate.requireAuth,bannerController.loadEditBanner)
+admin_route.put("/editBanner",upload.single('image'),validate.requireAuth,bannerController.updateBanner)
+admin_route.delete("/deleteBanner",validate.requireAuth,bannerController.deleteBanner)
 
 module.exports=admin_route
