@@ -31,40 +31,6 @@ const setError = (element, message) => {
 
 
 
-productNameInput.addEventListener('input', () => {
-    validateProductName();
-});
-
-descriptionInput.addEventListener('input', () => {
-    validateDescription();
-});
-
-colorInput.addEventListener('input', () => {
-    validateColor();
-});
-
-sizeInputs.forEach((sizeInput, index) => {
-    const stockInput = stockInputs[index];
-    sizeInput.addEventListener('input', function() {
-        validateSizeAndStock(sizeInput, stockInput);
-    });
-    stockInput.addEventListener('input', function() {
-        validateSizeAndStock(sizeInput, stockInput);
-    });
-});
-
-regularPriceInput.addEventListener('input', () => {
-    validateRegularPrice();
-});
-
-salePriceInput.addEventListener('input', () => {
-    validateSalePrice();
-});
-
-imageInput.addEventListener('change', function() {
-    validateImages(imageInput);
-});
-
 
 
 const validateProductName = () => {
@@ -78,6 +44,7 @@ const validateProductName = () => {
 };
 
 const validateDescription = () => {
+    console.log("hello");
     const description = descriptionInput.value.trim();
     if (description.length < 1) {
         setError(descriptionInput, 'Description cannot be empty');
@@ -140,19 +107,36 @@ function validateSalePrice(){
     return true;
 };
 
-function validateImages(input) {
+function validateUpdateImages(input,length) {
     console.log('Validating images');
     
     const files = input.files;
     console.log('Number of selected files:', files.length);
-    if (files.length < 1 || !files) {
-        setError(input, 'Please select at least one image');
+    if (length < 3) {
+        setError(input, 'Please select image to make it 3');
         return false;
     } else {
         setSuccess(input);
         return true;
     }
 }
+
+function validateImages(input){
+    console.log('Validating images');
+    
+    const files = input.files;
+    console.log('Number of selected files:', files.length);
+    if (files.length< 1 || (!files)) {
+        setError(input, 'Please select image to make it 3');
+        return false;
+    } else {
+        setSuccess(input);
+        return true;
+    }
+}
+
+
+
 
 const validateInputs = () => {
     const regularPrice = parseFloat(regularPriceInput.value.trim());
@@ -166,13 +150,97 @@ const validateInputs = () => {
         validateProductName() &&
         validateDescription() &&
         validateColor() &&
-        // validateSizeAndStock() &&
-        validateBrand() &&
-        validateCategory() &&
         validateRegularPrice() &&
         validateSalePrice() &&
         validateImages(imageInput)
     );
 };
+
+
+const validateEditInputs = (imagelength) => {
+    const regularPrice = parseFloat(regularPriceInput.value.trim());
+    const salePrice = parseFloat(salePriceInput.value.trim());
+
+    if (salePrice > regularPrice) {
+        setError(salePriceInput, 'Sale price must be less than or equal to regular price');
+        return false;
+    }
+    return (
+        validateProductName() &&
+        validateDescription() &&
+        validateColor() &&
+        validateRegularPrice() &&
+        validateSalePrice() &&
+        validateUpdateImages(imageInput,imagelength)
+    );
+};
+
+
+productNameInput.addEventListener('input', () => {
+    validateProductName();
+});
+
+descriptionInput.addEventListener('input', () => {
+    validateDescription();
+});
+
+colorInput.addEventListener('input', () => {
+    validateColor();
+});
+
+sizeInputs.forEach((sizeInput, index) => {
+    const stockInput = stockInputs[index];
+    sizeInput.addEventListener('input', function() {
+        validateSizeAndStock(sizeInput, stockInput);
+    });
+    stockInput.addEventListener('input', function() {
+        validateSizeAndStock(sizeInput, stockInput);
+    });
+});
+
+regularPriceInput.addEventListener('input', () => {
+    validateRegularPrice();
+});
+
+salePriceInput.addEventListener('input', () => {
+    validateSalePrice();
+});
+
+imageInput.addEventListener('change', function() {
+    validateImages(imageInput);
+});
+
+
+
+function addSizeStockField() {
+          
+    var container = document.getElementById("sizeStockContainer");
+    var clonedFields = container.lastElementChild.cloneNode(true);
+    clonedFields.querySelectorAll('input').forEach(function(input) {
+    input.value = '';
+});
+
+container.appendChild(clonedFields);
+}
+
+function updateProduct(productId,imagelength) {
+    console.log(imagelength);
+var formData = new FormData(document.getElementById("productForm"));
+if(validateEditInputs(imagelength)){
+    fetch(`/admin/products/edit`, {
+        method: 'PUT',
+        body: formData,
+    })
+        .then(response => response.json())
+        .then(data => {
+            window.location.href = '/admin/products';
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            window.location.href = `/admin/products/edit?productId=${productId}`;
+            // Handle error, e.g., show an error message
+        });
+}
+}
 
 

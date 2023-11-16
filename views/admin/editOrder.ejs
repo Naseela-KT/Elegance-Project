@@ -149,7 +149,8 @@
                                 </div>
                                 <div class="col-lg-4">
                                 <input type="hidden" name="id" value="<%= order[0]._id%>">
-                                <button type="submit" class="btn font-sm rounded btn-brand mt-30" onclick="changeStatus('<%=order[0]._id%>')">Update</button>
+                                <button type="button" class="btn font-sm rounded btn-brand mt-30" data-toggle="modal" data-target="#deleteModal" onclick="changeStatus('<%=order[0]._id%>')">Update</button>
+
                             </div>
                             </div>
                             

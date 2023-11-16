@@ -177,10 +177,11 @@ const updateProduct = async (req, res) => {
             }
         );
 
-        if (product) {
-            return res.redirect(`/admin/products/edit/${id}`);
+
+        if (product.modifiedCount>0) {
+            return res.json({product});
         } else {
-            return res.status(404).send('Product not found or not updated.');
+            return res.status(200).send('Product not found or not updated.');
         }
     } catch (error) {
         console.error(error);
