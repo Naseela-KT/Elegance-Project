@@ -19,6 +19,11 @@ app.use(express.json());
 
 app.use("/admin",adminRoute)
 app.use("/",userRoute)
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Something went wrong!');
+});
+
 
 app.listen(PORT, () => {
     console.log(`Server Started on http://localhost:${PORT}/home\nhttp://localhost:${PORT}/admin/dashboard`);
