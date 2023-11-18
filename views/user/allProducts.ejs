@@ -10,7 +10,38 @@
 }
 
 
-    </style>
+ 
+        /* Add your CSS styles for the toast message here */
+        .toast {
+          position: fixed;
+          top: 0;
+          right: 20px;
+          background-color: #4CAF50;
+          color: white;
+          padding: 15px;
+          border-radius: 5px;
+          display: none;
+          animation: jumpIn 1s ease-out;
+
+          align-items: center;
+        }
+    
+        .toast img {
+          width: 40px;
+          height: 40px;
+          margin-right: 10px;
+          border-radius: 50%;
+        }
+    
+        @keyframes jumpIn {
+    0% { top: -50px; opacity: 0; }
+    60% { top: 0; }
+    100% { top: 0; opacity: 1; }
+}
+    
+        /* Your navbar styles here */
+    
+      </style>
     <script>
         function handlePageLinkClick(page) {
     // event.preventDefault();
@@ -58,6 +89,7 @@
                             </ul>
                         </nav>
                     </div>
+                    
                     <div class="header-action-right">
                         <div class="search-style-1">
                             <form action="/allProducts" method="get">
@@ -107,7 +139,9 @@
 </div>
 </div>
 </div>
+<div id="toast" class="toast"></div>
 </div>
+
 </header>
 
     
@@ -188,7 +222,9 @@
                                         <div class="product-action-1 show">
                                           
                                                 
-                                             <a aria-label="Wishlist" id="wishlist-button" class="action-btn" href="" data-product-id="<%=products[i]._id%>"><i class="fi-rs-heart"></i>Add to Wishlist</a>
+                                             <a aria-label="Wishlist" id="wishlist-button" class="action-btn" href="" data-product-id="<%=products[i]._id%>" data-image-url="<%=products[i].images[0].url%>"><i class="fi-rs-heart"></i>Add to Wishlist</a>
+                                             
+                                              
                                           
                                            
                                           
@@ -460,25 +496,41 @@
     $(document).on('click', '#wishlist-button', function(event) {
         event.preventDefault(); 
         var productId = $(this).data('product-id');
+        var imageUrl=$(this).data('image-url')
+        var toastElement = $('#toast');
         
          $.ajax({
             url: '/wishlist-add',
             method: 'POST',
             data: { productId: productId },
             success: function(response) {
-                Swal.fire({
-                        icon: 'success',
-                        title: "Product Added", 
-                        text: response.message,  
-                        confirmButtonText: "Close", 
-                        customClass: 'small-swal'
-                      });
+                // Swal.fire({
+                //         icon: 'success',
+                //         title: "Product Added", 
+                //         text: response.message,  
+                //         confirmButtonText: "Close", 
+                //         customClass: 'small-swal'
+                //       });
+                console.log("hey");
+                toastElement.html(`
+                <img src="admin/assets/imgs/products/${imageUrl}" alt="Product Image">
+                <span>${response.message}</span>
+            `);
+            toastElement.css('display', 'flex');
+            setTimeout(() => {
+                toastElement.css('display', 'none');
+            }, 1000);
             },
             error: function(error) {
             }
     });
     });
-   
+
+
+
+
+
+
     
 });
 

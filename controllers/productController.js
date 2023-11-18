@@ -128,7 +128,7 @@ const deleteImage = async (req, res) => {
         }
         product.images = product.images.filter(image => image._id.toString() !== imgId);
         await product.save();
-        res.redirect(`/admin/products/edit/${product._id}`);
+        res.redirect(`/admin/products/edit?productId=${product._id}`);
     } catch (error) {
         console.error(error.message);
         res.status(500).render('error', { message: 'Internal Server Error' });
@@ -139,26 +139,89 @@ const deleteImage = async (req, res) => {
 
 
 
+// const updateProduct = async (req, res) => {
+//     try {
+//         const newimages = req.files.map(file => {
+//             return { url: file.filename };
+//         });
+//         const colors = req.body.prodcolor.split(",");
+//         const sizes = req.body.sizes;
+//         const stocks = req.body.stocks;
+//         const sizeObjects = [];
+//         for (let i = 0; i < sizes.length; i++) {
+//             const sizeObject = {
+//             size: sizes[i],
+//             stock: parseInt(stocks[i]) || 0 
+//             };
+//             sizeObjects.push(sizeObject);
+//         }
+//         const id = req.body.id;
+
+//         const existingProduct=await Products.findOne({_id:id})
+//         existingProduct.images=[...existingProduct.images,...newimages]
+//         const product = await Products.updateOne(
+//             { _id: id },
+//             {
+//                 $set: {
+//                     productName: req.body.prodname,
+//                     description: req.body.proddesc,
+//                     color: colors,
+//                     sizes: sizeObjects,
+//                     brand: req.body.prodbrand,
+//                     category: req.body.prodcategory,
+//                     regularPrice: req.body.prodregprice,
+//                     salePrice: req.body.prodsprice,
+//                     images: existingProduct.images,
+//                     gender:req.body.gender,
+//                 }
+//             }
+//         );
+
+
+//         if (product.modifiedCount>0) {
+//             return res.json({product});
+//         } else {
+//             return res.status(200).send('Product not found or not updated.');
+//         }
+//     } catch (error) {
+//         console.error(error);
+//         return res.status(500).send('Internal Server Error');
+//     }
+// };
+
+
 const updateProduct = async (req, res) => {
     try {
-        const newimages = req.files.map(file => {
-            return { url: file.filename };
-        });
         const colors = req.body.prodcolor.split(",");
         const sizes = req.body.sizes;
         const stocks = req.body.stocks;
         const sizeObjects = [];
         for (let i = 0; i < sizes.length; i++) {
             const sizeObject = {
-            size: sizes[i],
-            stock: parseInt(stocks[i]) || 0 
+                size: sizes[i],
+                stock: parseInt(stocks[i]) || 0
             };
             sizeObjects.push(sizeObject);
         }
         const id = req.body.id;
 
-        const existingProduct=await Products.findOne({_id:id})
-        existingProduct.images=[...existingProduct.images,...newimages]
+        const existingProduct = await Products.findOne({ _id: id });
+
+        // Process new images using sharp
+        for (let file of req.files) {
+            const filepath = file.path;
+            const randomInteger = Math.floor(Math.random() * 20000001);
+            const imageDirectory = path.join(__dirname, "../public/admin/assets/imgs/products");
+            let imgFileName = "cropped" + randomInteger + ".jpg";
+            let imagePath = path.join(imageDirectory, imgFileName);
+            await sharp(filepath)
+                .resize(780, 1000, {
+                    fit: "fill",
+                })
+                .toFile(imagePath);
+            existingProduct.images.push({ url: imgFileName });
+        }
+
         const product = await Products.updateOne(
             { _id: id },
             {
@@ -172,14 +235,13 @@ const updateProduct = async (req, res) => {
                     regularPrice: req.body.prodregprice,
                     salePrice: req.body.prodsprice,
                     images: existingProduct.images,
-                    gender:req.body.gender,
+                    gender: req.body.gender,
                 }
             }
         );
 
-
-        if (product.modifiedCount>0) {
-            return res.json({product});
+        if (product.modifiedCount > 0) {
+            return res.json({ product });
         } else {
             return res.status(200).send('Product not found or not updated.');
         }

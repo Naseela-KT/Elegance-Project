@@ -1,10 +1,13 @@
 const mongoose=require("mongoose");
-mongoose.connect("mongodb://127.0.0.1:27017/ecom")
-
 require('dotenv').config(); 
 const express=require("express")
-const morgan=require("morgan")
+// const morgan=require("morgan")
 const app=express()
+
+mongoose.set('strictQuery', true);
+mongoose.connect("mongodb+srv://naslalellu:IjEHbIdAYLgcPeJW@elegance-db.37x8mgx.mongodb.net/ecom?retryWrites=true&w=majority")
+
+
 
 
 const PORT = process.env.PORT || 3000; // Use port from .env file or default to 3000

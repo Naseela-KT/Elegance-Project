@@ -107,19 +107,19 @@ function validateSalePrice(){
     return true;
 };
 
-function validateUpdateImages(input,length) {
-    console.log('Validating images');
+// function validateUpdateImages(input,length) {
+//     console.log('Validating images');
     
-    const files = input.files;
-    console.log('Number of selected files:', files.length);
-    if (length < 3) {
-        setError(input, 'Please select image to make it 3');
-        return false;
-    } else {
-        setSuccess(input);
-        return true;
-    }
-}
+//     const files = input.files;
+//     console.log('Number of selected files:', files.length);
+//     if (length < 3) {
+//         setError(input, 'Please select image to make it 3');
+//         return false;
+//     } else {
+//         setSuccess(input);
+//         return true;
+//     }
+// }
 
 function validateImages(input){
     console.log('Validating images');
@@ -151,7 +151,7 @@ const validateInputs = () => {
         validateDescription() &&
         validateColor() &&
         validateRegularPrice() &&
-        validateSalePrice() &&
+        validateSalePrice()&&
         validateImages(imageInput)
     );
 };
@@ -170,8 +170,8 @@ const validateEditInputs = (imagelength) => {
         validateDescription() &&
         validateColor() &&
         validateRegularPrice() &&
-        validateSalePrice() &&
-        validateUpdateImages(imageInput,imagelength)
+        validateSalePrice() 
+        // validateUpdateImages(imageInput,imagelength)
     );
 };
 
