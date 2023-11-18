@@ -162,7 +162,7 @@ const securePassword=async(password)=>{
 const loadLogin=async(req,res)=>{
     try{
         if(res.locals.user!=null){
-            res.redirect('/home')
+            res.redirect('/')
         }else{
             res.render('user-login')
         }
@@ -227,7 +227,7 @@ const insertUser=async(req,res)=>{
                     const token = createToken(userData._id);
                     
                     res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
-                    res.redirect("/home");
+                    res.redirect("/");
                 }else{
                 res.redirect("/register")
                 }
@@ -254,7 +254,7 @@ const insertUser=async(req,res)=>{
                 const token = createToken(userData._id);
                 
                 res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
-                res.redirect("/home");
+                res.redirect("/");
             }else{
             res.redirect("/register")
             }
@@ -304,7 +304,7 @@ const verifyUser = async (req, res) => {
                     const token = createToken(userData._id);
                     req.session.user = userData._id;
                     res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
-                    return res.redirect("/home");
+                    return res.redirect("/");
                 } else {
                     res.status(403).render("user-login", { message: "Your account has been blocked by the admin." });
                 }

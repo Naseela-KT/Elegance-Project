@@ -609,7 +609,7 @@ const loadProductDetails=async(req,res)=>{
         if(product){
             res.render("product-details",{product:product,userData:user,quantity:quantity})
         }else {
-            res.redirect("/home");
+            res.redirect("/");
         }
     }catch(error){
         console.log(error.message);

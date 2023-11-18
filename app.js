@@ -10,7 +10,7 @@ mongoose.connect("mongodb+srv://naslalellu:IjEHbIdAYLgcPeJW@elegance-db.37x8mgx.
 
 
 
-const PORT = process.env.PORT || 3000; // Use port from .env file or default to 3000
+const PORT = process.env.PORT || 3000;
 
 const adminRoute=require("./routes/adminRoute")
 const userRoute = require("./routes/userRoute")

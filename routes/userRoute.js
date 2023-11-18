@@ -60,7 +60,7 @@ user_route.get("/reset-password",userController.loadReset)
 user_route.post("/reset-password",userController.resetpwd)
 
 //home
-user_route.get("/home",validate.requireAuth,userController.loadHome)
+user_route.get("/",validate.requireAuth,userController.loadHome)
 
 
 
