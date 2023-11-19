@@ -174,7 +174,9 @@ const downloadInvoice=async(req,res)=>{
         // res.setHeader('Content-Disposition', 'attachment; filename=invoice.pdf');
         // res.setHeader('Content-Type', 'application/pdf');
         // res.send(pdfBuffer);
-        const browser = await puppeteer.launch({headless: 'new'});
+        const browser = await puppeteer.launch({headless: 'new',
+            executablePath: '/home/ubuntu/.cache/puppeteer/chrome',
+          });
        const page = await browser.newPage();
        await page.setContent(html);
        const pdfBuffer = await page.pdf();
