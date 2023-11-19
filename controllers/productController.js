@@ -617,111 +617,6 @@ const submitReview=async(req,res)=>{
     }
 }
 
-const allProductsFilter=async(req,res)=>{
-    try{
-        const brands = req.body.brands;
-        const categories = req.body.categories;
-        const color = req.body.colors;
-        const size = req.body.sizes;
-        const query = {};
-
-        // Check if brands, categories, colors, and sizes are arrays and add to the query if they exist
-        if (Array.isArray(brands) && brands.length > 0) {
-            query.brand = { $in: brands };
-        }
-
-        if (Array.isArray(categories) && categories.length > 0) {
-            query.category = { $in: categories };
-        }
-
-        if (Array.isArray(color) && color.length > 0) {
-            query.color = { $in: color };
-        }
-
-        if (Array.isArray(size) && size.length > 0) {
-            query['sizes.size'] = { $in: size };
-        }
-        const products = await Products.find(query)
-        res.json({products:products})
-        
-       
-    }catch(error){
-        console.log(error.message);
-        res.status(500).render('error', { message: 'Internal Server Error' });
-    }
-}
-
-const menProductsFilter=async(req,res)=>{
-    try{
-        const brands = req.body.brands;
-        const categories = req.body.categories;
-        const color = req.body.colors;
-        const size = req.body.sizes;
-
-        const query = {};
-
-        // Check if brands, categories, colors, and sizes are arrays and add to the query if they exist
-        if (Array.isArray(brands) && brands.length > 0) {
-            query.brand = { $in: brands };
-        }
-
-        if (Array.isArray(categories) && categories.length > 0) {
-            query.category = { $in: categories };
-        }
-
-        if (Array.isArray(colors) && colors.length > 0) {
-            query.color = { $in: color };
-        }
-
-        if (Array.isArray(sizes) && sizes.length > 0) {
-            query['Sizes.size'] = { $in: size };
-        }
-        query.gender = 'Male';
-
-        const products = await Products.find(query)
-        res.json({products:products})
-    }catch(error){
-        console.log(error.message);
-        res.status(500).render('error', { message: 'Internal Server Error' });
-    }
-}
-
-
-const womenProductsFilter=async(req,res)=>{
-    try{
-        const brands = req.body.brands;
-        const categories = req.body.categories;
-        const color = req.body.colors;
-        const size = req.body.sizes;
-
-        const query = {};
-
-        // Check if brands, categories, colors, and sizes are arrays and add to the query if they exist
-        if (Array.isArray(brands) && brands.length > 0) {
-            query.brand = { $in: brands };
-        }
-
-        if (Array.isArray(categories) && categories.length > 0) {
-            query.category = { $in: categories };
-        }
-
-        if (Array.isArray(colors) && colors.length > 0) {
-            query.color = { $in: color };
-        }
-
-        if (Array.isArray(sizes) && sizes.length > 0) {
-            query['Sizes.size'] = { $in: size };
-        }
-        query.gender = 'Female';
-
-        const products = await Products.find(query)
-        res.json({products:products})
-    }catch(error){
-        console.log(error.message);
-        res.status(500).render('error', { message: 'Internal Server Error' });
-    }
-}
-
 
 const loadSearch=async(req,res)=>{
     const page = parseInt(req.query.page) || 1;
@@ -832,9 +727,6 @@ module.exports={
     loadWomenProducts,
     loadProductDetails,
     submitReview,
-    allProductsFilter,
-    menProductsFilter,
-    womenProductsFilter,
     loadSearch,
     searchFilter
 }

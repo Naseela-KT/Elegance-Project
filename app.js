@@ -4,13 +4,12 @@ const express=require("express")
 // const morgan=require("morgan")
 const app=express()
 
-mongoose.set('strictQuery', true);
 mongoose.connect("mongodb+srv://naslalellu:IjEHbIdAYLgcPeJW@elegance-db.37x8mgx.mongodb.net/ecom?retryWrites=true&w=majority")
 
 
 
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT
 
 const adminRoute=require("./routes/adminRoute")
 const userRoute = require("./routes/userRoute")

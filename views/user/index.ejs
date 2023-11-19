@@ -1,8 +1,41 @@
 ﻿<%-include("../user-layouts/header")%>
     <!-- Favicon -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+ 
     <link rel="shortcut icon" type="image/x-icon" href="/assets/imgs/theme/favicon.svg">
     <!-- Template CSS -->
     <link rel="stylesheet" href="/assets/css/main.css">
+    <style>
+        
+        /* Add your CSS styles for the toast message here */
+
+        .toast {
+          position: fixed;
+          top: 0;
+          right: 20px;
+          background-color: #0c7856;
+          color: white;
+          padding: 10px;
+          border-radius: 5px;
+          display: none;
+          animation: jumpIn 1s ease-out;
+         width: 250px;
+          align-items: center;
+        }
+    
+        .toast img {
+          width: 40px;
+          height: 40px;
+          margin-right: 10px;
+          border-radius: 50%;
+        }
+    
+        @keyframes jumpIn {
+    0% { top: -50px; opacity: 0; }
+    60% { top: 0; }
+    100% { top: 0; opacity: 1; }
+}
+    </style>
 </head>
 
 <body>
@@ -107,6 +140,12 @@
     </div>
 </div>
 </div>
+</div>
+<div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-body d-flex">
+        <img src="" alt="Product Image" class="mr-2">
+        <span></span>
+    </div>
 </div>
 </div>
 </header>
@@ -438,7 +477,7 @@
                                                         </div>
                                                         <div class="product-action-1 show">
                                                             
-                                                            <a aria-label="Add To Wishlist" class="action-btn hover-up" href="" type="button" id="wishlist-btn"><i class="fi-rs-heart"></i></a>
+                                                            <a aria-label="Add To Wishlist" class="action-btn" href="" type="button" id="wishlist-button" data-product-id="<%=products[i]._id%>" data-image-url="<%=products[i].images[0].url%>"><i class="fi-rs-heart"></i></a>
                                                             
                                                         </div>
                                                     </div>
@@ -959,6 +998,10 @@
         </div>
     </div>
     <!-- Vendor JS-->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
     <script src="assets/js/vendor/modernizr-3.6.0.min.js"></script>
     <script src="assets/js/vendor/jquery-3.6.0.min.js"></script>
     <script src="assets/js/vendor/jquery-migrate-3.3.0.min.js"></script>
@@ -982,6 +1025,31 @@
     <!-- Template  JS -->
     <script src="assets/js/main.js"></script>
     <script src="assets/js/shop.js"></script>
+    <script>
+        
+    $(document).on('click', '#wishlist-button', function(event) {
+    event.preventDefault(); 
+    var productId = $(this).data('product-id');
+    var imageUrl = $(this).data('image-url');
+    $.ajax({
+        url: '/wishlist-add',
+        method: 'POST',
+        data: { productId: productId },
+        success: function(response) {
+            // Trigger Bootstrap toast
+            $('.toast').toast({
+                delay: 2000, // Adjust the delay as needed
+            });
+            $('.toast-body img').attr('src', 'admin/assets/imgs/products/' + imageUrl);
+            $('.toast-body span').text(response.message);
+            $('.toast').toast('show');
+        },
+        error: function(error) {
+            // Handle error
+        }
+    });
+});
+    </script>
 </body>
 
 

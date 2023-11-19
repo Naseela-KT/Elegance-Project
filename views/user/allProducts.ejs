@@ -1,13 +1,14 @@
 ﻿<%-include("../user-layouts/header")%>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="/assets/imgs/theme/favicon.svg">
     <!-- Template CSS -->
     <link rel="stylesheet" href="assets/css/main.css">
+    
+    <!-- Add these links to your HTML file -->
+
     <style>
-        .small-swal {
-    max-width: 20em;
-    font-size: 0.8rem; /* Adjust the font size as needed */
-}
+     
 
 
  
@@ -16,9 +17,9 @@
           position: fixed;
           top: 0;
           right: 20px;
-          background-color: #4CAF50;
+          background-color: #0c7856;
           color: white;
-          padding: 15px;
+          padding: 10px;
           border-radius: 5px;
           display: none;
           animation: jumpIn 1s ease-out;
@@ -151,7 +152,12 @@
 </div>
 </div>
 </div>
-<div id="toast" class="toast"></div>
+<div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-body d-flex">
+        <img src="" alt="Product Image" class="mr-2">
+        <span></span>
+    </div>
+</div>
 </div>
 
 </header>
@@ -407,6 +413,11 @@
     </div>
     
     <!-- Vendor JS-->
+    
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
     <script src="assets/js/vendor/modernizr-3.6.0.min.js"></script>
     <script src="assets/js/vendor/jquery-3.6.0.min.js"></script>
     <script src="assets/js/vendor/jquery-migrate-3.3.0.min.js"></script>
@@ -475,74 +486,31 @@
     window.location.href = currentUrl.toString();
 });
 
-//     const filterForm = document.getElementById('filterForm');
-
-// filterForm.addEventListener('submit', function (event) {
-//     event.preventDefault();
-    
-//     const formData = new FormData(filterForm);
-//     const params = new URLSearchParams(formData);
-
-//     const currentUrl = new URL(window.location.href);
-//     currentUrl.search = `${currentUrl.search ? currentUrl.search + '&' : ''}${params.toString()}`;
-
-//     window.location.href = currentUrl.toString();
-// });
-
-// const filterForm = document.getElementById('filterForm');
-
-// filterForm.addEventListener('submit', function (event) {
-//     event.preventDefault();
-
-//     const formData = new FormData(filterForm);
-//     const params = new URLSearchParams(formData);
-
-//     const currentUrl = new URL(window.location.href);
-
-//     // Remove existing parameters
-//     currentUrl.search = '';
-
-//     // Add new parameters
-//     currentUrl.search = params.toString();
-
-//     window.location.href = currentUrl.toString();
-// });
 
 
-
-   
     $(document).on('click', '#wishlist-button', function(event) {
-        event.preventDefault(); 
-        var productId = $(this).data('product-id');
-        var imageUrl=$(this).data('image-url')
-        var toastElement = $('#toast');
-        
-         $.ajax({
-            url: '/wishlist-add',
-            method: 'POST',
-            data: { productId: productId },
-            success: function(response) {
-                // Swal.fire({
-                //         icon: 'success',
-                //         title: "Product Added", 
-                //         text: response.message,  
-                //         confirmButtonText: "Close", 
-                //         customClass: 'small-swal'
-                //       });
-                console.log("hey");
-                toastElement.html(`
-                <img src="admin/assets/imgs/products/${imageUrl}" alt="Product Image">
-                <span>${response.message}</span>
-            `);
-            toastElement.css('display', 'flex');
-            setTimeout(() => {
-                toastElement.css('display', 'none');
-            }, 1000);
-            },
-            error: function(error) {
-            }
+    event.preventDefault(); 
+    var productId = $(this).data('product-id');
+    var imageUrl = $(this).data('image-url');
+    
+    $.ajax({
+        url: '/wishlist-add',
+        method: 'POST',
+        data: { productId: productId },
+        success: function(response) {
+            // Trigger Bootstrap toast
+            $('.toast').toast({
+                delay: 2000, // Adjust the delay as needed
+            });
+            $('.toast-body img').attr('src', 'admin/assets/imgs/products/' + imageUrl);
+            $('.toast-body span').text(response.message);
+            $('.toast').toast('show');
+        },
+        error: function(error) {
+            // Handle error
+        }
     });
-    });
+});
 
 
 

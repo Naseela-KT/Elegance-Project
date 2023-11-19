@@ -560,24 +560,7 @@ const deleteWishlistItem=async(req,res)=>{
 }
 
 
-//PROFILE
-const loadProfile=async(req,res)=>{
-    try{
-        const user_id = res.locals.user._id;
-        const quantity=await totalQuantity(req,res)
-        const user=await User.find({_id:user_id})
-        const orders=await Order.find({customerId:user_id})
-        const coupons=await Coupon.find({})
-        const transactionDetails=user[0].transactionDetails
-        if(user){
-            res.render("profile",{userData:user,quantity:quantity,orders:orders,coupons:coupons,transaction:transactionDetails})
-        }
-        
-    }catch(error){
-        console.log(error.message);
-        return res.status(500).json({ message: 'Internal Server Error' }); 
-    }
-}
+
 
 const updateProfile=async(req,res)=>{
     try{
@@ -589,7 +572,7 @@ const updateProfile=async(req,res)=>{
                 phone:req.body.profilemobile
             }});
             if(updateData){
-                res.redirect("/profile");
+                res.redirect("/my/profile");
             }
         }
     }catch(error){
@@ -607,7 +590,7 @@ const changePassword=async(req,res)=>{
             password:newpassword
         }})
         if(updatePwd){
-            res.redirect("/profile");
+            res.redirect("/my/profile");
         }
         
     }catch(error){
@@ -631,7 +614,7 @@ const addAddress=async(req,res)=>{
             }
         }})
         if(address){
-            res.redirect("/profile");
+            res.redirect("/my/profile");
         }
     }catch(error){
         console.log(error.message);
@@ -671,9 +654,9 @@ const updateAddress=async(req,res)=>{
             );
     
             if (user) {
-                res.redirect('/profile')
+                res.redirect('/my/profile')
             }else{
-                res.redirect('/profile')
+                res.redirect('/my/profile')
             }
     
             
@@ -690,7 +673,7 @@ const deleteAddress=async(req,res)=>{
         if (user) {
             user.address.pull(req.query.addressid);
             await user.save();
-            res.redirect("/profile");
+            res.redirect("/my/profile");
         } else {
             res.status(404).send("User not found"); // Handle the case where the user is not found
         }
@@ -724,7 +707,7 @@ const updateEmail=async(req,res)=>{
         if(verified){
             const updateEmail=await User.findOneAndUpdate({_id:user_id},{$set:{email:email}});
             if(updateEmail){
-                res.redirect("/profile");
+                res.redirect("/my/profile");
             }
         }
     }catch(error){
@@ -1098,13 +1081,7 @@ const loadReferrals=async(req,res)=>{
     }
 }
 
-const loadInvoice=async(req,res)=>{
-    try{
-        res.render("invoice")
-    }catch(error){
-        console.log(error.message);
-    }
-}
+
 
 
 module.exports={
@@ -1126,7 +1103,6 @@ module.exports={
     moveToBag,
     deleteWishlistItem,
     //PROFILE
-    loadProfile,
     updateProfile,
     changePassword,
     addAddress,
@@ -1135,7 +1111,6 @@ module.exports={
     deleteAddress,
     loadChangeEmail,
     updateEmail,
-    loadInvoice,
 
     //cart
     addToCart,

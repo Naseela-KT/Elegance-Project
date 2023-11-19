@@ -42,9 +42,9 @@ const checkUser = (req, res, next) => {
 
 const isBlocked = async(req,res,next)=>{
   const user= await User.findOne(res.locals.user._id)
-  if(user.status==false){
+  if(user.is_blocked==true){
     await res.cookie('jwt', '', { maxAge: 1 })
-    res.redirect("/userHome")
+    res.redirect("/")
   }else{
     next()
   }

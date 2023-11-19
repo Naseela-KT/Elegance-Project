@@ -166,7 +166,7 @@ const downloadInvoice=async(req,res)=>{
         }
         const html = await ejs.renderFile('views/user/invoice.ejs',{order:order,address:order.Address,items:order.Items,product:productName});
 
-        const browser = await puppeteer.launch({ headless: 'new',args: ['--disable-web-security'],
+        const browser = await puppeteer.launch({ headless: false,args: ['--disable-web-security'],
         userDataDir: './tmp' });
         const page = await browser.newPage();
         await page.setContent(html);
