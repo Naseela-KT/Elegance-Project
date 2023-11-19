@@ -175,7 +175,7 @@ const downloadInvoice=async(req,res)=>{
         // res.setHeader('Content-Type', 'application/pdf');
         // res.send(pdfBuffer);
         const browser = await puppeteer.launch({headless: 'new',
-            executablePath: '/home/ubuntu/.cache/puppeteer/chrome',
+            executablePath: '/home/ubuntu/.cache/puppeteer/chrome/linux-119.0.6045.105/chrome-linux64/chrome',
           });
        const page = await browser.newPage();
        await page.setContent(html);
