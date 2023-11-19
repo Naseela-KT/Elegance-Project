@@ -1,4 +1,3 @@
-const express = require('express');
 const ejs = require('ejs');
 const puppeteer = require('puppeteer');
 const fs = require('fs');
@@ -166,22 +165,62 @@ const downloadInvoice=async(req,res)=>{
         }
         const html = await ejs.renderFile('views/user/invoice.ejs',{order:order,address:order.Address,items:order.Items,product:productName});
 
-        const browser = await puppeteer.launch({ headless: 'new',args: ['--no-sandbox', '--disable-setuid-sandbox'],});
-        const page = await browser.newPage();
-        await page.setContent(html);
-        const pdfBuffer = await page.pdf();
-        await browser.close();
+        // const browser = await puppeteer.launch({ headless: 'new',args: ['--no-sandbox', '--disable-setuid-sandbox'],});
+        // const page = await browser.newPage();
+        // await page.setContent(html);
+        // const pdfBuffer = await page.pdf();
+        // await browser.close();
 
-        res.setHeader('Content-Disposition', 'attachment; filename=invoice.pdf');
-        res.setHeader('Content-Type', 'application/pdf');
-        res.send(pdfBuffer);
+        // res.setHeader('Content-Disposition', 'attachment; filename=invoice.pdf');
+        // res.setHeader('Content-Type', 'application/pdf');
+        // res.send(pdfBuffer);
+        const browser = await puppeteer.launch({headless: 'new'});
+       const page = await browser.newPage();
+       await page.setContent(html);
+       const pdfBuffer = await page.pdf();
+       await browser.close();
+  
+       res.setHeader('Content-Type', 'application/pdf');
+       res.setHeader('Content-Disposition', `attachment; filename=invoice.pdf`);
+       res.send(pdfBuffer);
 
     }catch(error){
         console.log(error.message);
     }
 }
 
-
+// const downloadInvoice = async(req,res)=>{
+//     try {
+//       const id = req.query.id
+//       const order = await Order.findOne({ _id: id });
+//       const addressData = order.Address;
+//       const Orderr = await Order.findOne({ _id: id }).populate(
+//         "Items.productId"
+//       );
+      
+//       const productData = Orderr.Items.map((item) => {
+//         return item.productId;
+//       });
+  
+//       const templatePath = './views/user/invoice.ejs';
+//       const templateContent = await fs.readFile(templatePath, 'utf-8');
+//       const htmlTemplate = ejs.render(templateContent, { Orderr : Orderr , addressData:addressData , productData:productData ,  items: Orderr.Items });
+  
+//        // Generate PDF using Puppeteer
+//        const browser = await puppeteer.launch();
+//        const page = await browser.newPage();
+//        await page.setContent(htmlTemplate);
+//        const pdfBuffer = await page.pdf();
+//        await browser.close();
+  
+//        res.setHeader('Content-Type', 'application/pdf');
+//        res.setHeader('Content-Disposition', `attachment; filename=invoice-${ req.query.id}.pdf`);
+//        res.send(pdfBuffer);
+//     } catch (error) {
+//       console.error('Error generating or sending PDF:', error);
+//       res.status(500).send('Internal Server Error');
+//     }
+//   }
 
 
 
