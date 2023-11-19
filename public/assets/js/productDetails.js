@@ -101,7 +101,9 @@ $(document).ready(function() {
 }
 
 
-
+function backToLogin(){
+    window.location.href="/login"
+}
 
 
 

@@ -15,6 +15,9 @@ require('dotenv').config();
 
 const totalQuantity=async(req,res)=>{
     try{
+        if(!res.locals.user){
+            return null;
+        }
         const user_id=res.locals.user._id
         const user=await User.findOne({_id:user_id})
         let sum=0;
@@ -324,8 +327,10 @@ const verifyUser = async (req, res) => {
 
 const loadHome=async(req,res)=>{
     try{
-        const user_id = res.locals.user._id;
-        const user=await User.findOne({_id:user_id})
+        let user=null;
+        if(res.locals.user){
+            user=await User.findOne({_id:res.locals.user._id})
+        }
         const menProducts=await Products.find({gender:"Male"})
         const womenProducts=await Products.find({gender:"Female"})
         const quantity=await totalQuantity(req,res)
@@ -352,24 +357,12 @@ const logoutUser=async(req,res)=>{
 }
 
 
-//WISHLIST
-
-// const loadWishlist=async(req,res)=>{
-//     try{
-//         const user_id = res.locals.user._id;
-//         const quantity=await totalQuantity(req,res)
-//         const userwishlist = await User.findById({ _id: user_id }).populate('wishlist.productId');
-//         const productsInWishlist = userwishlist.wishlist.map(wishItem => wishItem.productId);
-//         const user = await User.findOne({ _id:user_id });
-//         res.render("wishlist",{userData:user,products:productsInWishlist,quantity:quantity})
-//     }catch(error){
-//         console.log(error.message);
-//         res.status(500).send("Internal Server Error");
-//     }
-// }
 const loadWishlist = async (req, res) => {
     try {
-        const user_id = res.locals.user._id;
+        let user_id;
+        if(res.locals.user){
+            user_id=res.locals.user._id
+        }
         const quantity = await totalQuantity(req, res);
 
         const userWishlist = await User.aggregate([
@@ -382,12 +375,6 @@ const loadWishlist = async (req, res) => {
                     as: 'wishlistProducts'
                 }
             },
-            // {
-            //     $unwind: {
-            //         path: '$wishlistProducts',
-            //         preserveNullAndEmptyArrays: true
-            //     }
-            // },
             {
                 $project: {
                     _id: 0,

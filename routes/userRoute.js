@@ -60,15 +60,15 @@ user_route.get("/reset-password",userController.loadReset)
 user_route.post("/reset-password",userController.resetpwd)
 
 //home
-user_route.get("/",validate.requireAuth,userController.loadHome)
+user_route.get("/",userController.loadHome)
 
 
 
 //Products--filter--search
-user_route.get("/allproducts",validate.requireAuth,productController.loadAllProducts)
-user_route.get("/men",validate.requireAuth,productController.loadMenProducts)
-user_route.get("/women",validate.requireAuth,productController.loadWomenProducts)
-user_route.get("/products",validate.requireAuth,productController.loadProductDetails)
+user_route.get("/allproducts",productController.loadAllProducts)
+user_route.get("/men",productController.loadMenProducts)
+user_route.get("/women",productController.loadWomenProducts)
+user_route.get("/products",productController.loadProductDetails)
 user_route.post("/productReview",validate.requireAuth,productController.submitReview)
 
 

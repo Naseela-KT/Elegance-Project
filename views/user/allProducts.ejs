@@ -59,12 +59,12 @@
             <div class="container">
                 <div class="header-wrap header-space-between position-relative">
                     <div class="logo logo-width-1">
-                        <a href="/home"><img src="assets/imgs/theme/elegance.svg" alt="logo" height="50"></a>
+                        <a href="/"><img src="assets/imgs/theme/elegance.svg" alt="logo" height="50"></a>
                     </div>
                     <div class="main-menu main-menu-grow main-menu-padding-1 main-menu-lh-1 main-menu-mrg-1 hm3-menu-padding d-none d-lg-block hover-boder">
                         <nav>
                             <ul>
-                                <li><a href="/home">Home</a>
+                                <li><a href="/">Home</a>
                                     
                                 </li>
                                 <li><a href="/allproducts">All</a>
@@ -101,31 +101,43 @@
                             <div class="header-action-icon-2">
                                 <a href="/wishlist">
                                     <img class="svgInject" alt="Evara" src="assets/imgs/theme/icons/icon-heart.svg">
+                                    <%if(userData!=null && userData.wishlist.length>0){%>
+                                        <span class="pro-count blue"><%=userData.wishlist.length%></span>
+                                    <%}else{%>
+                                        <span></span>
+                                    <%}%>
                                 </a>
                             </div>
     <div class="header-action-icon-2">
         <a class="mini-cart-icon" href="/cart">
             <img alt="Evara" src="assets/imgs/theme/icons/icon-cart.svg">
-            <%if(quantity>0){%>
+            <%if(quantity!=null && quantity>0){%>
                 <span class="pro-count blue"><%=quantity%></span>
+            <%}else{%>
+                <span></span>
             <%}%>
+            
         </a>
     </div>
     <div class="header-action-icon-2">
         <ul>
-        <li class="dropdown nav-item">
-            <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount" aria-expanded="false"> <img alt="Evara" src="assets/imgs/theme/icons/user.png" width="25" height="25"></a>
-            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
-                <a class="dropdown-item" href="my/profile"><i class="material-icons md-perm_identity"></i>My Account</a>
-                <div class="dropdown-divider"></div>
+            <li class="dropdown nav-item">
+                <%if(userData!=null){%>
+                    <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount" aria-expanded="false"> <img alt="Evara" src="assets/imgs/theme/icons/user.png" width="25" height="25"></a>
+                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
+                        <a class="dropdown-item" href="my/profile"><i class="material-icons md-perm_identity"></i>My Account</a>
+                        <div class="dropdown-divider"></div>
+                        <form id="logoutForm" method="post" action="/logout" style="display: inline;">
+                            <button type="submit" class="dropdown-item text-light btn btn-light" onclick="event.preventDefault(); document.getElementById('logoutForm').submit();">
+                                <i class="material-icons md-exit_to_app"></i> Logout
+                            </button>
+                        </form>
+                    </div>
+                <%}else{%>
+                    <a href="/login" id="dropdownAccount" aria-expanded="false"> <img alt="Evara" src="assets/imgs/theme/icons/user.png" width="25" height="25"></a>
+                <%}%>
                
-                <form id="logoutForm" method="post" action="/logout" style="display: inline;">
-                    <button type="submit" class="dropdown-item text-light btn btn-light" onclick="event.preventDefault(); document.getElementById('logoutForm').submit();">
-                        <i class="material-icons md-exit_to_app"></i> Logout
-                    </button>
-                </form>
-            </div>
-        </li>
+            </li>
     </ul>
     </div>
     <div class="header-action-icon d-block d-lg-none">
@@ -149,7 +161,7 @@
         <div class="page-header breadcrumb-wrap">
             <div class="container">
                 <div class="breadcrumb">
-                    <a href="/home" rel="nofollow">Home</a>
+                    <a href="/" rel="nofollow">Home</a>
                     <span></span> Shop <span></span> All
                 </div>
             </div>
@@ -221,9 +233,15 @@
                                         <p class="mt-15"><%=products[i].description%></p>
                                         <div class="product-action-1 show">
                                           
-                                                
-                                             <a aria-label="Wishlist" id="wishlist-button" class="action-btn" href="" data-product-id="<%=products[i]._id%>" data-image-url="<%=products[i].images[0].url%>"><i class="fi-rs-heart"></i>Add to Wishlist</a>
+                                            <%if(userData!=null){%>
+                                                <a aria-label="Wishlist" id="wishlist-button" class="action-btn" href="" data-product-id="<%=products[i]._id%>" data-image-url="<%=products[i].images[0].url%>"><i class="fi-rs-heart"></i>Add to Wishlist</a>
                                              
+                                            <%}else{%>
+                                                <a aria-label="Wishlist"  href="/login" class="action-btn" ><i class="fi-rs-heart"></i>Add to Wishlist</a>
+                                             
+                                            <%}%>
+                                                
+                                            
                                               
                                           
                                            

@@ -29,7 +29,7 @@ app.use((err, req, res, next) => {
 
 
 app.listen(PORT, () => {
-    console.log(`Server Started on http://localhost:${PORT}/home\nhttp://localhost:${PORT}/admin/dashboard`);
+    console.log(`Server Started on http://localhost:${PORT}\nhttp://localhost:${PORT}/admin/dashboard`);
 });
 
 

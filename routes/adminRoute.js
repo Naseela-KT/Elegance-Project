@@ -81,6 +81,7 @@ admin_route.post("/login",adminController.verifyLogin)
 
 //Dashboard
 admin_route.get("/dashboard",validate.requireAuth,adminController.loadDashboard)
+admin_route.get("/",validate.requireAuth,adminController.loadDashboard)
 
 
 //Users
