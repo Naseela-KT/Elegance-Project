@@ -69,20 +69,19 @@
     <div class="header-action-icon-2">
         <ul>
         <li class="dropdown nav-item">
-            <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount" aria-expanded="false"> <img alt="Evara" src="/assets/imgs/theme/icons/user.png" width="25" height="25"></a>
-            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
-                <a class="dropdown-item" href="my/profile"><i class="material-icons md-perm_identity"></i>My Account</a>
-                <div class="dropdown-divider"></div>
-               
-                <!-- <form method="post" id="logoutForm" action="/logout" style="display: inline;">
-                   <a class="dropdown-item text-danger" href=""><i class="material-icons md-exit_to_app" onclick="event.preventDefault(); document.getElementById('logoutForm').submit();"></i>Logout</a>
-                </form> -->
-                <form id="logoutForm" method="post" action="/logout" style="display: inline;">
-                    <button type="submit" class="dropdown-item text-light btn btn-light" onclick="event.preventDefault(); document.getElementById('logoutForm').submit();">
-                        <i class="material-icons md-exit_to_app"></i> Logout
-                    </button>
-                </form>
-            </div>
+           
+                <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount" aria-expanded="false"> <img alt="Evara" src="/assets/imgs/theme/icons/user.png" width="25" height="25"></a>
+                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
+                    <a class="dropdown-item" href="/my/profile"><i class="material-icons md-perm_identity"></i>My Account</a>
+                    <div class="dropdown-divider"></div>
+                    <form id="logoutForm" method="post" action="/logout" style="display: inline;">
+                        <button type="submit" class="dropdown-item text-light btn btn-light" onclick="event.preventDefault(); document.getElementById('logoutForm').submit();">
+                            <i class="material-icons md-exit_to_app"></i> Logout
+                        </button>
+                    </form>
+                </div>
+            
+           
         </li>
     </ul>
     </div>
@@ -431,9 +430,9 @@
         }
     </script>
     <script src="assets/js/vendor/modernizr-3.6.0.min.js"></script>
-    <script src="assets/js/vendor/jquery-3.6.0.min.js"></script>
-    <script src="assets/js/vendor/jquery-migrate-3.3.0.min.js"></script>
-    <script src="assets/js/vendor/bootstrap.bundle.min.js"></script>
+    <script src="/assets/js/vendor/jquery-3.6.0.min.js"></script>
+    <script src="/assets/js/vendor/jquery-migrate-3.3.0.min.js"></script>
+    <script src="/assets/js/vendor/bootstrap.bundle.min.js"></script>
     <script src="assets/js/plugins/slick.js"></script>
     <script src="assets/js/plugins/jquery.syotimer.min.js"></script>
     <script src="assets/js/plugins/wow.js"></script>

@@ -68,20 +68,19 @@
     <div class="header-action-icon-2">
         <ul>
         <li class="dropdown nav-item">
-            <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount" aria-expanded="false"> <img alt="Evara" src="assets/imgs/theme/icons/user.png" width="25" height="25"></a>
-            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
-                <a class="dropdown-item" href="my/profile"><i class="material-icons md-perm_identity"></i>My Account</a>
-                <div class="dropdown-divider"></div>
-               
-                <!-- <form method="post" id="logoutForm" action="/logout" style="display: inline;">
-                   <a class="dropdown-item text-danger" href=""><i class="material-icons md-exit_to_app" onclick="event.preventDefault(); document.getElementById('logoutForm').submit();"></i>Logout</a>
-                </form> -->
-                <form id="logoutForm" method="post" action="/logout" style="display: inline;">
-                    <button type="submit" class="dropdown-item text-light btn btn-light" onclick="event.preventDefault(); document.getElementById('logoutForm').submit();">
-                        <i class="material-icons md-exit_to_app"></i> Logout
-                    </button>
-                </form>
-            </div>
+           
+                <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount" aria-expanded="false"> <img alt="Evara" src="assets/imgs/theme/icons/user.png" width="25" height="25"></a>
+                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
+                    <a class="dropdown-item" href="my/profile"><i class="material-icons md-perm_identity"></i>My Account</a>
+                    <div class="dropdown-divider"></div>
+                    <form id="logoutForm" method="post" action="/logout" style="display: inline;">
+                        <button type="submit" class="dropdown-item text-light btn btn-light" onclick="event.preventDefault(); document.getElementById('logoutForm').submit();">
+                            <i class="material-icons md-exit_to_app"></i> Logout
+                        </button>
+                    </form>
+                </div>
+            
+           
         </li>
     </ul>
     </div>
@@ -103,7 +102,7 @@
         <div class="mobile-header-wrapper-inner">
             <div class="mobile-header-top">
                 <div class="mobile-header-logo">
-                    <a href="index.html"><img src="assets/imgs/theme/logo.svg" alt="logo"></a>
+                    <a href="/"><img src="assets/imgs/theme/logo.svg" alt="logo"></a>
                 </div>
                 <div class="mobile-menu-close close-style-wrap close-style-position-inherit">
                     <button class="close-style search-close">

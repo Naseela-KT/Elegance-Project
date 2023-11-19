@@ -971,6 +971,7 @@ const moveToWishlist=async(req,res)=>{
                 { $inc: { "sizes.$.stock": quantity } }
             );
             user.cart.pull(itemId);
+            await user.save();
             res.redirect("/wishlist")
         }
         
@@ -1097,6 +1098,14 @@ const loadReferrals=async(req,res)=>{
     }
 }
 
+const loadInvoice=async(req,res)=>{
+    try{
+        res.render("invoice")
+    }catch(error){
+        console.log(error.message);
+    }
+}
+
 
 module.exports={
     loadLogin,
@@ -1126,6 +1135,7 @@ module.exports={
     deleteAddress,
     loadChangeEmail,
     updateEmail,
+    loadInvoice,
 
     //cart
     addToCart,

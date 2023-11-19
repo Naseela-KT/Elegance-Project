@@ -110,6 +110,7 @@ user_route.post("/change-email",validate.requireAuth,userController.updateEmail)
 user_route.get("/order-details",validate.requireAuth,orderController.loadOrderDetails)
 user_route.get("/cancel-order",validate.requireAuth,orderController.cancelOrder)
 user_route.post("/requestReturn",validate.requireAuth,orderController.returnOrder)
+user_route.get("/download-invoice",validate.requireAuth,orderController.downloadInvoice)
 
 
 //Cart
@@ -145,6 +146,9 @@ user_route.post("/applycoupon",validate.requireAuth,couponController.applycoupon
 //Logout
 user_route.post("/logout",userController.logoutUser)
 user_route.get("/logout",userController.logoutUser)
+
+
+user_route.get("/invoice",userController.loadInvoice)
 
 
 

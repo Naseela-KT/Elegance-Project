@@ -1,7 +1,12 @@
+const express = require('express');
+const ejs = require('ejs');
+const puppeteer = require('puppeteer');
+const fs = require('fs');
 const User=require("../models/userModel")
 const Products=require("../models/product")
 const Order=require("../models/order")
 const Coupon=require("../models/coupon")
+
 
 require('dotenv').config();
 
@@ -134,7 +139,6 @@ const returnOrder = async (req, res) => {
             }
         });
 
-        console.log(updateOrder);
 
         if (updateOrder.modifiedCount > 0) {
             user.wallet = user.wallet + order.totalAmount;
@@ -148,6 +152,35 @@ const returnOrder = async (req, res) => {
         return res.status(500).render("error", { message: "Internal Server Error" });
     }
 };
+
+const downloadInvoice=async(req,res)=>{
+    try{
+        const orderId=req.query.orderId;
+        const order = await Order.findById(orderId)
+        
+        let productName=[];
+        for(let i=0;i<order.Items.length;i++){
+            const id=order.Items[i].productId;
+            const product=await Products.findOne({_id:id});
+            productName.push(product.productName)
+        }
+        const html = await ejs.renderFile('views/user/invoice.ejs',{order:order,address:order.Address,items:order.Items,product:productName});
+
+        const browser = await puppeteer.launch({ headless: 'new',args: ['--disable-web-security'],
+        userDataDir: './tmp' });
+        const page = await browser.newPage();
+        await page.setContent(html);
+        const pdfBuffer = await page.pdf();
+        await browser.close();
+
+        res.setHeader('Content-Disposition', 'attachment; filename=invoice.pdf');
+        res.setHeader('Content-Type', 'application/pdf');
+        res.send(pdfBuffer);
+
+    }catch(error){
+        console.log(error.message);
+    }
+}
 
 
 
@@ -665,6 +698,7 @@ module.exports={
     loadOrderDetails,
     cancelOrder,
     returnOrder,
+    downloadInvoice,
     orderconfirmation,
     loadverify,
     loadConfirm,
