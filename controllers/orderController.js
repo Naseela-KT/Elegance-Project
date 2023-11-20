@@ -152,65 +152,6 @@ const returnOrder = async (req, res) => {
     }
 };
 
-const downloadInvoice=async(req,res)=>{
-    try{
-        const orderId=req.query.orderId;
-        const order = await Order.findById(orderId)
-        
-        let productName=[];
-        for(let i=0;i<order.Items.length;i++){
-            const id=order.Items[i].productId;
-            const product=await Products.findOne({_id:id});
-            productName.push(product.productName)
-        }
-        const html = await ejs.renderFile('views/user/invoice.ejs',{order:order,address:order.Address,items:order.Items,product:productName});
-        const browser = await puppeteer.launch({headless: 'new'});
-       const page = await browser.newPage();
-       await page.setContent(html);
-       const pdfBuffer = await page.pdf();
-       await browser.close();
-  
-       res.setHeader('Content-Type', 'application/pdf');
-       res.setHeader('Content-Disposition', `attachment; filename=invoice.pdf`);
-       res.send(pdfBuffer);
-
-    }catch(error){
-        console.log(error.message);
-    }
-}
-
-// const downloadInvoice = async(req,res)=>{
-//     try {
-//       const id = req.query.id
-//       const order = await Order.findOne({ _id: id });
-//       const addressData = order.Address;
-//       const Orderr = await Order.findOne({ _id: id }).populate(
-//         "Items.productId"
-//       );
-      
-//       const productData = Orderr.Items.map((item) => {
-//         return item.productId;
-//       });
-  
-//       const templatePath = './views/user/invoice.ejs';
-//       const templateContent = await fs.readFile(templatePath, 'utf-8');
-//       const htmlTemplate = ejs.render(templateContent, { Orderr : Orderr , addressData:addressData , productData:productData ,  items: Orderr.Items });
-  
-//        // Generate PDF using Puppeteer
-//        const browser = await puppeteer.launch();
-//        const page = await browser.newPage();
-//        await page.setContent(htmlTemplate);
-//        const pdfBuffer = await page.pdf();
-//        await browser.close();
-  
-//        res.setHeader('Content-Type', 'application/pdf');
-//        res.setHeader('Content-Disposition', `attachment; filename=invoice-${ req.query.id}.pdf`);
-//        res.send(pdfBuffer);
-//     } catch (error) {
-//       console.error('Error generating or sending PDF:', error);
-//       res.status(500).send('Internal Server Error');
-//     }
-//   }
 
 
 
@@ -726,7 +667,6 @@ module.exports={
     loadOrderDetails,
     cancelOrder,
     returnOrder,
-    downloadInvoice,
     orderconfirmation,
     loadverify,
     loadConfirm,

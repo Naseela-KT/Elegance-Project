@@ -134,9 +134,7 @@
                                 
                             
                         </div>
-                        <div class="col-md-2">
-                            <button type="button" class="btn btn-sm font-sm rounded" onclick="downloadInvoice('<%=order._id%>')">Download Invoice</button>
-                        </div>
+                       
                         <% } %>
                         
                         <div class="col-md-1">
@@ -425,35 +423,7 @@
         }
 
 
-        function downloadInvoice(orderId) {
-        // Make an asynchronous request to the server
-        fetch(`/download-invoice?orderId=${orderId}`)
-            .then(response => {
-                // Check if the request was successful
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-                return response.blob();
-            })
-            .then(blob => {
-                // Create a Blob URL for the downloaded file
-                const url = URL.createObjectURL(blob);
-
-                // Create a link element and trigger a click to download the file
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = 'invoice.pdf';
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-
-                // Revoke the Blob URL to free up resources
-                URL.revokeObjectURL(url);
-            })
-            .catch(error => {
-                console.error('Error downloading invoice:', error);
-            });
-    }
+    
     </script>
    
     <script src="assets/js/vendor/modernizr-3.6.0.min.js"></script>

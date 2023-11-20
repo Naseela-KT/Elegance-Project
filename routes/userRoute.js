@@ -106,7 +106,7 @@ user_route.post("/change-email",userController.updateEmail)
 user_route.get("/order-details",validate.isBlocked,validate.requireAuth,orderController.loadOrderDetails)
 user_route.get("/cancel-order",validate.isBlocked,validate.requireAuth,orderController.cancelOrder)
 user_route.post("/requestReturn",orderController.returnOrder)
-user_route.get("/download-invoice",validate.isBlocked,validate.requireAuth,orderController.downloadInvoice)
+
 
 
 //Cart
