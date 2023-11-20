@@ -1,0 +1,191 @@
+<%-include("../user-layouts/header")%>
+    <!-- Favicon -->
+   
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/imgs/theme/favicon.svg">
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="assets/css/main.css">
+  
+</head>
+
+<body>
+    <!-- Quick view -->
+
+    
+        <!-- <div class="header-top header-top-ptb-1 d-none d-lg-block">
+        </div> -->
+        <header class="header-area header-style-5" style="box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;">
+            <div class="header-bottom sticky-bar sticky-white-bg">
+                <div class="container">
+                    <div class="header-wrap header-space-between position-relative">
+                        <div class="logo logo-width-1">
+                            <a href="/"><img src="assets/imgs/theme/elegance.svg" alt="logo" height="50"></a>
+                        </div>
+                        <div class="main-menu main-menu-grow main-menu-padding-1 main-menu-lh-1 main-menu-mrg-1 hm3-menu-padding d-none d-lg-block hover-boder">
+                            <nav>
+                                <ul>
+                                    <li><a href="/">Home</a>
+                                        
+                                    </li>
+                                    <li><a href="/allproducts">All</a>
+                                        
+                                    </li>
+                                    <li class="position-static"><a href="/men">Men</a>
+                                        
+                                    </li>
+                                    <li class="position-static"><a href="/women">Women</a>
+                                       
+                                    </li>
+                                    
+                                    <li><a href="#">Pages <i class="fi-rs-angle-down"></i></a>
+                                        <ul class="sub-menu">
+                                            <li><a href="/about">About Us</a></li>
+                                            <li><a href="/contact">Contact</a></li>
+                                            <li><a href="/my/profile">My Account</a></li>
+                                            
+                                            
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                        <div class="header-action-right">
+                            <div class="search-style-1">
+                                <form action="/allProducts" method="get">
+                                    <input type="text" placeholder="Search for items…" name="search">
+                                    <button type="submit" style="font-size: medium;">Search</button>
+                                </form>
+                            </div>
+                                                      
+                            <div class="header-action-2">
+                                <div class="header-action-icon-2">
+                                    <a href="/wishlist">
+                                        <img class="svgInject" alt="Evara" src="assets/imgs/theme/icons/icon-heart.svg">
+                                        <%if(userData!=null && userData.wishlist.length>0){%>
+                                            <span class="pro-count blue"><%=userData.wishlist.length%></span>
+                                        <%}else{%>
+                                            <span></span>
+                                        <%}%>
+                                    </a>
+                                </div>
+        <div class="header-action-icon-2">
+            <a class="mini-cart-icon" href="/cart">
+                <img alt="Evara" src="assets/imgs/theme/icons/icon-cart.svg">
+                <%if(quantity!=null && quantity>0){%>
+                    <span class="pro-count blue"><%=quantity%></span>
+                <%}else{%>
+                    <span></span>
+                <%}%>
+                
+            </a>
+        </div>
+        <div class="header-action-icon-2">
+            <ul>
+            <li class="dropdown nav-item">
+                <%if(userData!=null){%>
+                    <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount" aria-expanded="false"> <img alt="Evara" src="assets/imgs/theme/icons/user.png" width="25" height="25"></a>
+                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
+                        <a class="dropdown-item" href="my/profile"><i class="material-icons md-perm_identity"></i>My Account</a>
+                        <div class="dropdown-divider"></div>
+                        <form id="logoutForm" method="post" action="/logout" style="display: inline;">
+                            <button type="submit" class="dropdown-item text-light btn btn-light" onclick="event.preventDefault(); document.getElementById('logoutForm').submit();">
+                                <i class="material-icons md-exit_to_app"></i> Logout
+                            </button>
+                        </form>
+                    </div>
+                <%}else{%>
+                    <a href="/login" id="dropdownAccount" aria-expanded="false"> <img alt="Evara" src="assets/imgs/theme/icons/user.png" width="25" height="25"></a>
+                <%}%>
+               
+            </li>
+        </ul>
+        </div>
+        <div class="header-action-icon d-block d-lg-none">
+            <div class="burger-icon">
+                <span class="burger-icon-top"></span>
+                <span class="burger-icon-mid"></span>
+                <span class="burger-icon-bottom"></span>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+</div>
+</header>
+<%-include("../user-layouts/mobilenav")%>
+    <main class="main">
+        <div class="page-header breadcrumb-wrap">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="/" rel="nofollow">Home</a>
+                    <span></span> Pages
+                    <span></span> Contact us
+                </div>
+            </div>
+        </div>
+        <section class="hero-2 bg-green mb-70">
+            <div class="hero-content">
+                <div class="container">
+                    <div class="text-center">
+                        <h4 class="text-brand mb-20">Get in touch</h4>
+                        <h1 class="mb-20 wow fadeIn animated font-xxl fw-900">
+                            Let's Talk About <br>Your <span class="text-style-1">Idea</span>
+                        </h1>
+                        <p class="w-50 m-auto mb-50 wow fadeIn animated">Explore the boundless possibilities of your creative vision with us. At Elegance, we believe in turning ideas into reality. 
+                            Whether you're dreaming of a unique project, a groundbreaking innovation, or simply want to enhance an existing concept, we're here to bring your ideas to life. Let's embark on a journey of innovation together and transform your vision into a remarkable reality.</p>
+
+                        <p class="wow fadeIn animated">
+                            <a class="btn btn-brand btn-lg font-weight-bold text-white border-radius-5 btn-shadow-brand hover-up" href="/about">About Us</a>
+                 
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+    </main>
+    <%-include("../user-layouts/footer.ejs")%>
+    <!-- Preloader Start -->
+    <div id="preloader-active">
+        <div class="preloader d-flex align-items-center justify-content-center">
+            <div class="preloader-inner position-relative">
+                <div class="text-center">
+                    <h5 class="mb-5">Now Loading</h5>
+                    <div class="loader">
+                        <div class="bar bar1"></div>
+                        <div class="bar bar2"></div>
+                        <div class="bar bar3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Vendor JS-->
+    <script data-cfasync="false" src="../../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="assets/js/vendor/modernizr-3.6.0.min.js"></script>
+    <script src="assets/js/vendor/jquery-3.6.0.min.js"></script>
+    <script src="assets/js/vendor/jquery-migrate-3.3.0.min.js"></script>
+    <script src="assets/js/vendor/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/plugins/slick.js"></script>
+    <script src="assets/js/plugins/jquery.syotimer.min.js"></script>
+    <script src="assets/js/plugins/wow.js"></script>
+    <script src="assets/js/plugins/jquery-ui.js"></script>
+    <script src="assets/js/plugins/perfect-scrollbar.js"></script>
+    <script src="assets/js/plugins/magnific-popup.js"></script>
+    <script src="assets/js/plugins/select2.min.js"></script>
+    <script src="assets/js/plugins/waypoints.js"></script>
+    <script src="assets/js/plugins/counterup.js"></script>
+    <script src="assets/js/plugins/jquery.countdown.min.js"></script>
+    <script src="assets/js/plugins/images-loaded.js"></script>
+    <script src="assets/js/plugins/isotope.js"></script>
+    <script src="assets/js/plugins/scrollup.js"></script>
+    <script src="assets/js/plugins/jquery.vticker-min.js"></script>
+    <script src="assets/js/plugins/jquery.theia.sticky.js"></script>
+    <script src="assets/js/plugins/leaflet.js"></script>
+    <!-- Template  JS -->
+    <script src="assets/js/main.js"></script>
+</body>
+
+
+<!-- Mirrored from wp.alithemes.com/html/evara/evara-frontend/page-contact.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 01 Aug 2021 15:26:06 GMT -->
+</html>

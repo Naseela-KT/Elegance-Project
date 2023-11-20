@@ -164,19 +164,7 @@ const downloadInvoice=async(req,res)=>{
             productName.push(product.productName)
         }
         const html = await ejs.renderFile('views/user/invoice.ejs',{order:order,address:order.Address,items:order.Items,product:productName});
-
-        // const browser = await puppeteer.launch({ headless: 'new',args: ['--no-sandbox', '--disable-setuid-sandbox'],});
-        // const page = await browser.newPage();
-        // await page.setContent(html);
-        // const pdfBuffer = await page.pdf();
-        // await browser.close();
-
-        // res.setHeader('Content-Disposition', 'attachment; filename=invoice.pdf');
-        // res.setHeader('Content-Type', 'application/pdf');
-        // res.send(pdfBuffer);
-        const browser = await puppeteer.launch({headless: 'new',
-            executablePath: '/home/ubuntu/.cache/puppeteer/chrome/linux-119.0.6045.105/chrome-linux64/chrome',
-          });
+        const browser = await puppeteer.launch({headless: 'new'});
        const page = await browser.newPage();
        await page.setContent(html);
        const pdfBuffer = await page.pdf();

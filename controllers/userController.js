@@ -349,7 +349,7 @@ const loadHome=async(req,res)=>{
 const logoutUser=async(req,res)=>{
     try{
         res.cookie('jwt', '' ,{maxAge : 1})
-        res.redirect('/login')
+        res.redirect('/')
     }catch(error){
         console.log(error.message);
         res.status(500).send("Internal Server Error");
@@ -1082,6 +1082,35 @@ const loadReferrals=async(req,res)=>{
 }
 
 
+const loadAbout=async(req,res)=>{
+    try{
+        let user=null;
+        if(res.locals.user){
+            user=await User.findOne({_id:res.locals.user._id})
+        }
+        const brand=await Brand.find({})
+        const quantity=await totalQuantity(req,res)
+        res.render("about",{userData:user,quantity:quantity,brand:brand})
+    }catch(error){
+        console.log(error.message);
+    }
+}
+
+
+const loadContact=async(req,res)=>{
+    try{
+        let user=null;
+        if(res.locals.user){
+            user=await User.findOne({_id:res.locals.user._id})
+        }
+        const brand=await Brand.find({})
+        const quantity=await totalQuantity(req,res)
+        res.render("contact",{userData:user,quantity:quantity,brand:brand})
+    }catch(error){
+        console.log(error.message);
+    }
+}
+
 
 
 module.exports={
@@ -1128,5 +1157,7 @@ module.exports={
     loadChangePwd,
     loadWallet,
     loadCoupons,
-    loadReferrals
+    loadReferrals,
+    loadAbout,
+    loadContact
 }

@@ -405,7 +405,7 @@ const sortSales = async (req, res) => {
 const downloadPdf=async(req,res)=>{
     try {
         const date=req.query.date;
-        const salesData = await getSalesData(date); // Get your sales data
+        const salesData = await getSalesData(date); 
         const pdfBuffer = await generatePDF(salesData);
 
         res.setHeader('Content-Type', 'application/pdf');

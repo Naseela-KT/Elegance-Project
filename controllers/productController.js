@@ -577,9 +577,10 @@ const loadProductDetails=async(req,res)=>{
         }
         const quantity=await totalQuantity(req,res)
         const id=req.query.id;
-        const product=await Products.findOne({_id:id})
+        const product=await Products.findOne({_id:id});
+        const relatedProducts=await Products.find({category:product.category,gender:product.gender,_id: { $ne: id }});
         if(product){
-            res.render("product-details",{product:product,userData:user,quantity:quantity})
+            res.render("product-details",{product:product,userData:user,quantity:quantity,relatedProduct:relatedProducts})
         }else {
             res.redirect("/");
         }

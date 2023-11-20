@@ -84,7 +84,7 @@ user_route.post("/add-to-cart",userController.addToCart)
 //Account
 user_route.get("/my/profile",validate.requireAuth,validate.isBlocked,userController.loadAccount)
 user_route.get("/my/edit-profile",validate.requireAuth,userController.loadEditProfile)
-user_route.get("/my/orders",validate.requireAuth,userController.loadOrders)
+user_route.get("/my/orders",validate.requireAuth,validate.isBlocked,userController.loadOrders)
 user_route.get("/my/address",validate.requireAuth,userController.loadAddress)
 user_route.get("/my/add-address",validate.requireAuth,userController.loadAddAddress)
 user_route.get("/my/change-pwd",validate.requireAuth,userController.loadChangePwd)
@@ -138,6 +138,10 @@ user_route.get("/orderconfirmation",validate.requireAuth,validate.isBlocked,orde
 //Coupon
 user_route.post("/applycoupon",couponController.applycoupon)
 
+
+//about && contact
+user_route.get("/about",userController.loadAbout)
+user_route.get("/contact",userController.loadContact)
 
 //Logout
 user_route.post("/logout",userController.logoutUser)
