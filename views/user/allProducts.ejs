@@ -287,7 +287,7 @@
                 
                     <div class="col-lg-3 primary-sidebar sticky-sidebar">
                         <!-- Add this HTML in your EJS template -->
-                        <a>Clear filters</a>
+                        <a id="clear-filter">Clear filters</a>
 <form id="filterForm" method="get">
    
     <div class="widget-category mb-30">
@@ -295,7 +295,7 @@
         <ul class="categories">
             
     <% for(let i=0; i < brand.length; i++) { %>
-        <li>
+        <li class="ml-20">
         <label>
             <input type="checkbox" class="form-check-input" name="brands" value="<%= brand[i].brandName %>" <% if(filterBrands.includes(brand[i].brandName)){ %>checked<% } %>>
             <%= brand[i].brandName %>
@@ -309,31 +309,13 @@
                                
 </ul>
 </div>
-<!-- <div class="widget-category mb-30">
-    <div >
-        <span> <h5 class="section-title style-1 mb-30 wow fadeIn animated">Brand <a href="#coupon" data-bs-toggle="collapse" class="collapsed" aria-expanded="false">Click</a></h5></span>
-    </div>
-    <div class="panel-collapse collapse coupon_form " id="coupon">
-        <ul class="categories">
-            
-            <% for(let i=0; i < brand.length; i++) { %>
-                <li>
-                <label>
-                    <input type="checkbox" class="form-check-input" name="brands" value="<%= brand[i].brandName %>" <% if(filterBrands.includes(brand[i].brandName)){ %>checked<% } %>>
-                    <%= brand[i].brandName %>
-                </label>
-            </li>
-            <% } %>                        
-                                       
-        </ul>
-    </div>
-</div> -->
+
 <div class="widget-category mb-30">
     <h5 class="section-title style-1 mb-30 wow fadeIn animated">Category</h5>
     <ul class="categories">
         
 <% for(let i=0;i<category.length;i++) { %>
-    <li>
+    <li class="ml-20">
     <label>
         <input type="checkbox" class="form-check-input" name="categories" value="<%= category[i].categoryName %>" <% if(filterCategories.includes(category[i].categoryName)){ %>checked<% } %>>
         <%= category[i].categoryName %>
@@ -352,7 +334,7 @@
     <ul class="colors">
         
 <% for(let i=0;i<color.length;i++) { %>
-    <li>
+    <li class="ml-20">
     <label>
         <input type="checkbox" class="form-check-input" name="colors" value="<%= color[i] %>" <% if(filterColors.includes(color[i])){ %>checked<% } %>>
         <%= color[i] %>
@@ -371,7 +353,7 @@
     <ul class="sizes">
         
 <% for(let i=0;i<size.length;i++) { %>
-    <li>
+    <li class="ml-20">
     <label>
         <input type="checkbox" class="form-check-input" name="sizes" value="<%= size[i] %>" <% if(filterSizes.includes(size[i])){ %>checked<% } %>>
         <%= size[i] %>
@@ -483,6 +465,21 @@
     // Append the new filter parameters
     currentUrl.search = `${currentUrl.search ? currentUrl.search + '&' : ''}${params.toString()}`;
 
+    window.location.href = currentUrl.toString();
+});
+
+const clearFilterLink = document.getElementById('clear-filter');
+clearFilterLink.addEventListener('click', function (event) {
+    event.preventDefault();
+
+    const currentUrl = new URL(window.location.href);
+
+    // Remove all filter parameters
+    currentUrl.searchParams.forEach((value, key) => {
+        currentUrl.searchParams.delete(key);
+    });
+
+    // Update the window location
     window.location.href = currentUrl.toString();
 });
 

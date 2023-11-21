@@ -62,7 +62,7 @@
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a class="menu-link" href="/admin/banner"> <i class="icon material-icons md-monetization_on"></i>
+                    <a class="menu-link" href="/admin/banner"> <i class="icon material-icons md-photo"></i>
                         <span class="text">Banner</span>
                     </a>
                 </li>
@@ -126,20 +126,20 @@
                 <div class="card-body">
                     <div class="row gx-3">
                         <% for(let i=0;i<brands.length;i++) { %>
-                            <div class="col-xl-2 col-lg-3 col-md-4 col-6">
-                                <figure class="card border-1">
-                                    <div class="card-header bg-white text-center">
+                            <div class="col-xl-2 col-lg-3 col-md-4 col-6" >
+                                <figure class="card border-1" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                                    <div class="card-header bg-white text-center" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
                                         <img src="/admin/assets/imgs/brands/cropped/<%=brands[i].image%>" class="img-fluid" alt="Logo">
                                     </div>
                                     <figcaption class="card-body text-center">
-                                        <h6 class="card-title m-0"><%=brands[i].brandName%></h6>
+                                        
                                         
                                     </figcaption>
                                     <div class="col-lg-4 col-sm-2 col-4 col-action text-end d-flex ml-15 mb-15">
-                                        <button type="submit" class="btn btn-sm font-sm btn-light rounded"><a href="/admin/brands/edit?brandId=<%=brands[i]._id%>" style="color:black">Edit</a></button>
+                                        <button type="submit" class="btn btn-sm font-sm rounded btn-brand mr-5"><a href="/admin/brands/edit?brandId=<%=brands[i]._id%>" style="color:white">Edit</a></button>
                                     
                                         
-                                            <button type="button" class="btn btn-sm font-sm btn-light rounded" onclick="confirmDelete('<%=brands[i]._id%>')">
+                                            <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete('<%=brands[i]._id%>')">
                                                Delete
                                             </button>
                                         

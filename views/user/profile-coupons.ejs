@@ -166,9 +166,9 @@
                                                     <%if(coupons[i].Expiry>coupondate){%>
                                                     <%var formattedDate = new Date(coupons[i].Expiry).toLocaleDateString('en-GB');%>
                                                     <div class="col-lg-6 mb-20">
-                                                        <div class="card mb-3 mb-lg-0">
+                                                        <div class="card mb-3 mb-lg-0" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
                                                             <div class="card-header">
-                                                                <h5 class="mb-0"><%=coupons[i].Code%></h5>
+                                                                <h5 class="mb-0" style="color:#10b51e"><%=coupons[i].Code%></h5>
                                                             </div>
                                                             <div class="card-body">
                                                                 <address><%=coupons[i].Description%></address>
