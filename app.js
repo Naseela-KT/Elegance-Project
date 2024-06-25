@@ -8,7 +8,7 @@ const axios=require("axios")
 
 
 
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 3000;
 
 const adminRoute=require("./routes/adminRoute")
 const userRoute = require("./routes/userRoute")
