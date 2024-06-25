@@ -26,9 +26,7 @@ app.use((err, req, res, next) => {
 });
 
 
-app.listen(PORT, () => {
-    console.log(`Server Started on http://localhost:${PORT}\nhttp://localhost:${PORT}/admin/dashboard`);
-});
+
 
 const SERVER = process.env.SERVER || `http://localhost:${process.env.PORT}`;
 
