@@ -26,8 +26,6 @@ sendBtn.addEventListener("click", function () {
 
 verifyBtn.addEventListener("click", function () {
     const otp = document.getElementById("otp").value;
-    // const otp = document.getElementById('otp').value;
-    // Send OTP verification request to the server using Ajax
     fetch("/verify-otp", {
       method: "POST",
       headers: {
@@ -38,8 +36,6 @@ verifyBtn.addEventListener("click", function () {
     //   .then((response) => response.json())
       .then((data) => {
         validDiv.textContent="Verified"
-        // validDiv.textContent = "Success"+data;
-        // You can handle the response here, e.g., show a success message or redirect the user.
       })
       .catch((error) => {
         validDiv.textContent = "Error verifying OTP. Please try again.";

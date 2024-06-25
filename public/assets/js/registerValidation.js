@@ -179,7 +179,7 @@
     // Reset the timer started flag
     timerStarted = false;
     // Reset the timer count and button text
-    timerCount = 30;
+    timerCount = 120; 
     document.getElementById('timer').textContent = '';
     // document.getElementById('sendotp').textContent = 'Resend OTP';
         
@@ -202,7 +202,7 @@
         
 
 var timer;
-var timerCount = 30; // Timer set to 30 seconds
+var timerCount = 120;  // Timer set to 30 seconds
 var timerStarted = false; // Flag to track whether the timer has started or not
 
 function startTimer() {
@@ -213,7 +213,7 @@ function startTimer() {
             clearInterval(timer);
             document.getElementById('timer').textContent = '';
             document.getElementById('sendotp').textContent = 'Resend OTP';
-            timerCount = 30; // Reset the timer count
+            timerCount = 120;  // Reset the timer count
             timerStarted = false; // Reset the timer started flag
         }
     }, 1000);
@@ -242,6 +242,6 @@ document.getElementById('otp').addEventListener('input', function() {
     clearInterval(timer);
     document.getElementById('timer').textContent = '';
     document.getElementById('sendotp').textContent = 'Resend OTP';
-    timerCount = 30; // Reset the timer count
+    timerCount = 120;// Reset the timer count
     timerStarted = false; // Reset the timer started flag
 });

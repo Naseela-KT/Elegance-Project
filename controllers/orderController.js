@@ -122,6 +122,7 @@ const returnOrder = async (req, res) => {
     try {
         const orderId = req.body.orderId;
         const returnReason = req.body.returnReason;
+        console.log(orderId,returnReason)
         const user_id = res.locals.user._id;
         const user = await User.findOne({ _id: user_id });
         const order = await Order.findOne({ _id: orderId });
@@ -159,6 +160,7 @@ const loadverify = async (req, res) => {
     try {
         const user_id = res.locals.user._id;
         const { payment, order } = req.body;
+        console.log("payment....."+payment,"Order...."+order)
         let or = JSON.parse(order);
         let orderid = or.receipt;
         const success = await User.updateOne({ _id: user_id }, { $set: { cart: [] } });
@@ -321,7 +323,7 @@ const orderconfirmation = async (req, res) => {
             res.json({ codsuccess: true });
         } else {
             generateRazorpay(newOrder.orderId, sum - coupondiscount).then((response) => {
-                console.log("razor pay work started:", response);
+                console.log("razor pay work started:...", response);
                 res.json(response);
             });
         }

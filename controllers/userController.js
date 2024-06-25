@@ -52,7 +52,8 @@ var otpCode;
 const sendOTP = async (req, res) => {
     try {
         const email = req.body.email;
-        otpCode = Math.floor(1000 + Math.random() * 9000).toString();
+        const otpCode=Math.floor(1000 + Math.random() * 9000).toString();
+        // res.cookie('otp',otpCode,{})
         const transporter = nodemailer.createTransport({
             host: "smtp.gmail.com",
             port: 587,
@@ -86,6 +87,45 @@ const sendOTP = async (req, res) => {
     }
 };
 
+var emailOtpCode;
+const emailSendOtp=async(req,res)=>{
+    try {
+        const email = req.body.email;
+        const emailOtpCode=Math.floor(1000 + Math.random() * 9000).toString();
+        // res.cookie('otp',otpCode,{})
+        const transporter = nodemailer.createTransport({
+            host: "smtp.gmail.com",
+            port: 587,
+            secure: false,
+            requireTLS: true,
+            auth: {
+                user: process.env.USER_NAME,
+                pass: process.env.USER_PASSWORD
+            }
+        });
+
+        const mailOptions = {
+            from: process.env.USER_NAME,
+            to: email,
+            subject: "Verification Code",
+            text: `Your OTP code is: ${emailOtpCode}`
+        };
+
+        transporter.sendMail(mailOptions, function (err, info) {
+            if (err) {
+                console.error("Error sending email: ", err);
+                return res.status(500).json({ message: "Failed to send OTP email" });
+            } else {
+                console.log("Email sent: " + info.response);
+                res.json({ message: "Email sent successfully", otpCode: emailOtpCode });
+            }
+        });
+    } catch (error) {
+        console.error("Error: ", error);
+        return res.status(500).json({ message: "Failed to send OTP email" });
+    }
+}
+
 var verified=false;
 const verifyOTP = async (req, res) => {
     try {
@@ -104,13 +144,15 @@ const verifyOTP = async (req, res) => {
 
 
 
+
+
 const verifyEmail = async (req, res) => {
     try {
         const email = req.body.email;
         const enteredOTP = req.body.otp;
         
-        if (otpCode === enteredOTP) {
-            res.render("reset-password", { email: email });
+        if (emailOtpCode == enteredOTP) {
+            res.status(200).json({message:"Email verified"});
         } else {
             res.status(400).json({ message: "Invalid OTP" });
         }
@@ -196,6 +238,7 @@ const loadForgotPwd=async(req,res)=>{
 
 const insertUser=async(req,res)=>{
     try{
+        
         const referral=req.body.referral
         const code=Math.floor(1000 + Math.random() * 900000).toString();
         const email=req.body.email;
@@ -209,8 +252,11 @@ const insertUser=async(req,res)=>{
         }
         const spassword=await securePassword(req.body.password)
         const userDate=await createDate();
+       
         if(referral){
+            
             if(verified){
+                
             const checkUser=await User.findOne({referral_code:referral});
             if(checkUser){
                 await checkUser.save();
@@ -230,7 +276,7 @@ const insertUser=async(req,res)=>{
                     const token = createToken(userData._id);
                     
                     res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
-                    res.redirect("/");
+                    res.status(303).redirect("/").json(userData);
                 }else{
                 res.redirect("/register")
                 }
@@ -240,7 +286,9 @@ const insertUser=async(req,res)=>{
             }
         }
         }else{
+      
         if(verified){
+           
             const user=new User({
                 Name:req.body.name,
                 email:email,
@@ -252,12 +300,12 @@ const insertUser=async(req,res)=>{
                 referral_code:code
             })
             const userData=await user.save();
+      
            
             if(userData){
                 const token = createToken(userData._id);
-                
                 res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
-                res.redirect("/");
+                res.status(200).json(userData);
             }else{
             res.redirect("/register")
             }
@@ -296,6 +344,7 @@ const resetpwd=async(req,res)=>{
 
 const verifyUser = async (req, res) => {
     try {
+        // console.log("hello")
         const email = req.body.email;
         const password = req.body.password;
         const userData = await User.findOne({ email: email });
@@ -307,15 +356,15 @@ const verifyUser = async (req, res) => {
                     const token = createToken(userData._id);
                     req.session.user = userData._id;
                     res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
-                    return res.redirect("/");
+                    return res.redirect("/")
                 } else {
-                    res.status(403).render("user-login", { message: "Your account has been blocked by the admin." });
+                    res.render("user-login", { message: "Your account has been blocked by the admin." }).json({message:"Your account has been blocked by the admin"});
                 }
             } else {
-                res.status(401).render("user-login", { message: "Invalid Credentials" });
+                res.render("user-login", { message: "Invalid Credentials" });
             }
         } else {
-            res.status(401).render("user-login", { message: "Invalid Credentials" });
+            res.render("user-login", { message: "Invalid Credentials" });
         }
     } catch (error) {
         console.error(error.message);
@@ -997,8 +1046,8 @@ const loadOrders=async(req,res)=>{
         const user_id = res.locals.user._id;
         const quantity=await totalQuantity(req,res)
         const user=await User.find({_id:user_id})
-        const orders=await Order.find({customerId:user_id}).skip((page - 1) * 10).limit(10);
-        const totalPages = Math.ceil(orders.length/ 10);
+        const orders=await Order.find({customerId:user_id}).skip((page - 1) * 3).limit(3);
+        const totalPages = Math.ceil(orders.length/ 3);
         res.render("profile-orders",{
             userData:user,
             quantity:quantity,
@@ -1126,6 +1175,7 @@ module.exports={
     loadReset,
     resetpwd,
     logoutUser,
+    emailSendOtp,
     //wishlist
     loadWishlist,
     addToWishlist,

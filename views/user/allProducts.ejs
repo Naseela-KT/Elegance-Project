@@ -192,11 +192,7 @@
                                     <div class="sort-by-product-wrap">
                                        
                                         <i class="fi-rs-apps-sort"></i>
-                                        <!-- <select name="sort" id="sortSelect"> 
-                                            <option value="default" <% if(sortOption==='default'){ %>selected<% } %>>Default</option>
-                                            <option value="priceLowToHigh" <% if(sortOption==='priceLowToHigh'){ %>selected<% } %>>Price Low to High</option>
-                                            <option value="priceHighToLow" <% if(sortOption==='priceHighToLow'){ %>selected<% } %>>Price High to Low</option>
-                                        </select> -->
+                                      
                                         <select name="sort" id="sortSelect"> 
                                             <option value="default" <%= sortOption === 'default' ? 'selected' : '' %>>Default</option>
                                             <option value="priceLowToHigh" <%= sortOption === 'priceLowToHigh' ? 'selected' : '' %>>Price Low to High</option>
@@ -453,6 +449,7 @@
     event.preventDefault();
     
     const formData = new FormData(filterForm);
+    console.log(formData);
     const params = new URLSearchParams(formData);
 
     const currentUrl = new URL(window.location.href);

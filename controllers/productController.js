@@ -265,6 +265,54 @@ const deleteProduct=async(req,res)=>{
     
         product.active = !product.active;
         await product.save();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
     
         res.redirect('/admin/products');
       } catch (err) {

@@ -274,7 +274,7 @@ const verifyLogin=async(req,res)=>{
             if(passwordMatch){
                 const token = createToken(adminData._id);
                 res.cookie('jwtAdmin', token, { httpOnly: true, maxAge: maxAge * 1000 });
-                res.redirect("/admin/dashboard");
+                res.json(adminData).location("/admin/dashboard");
             }else{
                 return res.status(401).render("admin-login", { message: "Invalid credentials!" });
             }

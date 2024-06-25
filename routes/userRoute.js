@@ -53,7 +53,8 @@ user_route.post("/login",userController.verifyUser)
 
 //Forgot Password
 user_route.get("/forgot-password",userController.loadForgotPwd)
-user_route.post("/forgot-password",userController.verifyEmail)
+user_route.post("/email-send-otp",userController.emailSendOtp)
+user_route.post("/verify-email",userController.verifyEmail)
 
 //reset Password
 user_route.get("/reset-password",userController.loadReset)
