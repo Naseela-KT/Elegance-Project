@@ -52,7 +52,7 @@ var otpCode;
 const sendOTP = async (req, res) => {
     try {
         const email = req.body.email;
-        const otpCode=Math.floor(1000 + Math.random() * 9000).toString();
+        otpCode=Math.floor(1000 + Math.random() * 9000).toString();
         // res.cookie('otp',otpCode,{})
         const transporter = nodemailer.createTransport({
             host: "smtp.gmail.com",
@@ -91,7 +91,7 @@ var emailOtpCode;
 const emailSendOtp=async(req,res)=>{
     try {
         const email = req.body.email;
-        const emailOtpCode=Math.floor(1000 + Math.random() * 9000).toString();
+        emailOtpCode=Math.floor(1000 + Math.random() * 9000).toString();
         // res.cookie('otp',otpCode,{})
         const transporter = nodemailer.createTransport({
             host: "smtp.gmail.com",
@@ -130,8 +130,9 @@ var verified=false;
 const verifyOTP = async (req, res) => {
     try {
         const enteredOTP = req.body.otp;
-        if (enteredOTP === otpCode) {
+        if (enteredOTP===otpCode) {
             verified=true;
+            console.log("inside match"+verified)
             res.send("Success");
         } else {
             res.status(400).json({ message: "Invalid OTP" });
@@ -148,13 +149,16 @@ const verifyOTP = async (req, res) => {
 
 const verifyEmail = async (req, res) => {
     try {
+        console.log("inside verify email")
         const email = req.body.email;
         const enteredOTP = req.body.otp;
         
         if (emailOtpCode == enteredOTP) {
-            res.status(200).json({message:"Email verified"});
+            // res.status(200).json({message:"Email verified"});
+            res.redirect("/reset-password",{email:email})
         } else {
-            res.status(400).json({ message: "Invalid OTP" });
+            // res.status(400).json({ message: "Invalid OTP" });
+            res.render("forgot-password",{message: "Invalid OTP"})
         }
     } catch (error) {
         console.error(error.message);
@@ -238,7 +242,6 @@ const loadForgotPwd=async(req,res)=>{
 
 const insertUser=async(req,res)=>{
     try{
-        
         const referral=req.body.referral
         const code=Math.floor(1000 + Math.random() * 900000).toString();
         const email=req.body.email;
@@ -252,11 +255,8 @@ const insertUser=async(req,res)=>{
         }
         const spassword=await securePassword(req.body.password)
         const userDate=await createDate();
-       
         if(referral){
-            
             if(verified){
-                
             const checkUser=await User.findOne({referral_code:referral});
             if(checkUser){
                 await checkUser.save();
@@ -286,9 +286,8 @@ const insertUser=async(req,res)=>{
             }
         }
         }else{
-      
         if(verified){
-           
+            console.log("inside verify"+verified)
             const user=new User({
                 Name:req.body.name,
                 email:email,
@@ -300,12 +299,11 @@ const insertUser=async(req,res)=>{
                 referral_code:code
             })
             const userData=await user.save();
-      
-           
+            console.log("userData"+userData)
             if(userData){
                 const token = createToken(userData._id);
                 res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
-                res.status(200).json(userData);
+                res.redirect("/")
             }else{
             res.redirect("/register")
             }
