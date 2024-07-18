@@ -31,7 +31,7 @@ app.use((err, req, res, next) => {
 const SERVER = process.env.SERVER || `http://localhost:${process.env.PORT}`;
 
 const start = () => {
-  cron.schedule('* * * * *', () => {
+  cron.schedule('*/5 * * * *', () => {
     console.log('Running a task every minute');
     // Replace the URL below with a request to your own server
     axios.get(SERVER)
